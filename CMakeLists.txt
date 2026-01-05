@@ -8,6 +8,7 @@ project(cythray)
 
 set(SOURCES
     main.cpp
+    cythray.h
 )
 
 add_subdirectory(raylib)

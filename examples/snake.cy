@@ -1,6 +1,11 @@
 import "env"
   void print(string n)
 
+char[] a = loadFileText("../examples/snake.cy")
+
+unloadFileText(a)
+print(a.toString())
+
 Game game = Game(25, 25, 750, 750)
 game.run()
 

@@ -5,8 +5,12 @@ with open('raylib_api.json', 'r') as file:
 
 def generate_header():
     print("#include <string.h>")
-
+    print("#include <stdio.h>")
     print("#include <stdbool.h>")
+    print("#include <stddef.h>")
+    print("#include <raylib.h>")
+    print("#include <jit.h>")
+    print()
 
     for function in data["functions"]:
         failure = False
@@ -26,6 +30,8 @@ def generate_header():
             buffer += "bool"
         elif function["returnType"] == "const char *":
             buffer += "String*"
+        elif function["returnType"] == "char *":
+            buffer += "Array<char> *"
         elif "*" in function["returnType"]:
             buffer += function["returnType"]
         else:
@@ -51,6 +57,8 @@ def generate_header():
                     buffer += "void"
                 elif param["type"] == "const char *":
                     buffer += "String*"
+                elif param["type"] == "char *":
+                    buffer += "Array<char> *"
                 elif "*" in param["type"]:
                     buffer += param["type"]
                 else:
@@ -74,6 +82,9 @@ def generate_header():
         if "params" in function:
             for i, param in enumerate(function["params"]):
                 if param["type"] == "const char *":
+                    buffer += param["name"]
+                    buffer += "->data"
+                elif param["type"] == "char *":
                     buffer += param["name"]
                     buffer += "->data"
                 elif "..." in param["type"]:
@@ -115,6 +126,8 @@ def generate_header():
                 buffer += "bool"
             elif function["returnType"] == "const char *":
                 buffer += "String*"
+            elif function["returnType"] == "char *":
+                buffer += "Array<char> *"
             elif "*" in function["returnType"]:
                 buffer += function["returnType"]
             else:
@@ -136,6 +149,8 @@ def generate_header():
                 buffer += "bool"
             elif function["returnType"] == "const char *":
                 buffer += "String*"
+            elif function["returnType"] == "char *":
+                buffer += "Array<char> *"
             elif "*" in function["returnType"]:
                 buffer += function["returnType"]
             else:
@@ -157,6 +172,11 @@ def generate_header():
                 buffer += "jit_alloc(1, sizeof(String) + strlen(_v));\n"
                 buffer += "\t_r->size = (int)strlen(_v);\n"
                 buffer += "\tmemcpy(_r->data, _v, _r->size);\n"
+            elif function["returnType"] == "char *":
+                buffer += "jit_alloc(1, sizeof(Array<char>));\n"
+                buffer += "\t_r->size = (int)strlen(_v);\n"
+                buffer += "\t_r->capacity = _r->capacity;\n"
+                buffer += "\t_r->data = _v;\n"
             elif "*" in function["returnType"]:
                 buffer += "_v;\n"
             else:
@@ -194,7 +214,7 @@ def generate_link():
     print(buffer)
 
 def generate_import():
-    print("const char* PREFIX = \"import \\\"raylib\\\"\\n\"")
+    print("static const char* PREFIX = \"import \\\"raylib\\\"\\n\"")
 
     for function in data["functions"]:
         buffer = "\"  "
@@ -215,6 +235,12 @@ def generate_import():
             buffer += "bool"
         elif function["returnType"] == "const char *":
             buffer += "string"
+        elif function["returnType"] == "Image *":
+            buffer += "Image"
+        elif function["returnType"] == "Color *":
+            buffer += "Color"
+        elif function["returnType"] == "char *":
+            buffer += "char[]"
         elif "..." in function["returnType"]:
             continue
         elif "*" in function["returnType"]:
@@ -246,6 +272,12 @@ def generate_import():
                     buffer += "void"
                 elif param["type"] == "const char *":
                     buffer += "string"
+                elif param["type"] == "Image *":
+                    buffer += "Image"
+                elif param["type"] == "Color *":
+                    buffer += "Color"
+                elif param["type"] == "char *":
+                    buffer += "char[]"
                 elif "..." in param["type"]:
                     failure = True
                     break

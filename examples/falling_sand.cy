@@ -14,8 +14,15 @@ int hue
 
 initWindow(windowWidth, windowHeight, "Falling Sand")
 
+bool hasInteracted
+string text = "Click and hold to place sand"
+Vector2 fontMetrics = measureTextEx(getFontDefault(), text, 18, 1)
+
 while not windowShouldClose()
     beginDrawing()
+
+    if not hasInteracted
+      drawText(text, (int)(windowWidth - 1 - fontMetrics.x) / 2 , (int)(windowHeight - 1 - fontMetrics.y) / 2, 18, Color(255, 255, 255, 255))
 
     if isMouseButtonDown(0)
         int x = getMouseX()                                  
@@ -24,6 +31,7 @@ while not windowShouldClose()
         float cellY = height * (float)y / windowHeight
 
         hue = x
+        hasInteracted = true
 
         addCell((int)cellX, (int)cellY)
         addCell((int)cellX - 1, (int)cellY)

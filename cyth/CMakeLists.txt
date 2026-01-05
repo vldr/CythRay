@@ -86,7 +86,7 @@ else()
     target_compile_options(cyth PRIVATE -Wall -Wextra -pedantic -fsigned-char)
 
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-        target_compile_options(cyth PRIVATE -fsanitize=address -fsanitize=undefined -D_DEBUG)
+        target_compile_options(cyth PRIVATE -D_DEBUG)
     else()
         target_compile_options(cyth PRIVATE -flto)
     endif()
