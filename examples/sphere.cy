@@ -1,10 +1,3 @@
-import "env"
-  float cos(float x)
-  float sin(float x)
-  float tan(float x)
-  float pow(float a, float b)
-  void print(string n)
-
 void stroke(float r, float g, float b)
   color.r = (char)min((int)(r * 255), 255)
   color.g = (char)min((int)(g * 255), 255)

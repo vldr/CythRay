@@ -298,7 +298,15 @@ def generate_import():
 
         print(buffer)
 
-    structs = ("""class TraceLogCallback
+    structs = ("""
+import \\"env\\"
+  float cos(float x)
+  float sin(float x)
+  float tan(float x)
+  float pow(float a, float b)
+  void print(string n)
+    
+class TraceLogCallback
 class LoadFileDataCallback
 class SaveFileDataCallback
 class LoadFileTextCallback

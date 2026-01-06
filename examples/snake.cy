@@ -1,6 +1,3 @@
-import "env"
-  void print(string n)
-
 Game game = Game(25, 25, 750, 750)
 game.run()
 

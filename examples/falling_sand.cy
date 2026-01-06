@@ -1,6 +1,3 @@
-import "env"
-  void print(string n)
-
 int width = 500 / 5
 int height = 300 / 5
 int windowWidth = 500
@@ -27,6 +24,10 @@ while not windowShouldClose()
     if isMouseButtonDown(0)
         int x = getMouseX()                                  
         int y = getMouseY()
+
+        if x < 0
+           x = 0
+
         float cellX = width * (float)x / windowWidth
         float cellY = height * (float)y / windowHeight
 
