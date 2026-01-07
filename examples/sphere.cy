@@ -553,6 +553,3 @@ while not windowShouldClose()
 
 unloadTexture(tex)
 closeWindow()
-
-int[] a
-a.pop()
