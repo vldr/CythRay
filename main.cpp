@@ -5,14 +5,7 @@
 #include <math.h>
 #include <malloc.h>
 
-typedef void (*error_callback_t)(int start_line, int start_column, int end_line, int end_column, const char *message);
-extern "C"
-{
-  Jit* jit(const char* source);
-  void set_error_callback(error_callback_t callback); 
-}
-
-static void handle_error(int start_line, int start_column, int end_line, int end_column, const char *message)
+static void error_callback(int start_line, int start_column, int end_line, int end_column, const char *message)
 {
   int offset = 0;
   char *prefix = (char *)PREFIX;
@@ -48,10 +41,8 @@ int main(int argc, char **argv)
   memcpy(source + strlen(PREFIX), text, strlen(text));
   source[strlen(PREFIX) + strlen(text)] = '\0';
 
-  set_error_callback(handle_error);
-
-  Jit *ctx = jit(source);
-  if (!ctx)
+  Jit* jit = jit_init(source, error_callback, nullptr);
+  if (!jit)
   {
     printf("error: failed to initialize jit\n");
     return -1;
@@ -60,15 +51,15 @@ int main(int argc, char **argv)
   SetConfigFlags(FLAG_VSYNC_HINT);
   SetConfigFlags(FLAG_MSAA_4X_HINT);
 
-  jit_set_raylib_functions(ctx);
-  jit_set_function_typed(ctx, "env.cos", +[](float a) { return cosf(a); });
-  jit_set_function_typed(ctx, "env.sin", +[](float a) { return sinf(a); });
-  jit_set_function_typed(ctx, "env.tan", +[](float a) { return tanf(a); });
-  jit_set_function_typed(ctx, "env.pow", +[](float a, float b) { return powf(a, b); });
-  jit_set_function_typed(ctx, "env.print", +[](String *t) { printf("%s\n", t->data); });
-  jit_generate(ctx, false);
-  jit_run(ctx);
-  jit_destroy(ctx);
+  jit_set_raylib_functions(jit);
+  jit_set_function_typed(jit, "env.cos", +[](float a) { return cosf(a); });
+  jit_set_function_typed(jit, "env.sin", +[](float a) { return sinf(a); });
+  jit_set_function_typed(jit, "env.tan", +[](float a) { return tanf(a); });
+  jit_set_function_typed(jit, "env.pow", +[](float a, float b) { return powf(a, b); });
+  jit_set_function_typed(jit, "env.print", +[](String* t) { printf("%s\n", t->data); });
+  jit_generate(jit, false);
+  jit_run(jit);
+  jit_destroy(jit);
 
   UnloadFileText(text);
 }

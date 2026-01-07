@@ -551,4 +551,5 @@ while not windowShouldClose()
   drawSettings()
   endDrawing()
 
+closeWindow()
 unloadTexture(tex)

@@ -17,4 +17,4 @@ add_subdirectory(cyth)
 add_executable(cythray ${SOURCES})
 
 target_link_libraries(cythray PRIVATE raylib)
-target_link_libraries(cythray PRIVATE cyth)
+target_link_libraries(cythray PRIVATE libcyth)

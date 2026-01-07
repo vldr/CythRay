@@ -3,8 +3,6 @@
 
 #include <setjmp.h>
 #include <stdint.h>
-#include <stdbool.h>
-#include <stddef.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -40,8 +38,12 @@ extern "C"
 
   typedef struct _JIT Jit;
 
-  void* jit_alloc(bool atomic, size_t size);
-  void jit_generate(Jit* jit, bool logging);
+  Jit* jit_init(char* source,
+                void (*error_callback)(int start_line, int start_column, int end_line,
+                                       int end_column, const char* message),
+                void (*panic_callback)(const char* name, int line, int column));
+  void* jit_alloc(int atomic, uintptr_t size);
+  void jit_generate(Jit* jit, int logging);
   void jit_run(Jit* jit);
   void jit_destroy(Jit* jit);
 
@@ -58,7 +60,7 @@ extern "C"
 struct String
 {
   int size;
-  char data[0];
+  char data[1];
 };
 
 template <typename T> struct Array
