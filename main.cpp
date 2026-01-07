@@ -1,9 +1,11 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "cythray.h"
-
 #include <math.h>
+
+#ifdef _WIN32
 #include <malloc.h>
+#endif
 
 static void error_callback(int start_line, int start_column, int end_line, int end_column, const char *message)
 {
