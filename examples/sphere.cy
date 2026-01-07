@@ -551,5 +551,8 @@ while not windowShouldClose()
   drawSettings()
   endDrawing()
 
-closeWindow()
 unloadTexture(tex)
+closeWindow()
+
+int[] a
+a.pop()
