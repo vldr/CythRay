@@ -12,7 +12,8 @@ static void error_callback(int start_line, int start_column, int end_line, int e
   int offset = 0;
   char *prefix = (char *)PREFIX;
 
-  while (*prefix) {
+  while (*prefix)
+  {
     if (*prefix == '\n')
       offset++;
 
@@ -21,6 +22,25 @@ static void error_callback(int start_line, int start_column, int end_line, int e
 
   fprintf(stderr, "%d:%d-%d:%d: error: %s\n", start_line - offset, start_column,
           end_line - offset, end_column, message);
+}
+
+static void panic_callback(const char* function, int line, int column)
+{
+  int offset = 0;
+  char *prefix = (char *)PREFIX;
+
+  while (*prefix)
+  {
+    if (*prefix == '\n')
+      offset++;
+
+    prefix++;
+  }
+
+  if (line && column)
+    fprintf(stderr, "  at %s:%d:%d\n", function, line - offset, column);
+  else
+    fprintf(stderr, "%s\n", function);
 }
 
 int main(int argc, char **argv)
@@ -43,12 +63,9 @@ int main(int argc, char **argv)
   memcpy(source + strlen(PREFIX), text, strlen(text));
   source[strlen(PREFIX) + strlen(text)] = '\0';
 
-  Jit* jit = jit_init(source, error_callback, nullptr);
+  Jit* jit = jit_init(source, error_callback, panic_callback);
   if (!jit)
-  {
-    printf("error: failed to initialize jit\n");
     return -1;
-  }
 
   SetConfigFlags(FLAG_VSYNC_HINT);
   SetConfigFlags(FLAG_MSAA_4X_HINT);
