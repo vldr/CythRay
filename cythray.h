@@ -487,18 +487,18 @@ static bool cythExportDataAsCode(const unsigned char * data, int dataSize, Strin
 	bool _r = (bool)_v;
 	return _r;
 }
-static Array<char> * cythLoadFileText(String* fileName) {
+static Array* cythLoadFileText(String* fileName) {
 	char * _v = LoadFileText(fileName->data);
-	Array<char> * _r = (Array<char> *)jit_alloc(1, sizeof(Array<char>));
+	Array* _r = (Array*)jit_alloc(1, sizeof(Array));
 	_r->size = (int)strlen(_v);
 	_r->capacity = _r->capacity;
-	_r->data = _v;
+	_r->data = (void*)_v;
 	return _r;
 }
-static void cythUnloadFileText(Array<char> * text) {
+static void cythUnloadFileText(Array* text) {
 	UnloadFileText(text->data);
 }
-static bool cythSaveFileText(String* fileName, Array<char> * text) {
+static bool cythSaveFileText(String* fileName, Array* text) {
 	bool _v = SaveFileText(fileName->data, text->data);
 	bool _r = (bool)_v;
 	return _r;
@@ -637,12 +637,12 @@ static unsigned char * cythDecompressData(const unsigned char * compData, int co
 	unsigned char * _r = (unsigned char *)_v;
 	return _r;
 }
-static Array<char> * cythEncodeDataBase64(const unsigned char * data, int dataSize, int * outputSize) {
+static Array* cythEncodeDataBase64(const unsigned char * data, int dataSize, int * outputSize) {
 	char * _v = EncodeDataBase64(data, dataSize, outputSize);
-	Array<char> * _r = (Array<char> *)jit_alloc(1, sizeof(Array<char>));
+	Array* _r = (Array*)jit_alloc(1, sizeof(Array));
 	_r->size = (int)strlen(_v);
 	_r->capacity = _r->capacity;
-	_r->data = _v;
+	_r->data = (void*)_v;
 	return _r;
 }
 static unsigned char * cythDecodeDataBase64(const unsigned char * data, int * outputSize) {
@@ -1759,15 +1759,15 @@ static Rectangle* cythGetGlyphAtlasRec(Font* font, int codepoint) {
 	*_r = _v;
 	return _r;
 }
-static Array<char> * cythLoadUTF8(const int * codepoints, int length) {
+static Array* cythLoadUTF8(const int * codepoints, int length) {
 	char * _v = LoadUTF8(codepoints, length);
-	Array<char> * _r = (Array<char> *)jit_alloc(1, sizeof(Array<char>));
+	Array* _r = (Array*)jit_alloc(1, sizeof(Array));
 	_r->size = (int)strlen(_v);
 	_r->capacity = _r->capacity;
-	_r->data = _v;
+	_r->data = (void*)_v;
 	return _r;
 }
-static void cythUnloadUTF8(Array<char> * text) {
+static void cythUnloadUTF8(Array* text) {
 	UnloadUTF8(text->data);
 }
 static int * cythLoadCodepoints(String* text, int * count) {
@@ -1805,7 +1805,7 @@ static String* cythCodepointToUTF8(int codepoint, int * utf8Size) {
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static int cythTextCopy(Array<char> * dst, String* src) {
+static int cythTextCopy(Array* dst, String* src) {
 	int _v = TextCopy(dst->data, src->data);
 	int _r = (int)_v;
 	return _r;
@@ -1827,20 +1827,20 @@ static String* cythTextSubtext(String* text, int position, int length) {
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static Array<char> * cythTextReplace(String* text, String* replace, String* by) {
+static Array* cythTextReplace(String* text, String* replace, String* by) {
 	char * _v = TextReplace(text->data, replace->data, by->data);
-	Array<char> * _r = (Array<char> *)jit_alloc(1, sizeof(Array<char>));
+	Array* _r = (Array*)jit_alloc(1, sizeof(Array));
 	_r->size = (int)strlen(_v);
 	_r->capacity = _r->capacity;
-	_r->data = _v;
+	_r->data = (void*)_v;
 	return _r;
 }
-static Array<char> * cythTextInsert(String* text, String* insert, int position) {
+static Array* cythTextInsert(String* text, String* insert, int position) {
 	char * _v = TextInsert(text->data, insert->data, position);
-	Array<char> * _r = (Array<char> *)jit_alloc(1, sizeof(Array<char>));
+	Array* _r = (Array*)jit_alloc(1, sizeof(Array));
 	_r->size = (int)strlen(_v);
 	_r->capacity = _r->capacity;
-	_r->data = _v;
+	_r->data = (void*)_v;
 	return _r;
 }
 static String* cythTextJoin(const char ** textList, int count, String* delimiter) {
@@ -1855,7 +1855,7 @@ static const char ** cythTextSplit(String* text, char* delimiter, int * count) {
 	const char ** _r = (const char **)_v;
 	return _r;
 }
-static void cythTextAppend(Array<char> * text, String* append, int * position) {
+static void cythTextAppend(Array* text, String* append, int * position) {
 	TextAppend(text->data, append->data, position);
 }
 static int cythTextFindIndex(String* text, String* find) {
@@ -3641,6 +3641,7 @@ static const char* PREFIX = "import \"raylib\"\n"
 "  float tan(float x)\n"
 "  float pow(float a, float b)\n"
 "  void print(string n)\n"
+"  void println(string n)\n"
 "class TraceLogCallback\n"
 "class LoadFileDataCallback\n"
 "class SaveFileDataCallback\n"

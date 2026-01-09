@@ -7,7 +7,7 @@ endif()
 project(cythray)
 
 set(SOURCES
-    main.cpp
+    main.c
     cythray.h
 )
 

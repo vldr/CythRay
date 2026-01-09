@@ -31,7 +31,7 @@ def generate_header():
         elif function["returnType"] == "const char *":
             buffer += "String*"
         elif function["returnType"] == "char *":
-            buffer += "Array<char> *"
+            buffer += "Array*"
         elif "*" in function["returnType"]:
             buffer += function["returnType"]
         else:
@@ -58,7 +58,7 @@ def generate_header():
                 elif param["type"] == "const char *":
                     buffer += "String*"
                 elif param["type"] == "char *":
-                    buffer += "Array<char> *"
+                    buffer += "Array*"
                 elif "*" in param["type"]:
                     buffer += param["type"]
                 else:
@@ -127,7 +127,7 @@ def generate_header():
             elif function["returnType"] == "const char *":
                 buffer += "String*"
             elif function["returnType"] == "char *":
-                buffer += "Array<char> *"
+                buffer += "Array*"
             elif "*" in function["returnType"]:
                 buffer += function["returnType"]
             else:
@@ -150,7 +150,7 @@ def generate_header():
             elif function["returnType"] == "const char *":
                 buffer += "String*"
             elif function["returnType"] == "char *":
-                buffer += "Array<char> *"
+                buffer += "Array*"
             elif "*" in function["returnType"]:
                 buffer += function["returnType"]
             else:
@@ -173,10 +173,10 @@ def generate_header():
                 buffer += "\t_r->size = (int)strlen(_v);\n"
                 buffer += "\tmemcpy(_r->data, _v, _r->size);\n"
             elif function["returnType"] == "char *":
-                buffer += "jit_alloc(1, sizeof(Array<char>));\n"
+                buffer += "jit_alloc(1, sizeof(Array));\n"
                 buffer += "\t_r->size = (int)strlen(_v);\n"
                 buffer += "\t_r->capacity = _r->capacity;\n"
-                buffer += "\t_r->data = _v;\n"
+                buffer += "\t_r->data = (void*)_v;\n"
             elif "*" in function["returnType"]:
                 buffer += "_v;\n"
             else:
@@ -244,7 +244,7 @@ def generate_import():
         elif "..." in function["returnType"]:
             continue
         elif "*" in function["returnType"]:
-            buffer += "any" #function["returnType"].replace("*", "") 
+            buffer += "any"
         else:
             buffer += function["returnType"]
 
@@ -282,7 +282,7 @@ def generate_import():
                     failure = True
                     break
                 elif "*" in param["type"]:
-                    buffer += "any" #param["type"].replace("*", "") 
+                    buffer += "any"
                 else:
                     buffer += param["type"]
 
@@ -305,6 +305,7 @@ import \\"env\\"
   float tan(float x)
   float pow(float a, float b)
   void print(string n)
+  void println(string n)
     
 class TraceLogCallback
 class LoadFileDataCallback
