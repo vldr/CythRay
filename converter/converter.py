@@ -614,11 +614,19 @@ class AudioStream
   int channels
 
 class Sound
-  AudioStream stream
+  any buffer
+  any processor
+  int sampleRate
+  int sampleSize
+  int channels
   int frameCount
 
 class Music
-  AudioStream stream
+  any buffer
+  any processor
+  int sampleRate
+  int sampleSize
+  int channels
   int frameCount
   bool looping
   int ctxType
