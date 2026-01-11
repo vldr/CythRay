@@ -209,7 +209,80 @@ def generate_link():
             continue
 
         name = function["name"]
-        buffer += f"  jit_set_function((_ctx), \"raylib.{name[:1].lower() + name[1:]}\", (uintptr_t)cyth{name}); \\\n"
+        importName = name[:1].lower() + name[1:]
+        importName += "."
+
+        if function["returnType"] == "void":
+            importName += "void"
+        elif function["returnType"] == "int":
+            importName += "int"
+        elif function["returnType"] == "long":
+            importName += "int"
+        elif function["returnType"] == "unsigned int":
+            importName += "int"
+        elif function["returnType"] == "float":
+            importName += "float"
+        elif function["returnType"] == "double":
+            importName += "float"
+        elif function["returnType"] == "bool":
+            importName += "bool"
+        elif function["returnType"] == "const char *":
+            importName += "string"
+        elif function["returnType"] == "Image *":
+            importName += "Image"
+        elif function["returnType"] == "Color *":
+            importName += "Color"
+        elif function["returnType"] == "char *":
+            importName += "char[]"
+        elif "..." in function["returnType"]:
+            continue
+        elif "*" in function["returnType"]:
+            importName += "any"
+        else:
+            importName += function["returnType"]
+
+        importName += "("
+
+        if "params" in function:
+            for i, param in enumerate(function["params"]):
+                if param["type"] == "int":
+                    importName += "int"
+                elif param["type"] == "long":
+                    importName += "int"
+                elif param["type"] == "unsigned int":
+                    importName += "int"
+                elif param["type"] == "float":
+                    importName += "float"
+                elif param["type"] == "double":
+                    importName += "float"
+                elif param["type"] == "bool":
+                    importName += "bool"
+                elif param["type"] == "void":
+                    importName += "void"
+                elif param["type"] == "const char *":
+                    importName += "string"
+                elif param["type"] == "Image *":
+                    importName += "Image"
+                elif param["type"] == "Color *":
+                    importName += "Color"
+                elif param["type"] == "char *":
+                    importName += "char[]"
+                elif "..." in param["type"]:
+                    failure = True
+                    break
+                elif "*" in param["type"]:
+                    importName += "any"
+                else:
+                    importName += param["type"]
+
+                if i != len(function["params"]) - 1:
+                    importName += ", "
+
+        importName += ")"
+
+
+
+        buffer += f"  jit_set_function((_ctx), \"raylib.{importName}\", (uintptr_t)cyth{name}); \\\n"
     buffer += "} while (0)"
     print(buffer)
 

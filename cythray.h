@@ -2475,585 +2475,585 @@ static void cythDetachAudioMixedProcessor(AudioCallback* processor) {
 	DetachAudioMixedProcessor(*processor);
 }
 #define jit_set_raylib_functions(_ctx) do { \
-  jit_set_function((_ctx), "raylib.initWindow", (uintptr_t)cythInitWindow); \
-  jit_set_function((_ctx), "raylib.closeWindow", (uintptr_t)cythCloseWindow); \
-  jit_set_function((_ctx), "raylib.windowShouldClose", (uintptr_t)cythWindowShouldClose); \
-  jit_set_function((_ctx), "raylib.isWindowReady", (uintptr_t)cythIsWindowReady); \
-  jit_set_function((_ctx), "raylib.isWindowFullscreen", (uintptr_t)cythIsWindowFullscreen); \
-  jit_set_function((_ctx), "raylib.isWindowHidden", (uintptr_t)cythIsWindowHidden); \
-  jit_set_function((_ctx), "raylib.isWindowMinimized", (uintptr_t)cythIsWindowMinimized); \
-  jit_set_function((_ctx), "raylib.isWindowMaximized", (uintptr_t)cythIsWindowMaximized); \
-  jit_set_function((_ctx), "raylib.isWindowFocused", (uintptr_t)cythIsWindowFocused); \
-  jit_set_function((_ctx), "raylib.isWindowResized", (uintptr_t)cythIsWindowResized); \
-  jit_set_function((_ctx), "raylib.isWindowState", (uintptr_t)cythIsWindowState); \
-  jit_set_function((_ctx), "raylib.setWindowState", (uintptr_t)cythSetWindowState); \
-  jit_set_function((_ctx), "raylib.clearWindowState", (uintptr_t)cythClearWindowState); \
-  jit_set_function((_ctx), "raylib.toggleFullscreen", (uintptr_t)cythToggleFullscreen); \
-  jit_set_function((_ctx), "raylib.toggleBorderlessWindowed", (uintptr_t)cythToggleBorderlessWindowed); \
-  jit_set_function((_ctx), "raylib.maximizeWindow", (uintptr_t)cythMaximizeWindow); \
-  jit_set_function((_ctx), "raylib.minimizeWindow", (uintptr_t)cythMinimizeWindow); \
-  jit_set_function((_ctx), "raylib.restoreWindow", (uintptr_t)cythRestoreWindow); \
-  jit_set_function((_ctx), "raylib.setWindowIcon", (uintptr_t)cythSetWindowIcon); \
-  jit_set_function((_ctx), "raylib.setWindowIcons", (uintptr_t)cythSetWindowIcons); \
-  jit_set_function((_ctx), "raylib.setWindowTitle", (uintptr_t)cythSetWindowTitle); \
-  jit_set_function((_ctx), "raylib.setWindowPosition", (uintptr_t)cythSetWindowPosition); \
-  jit_set_function((_ctx), "raylib.setWindowMonitor", (uintptr_t)cythSetWindowMonitor); \
-  jit_set_function((_ctx), "raylib.setWindowMinSize", (uintptr_t)cythSetWindowMinSize); \
-  jit_set_function((_ctx), "raylib.setWindowMaxSize", (uintptr_t)cythSetWindowMaxSize); \
-  jit_set_function((_ctx), "raylib.setWindowSize", (uintptr_t)cythSetWindowSize); \
-  jit_set_function((_ctx), "raylib.setWindowOpacity", (uintptr_t)cythSetWindowOpacity); \
-  jit_set_function((_ctx), "raylib.setWindowFocused", (uintptr_t)cythSetWindowFocused); \
-  jit_set_function((_ctx), "raylib.getWindowHandle", (uintptr_t)cythGetWindowHandle); \
-  jit_set_function((_ctx), "raylib.getScreenWidth", (uintptr_t)cythGetScreenWidth); \
-  jit_set_function((_ctx), "raylib.getScreenHeight", (uintptr_t)cythGetScreenHeight); \
-  jit_set_function((_ctx), "raylib.getRenderWidth", (uintptr_t)cythGetRenderWidth); \
-  jit_set_function((_ctx), "raylib.getRenderHeight", (uintptr_t)cythGetRenderHeight); \
-  jit_set_function((_ctx), "raylib.getMonitorCount", (uintptr_t)cythGetMonitorCount); \
-  jit_set_function((_ctx), "raylib.getCurrentMonitor", (uintptr_t)cythGetCurrentMonitor); \
-  jit_set_function((_ctx), "raylib.getMonitorPosition", (uintptr_t)cythGetMonitorPosition); \
-  jit_set_function((_ctx), "raylib.getMonitorWidth", (uintptr_t)cythGetMonitorWidth); \
-  jit_set_function((_ctx), "raylib.getMonitorHeight", (uintptr_t)cythGetMonitorHeight); \
-  jit_set_function((_ctx), "raylib.getMonitorPhysicalWidth", (uintptr_t)cythGetMonitorPhysicalWidth); \
-  jit_set_function((_ctx), "raylib.getMonitorPhysicalHeight", (uintptr_t)cythGetMonitorPhysicalHeight); \
-  jit_set_function((_ctx), "raylib.getMonitorRefreshRate", (uintptr_t)cythGetMonitorRefreshRate); \
-  jit_set_function((_ctx), "raylib.getWindowPosition", (uintptr_t)cythGetWindowPosition); \
-  jit_set_function((_ctx), "raylib.getWindowScaleDPI", (uintptr_t)cythGetWindowScaleDPI); \
-  jit_set_function((_ctx), "raylib.getMonitorName", (uintptr_t)cythGetMonitorName); \
-  jit_set_function((_ctx), "raylib.setClipboardText", (uintptr_t)cythSetClipboardText); \
-  jit_set_function((_ctx), "raylib.getClipboardText", (uintptr_t)cythGetClipboardText); \
-  jit_set_function((_ctx), "raylib.getClipboardImage", (uintptr_t)cythGetClipboardImage); \
-  jit_set_function((_ctx), "raylib.enableEventWaiting", (uintptr_t)cythEnableEventWaiting); \
-  jit_set_function((_ctx), "raylib.disableEventWaiting", (uintptr_t)cythDisableEventWaiting); \
-  jit_set_function((_ctx), "raylib.showCursor", (uintptr_t)cythShowCursor); \
-  jit_set_function((_ctx), "raylib.hideCursor", (uintptr_t)cythHideCursor); \
-  jit_set_function((_ctx), "raylib.isCursorHidden", (uintptr_t)cythIsCursorHidden); \
-  jit_set_function((_ctx), "raylib.enableCursor", (uintptr_t)cythEnableCursor); \
-  jit_set_function((_ctx), "raylib.disableCursor", (uintptr_t)cythDisableCursor); \
-  jit_set_function((_ctx), "raylib.isCursorOnScreen", (uintptr_t)cythIsCursorOnScreen); \
-  jit_set_function((_ctx), "raylib.clearBackground", (uintptr_t)cythClearBackground); \
-  jit_set_function((_ctx), "raylib.beginDrawing", (uintptr_t)cythBeginDrawing); \
-  jit_set_function((_ctx), "raylib.endDrawing", (uintptr_t)cythEndDrawing); \
-  jit_set_function((_ctx), "raylib.beginMode2D", (uintptr_t)cythBeginMode2D); \
-  jit_set_function((_ctx), "raylib.endMode2D", (uintptr_t)cythEndMode2D); \
-  jit_set_function((_ctx), "raylib.beginMode3D", (uintptr_t)cythBeginMode3D); \
-  jit_set_function((_ctx), "raylib.endMode3D", (uintptr_t)cythEndMode3D); \
-  jit_set_function((_ctx), "raylib.beginTextureMode", (uintptr_t)cythBeginTextureMode); \
-  jit_set_function((_ctx), "raylib.endTextureMode", (uintptr_t)cythEndTextureMode); \
-  jit_set_function((_ctx), "raylib.beginShaderMode", (uintptr_t)cythBeginShaderMode); \
-  jit_set_function((_ctx), "raylib.endShaderMode", (uintptr_t)cythEndShaderMode); \
-  jit_set_function((_ctx), "raylib.beginBlendMode", (uintptr_t)cythBeginBlendMode); \
-  jit_set_function((_ctx), "raylib.endBlendMode", (uintptr_t)cythEndBlendMode); \
-  jit_set_function((_ctx), "raylib.beginScissorMode", (uintptr_t)cythBeginScissorMode); \
-  jit_set_function((_ctx), "raylib.endScissorMode", (uintptr_t)cythEndScissorMode); \
-  jit_set_function((_ctx), "raylib.beginVrStereoMode", (uintptr_t)cythBeginVrStereoMode); \
-  jit_set_function((_ctx), "raylib.endVrStereoMode", (uintptr_t)cythEndVrStereoMode); \
-  jit_set_function((_ctx), "raylib.loadVrStereoConfig", (uintptr_t)cythLoadVrStereoConfig); \
-  jit_set_function((_ctx), "raylib.unloadVrStereoConfig", (uintptr_t)cythUnloadVrStereoConfig); \
-  jit_set_function((_ctx), "raylib.loadShader", (uintptr_t)cythLoadShader); \
-  jit_set_function((_ctx), "raylib.loadShaderFromMemory", (uintptr_t)cythLoadShaderFromMemory); \
-  jit_set_function((_ctx), "raylib.isShaderValid", (uintptr_t)cythIsShaderValid); \
-  jit_set_function((_ctx), "raylib.getShaderLocation", (uintptr_t)cythGetShaderLocation); \
-  jit_set_function((_ctx), "raylib.getShaderLocationAttrib", (uintptr_t)cythGetShaderLocationAttrib); \
-  jit_set_function((_ctx), "raylib.setShaderValue", (uintptr_t)cythSetShaderValue); \
-  jit_set_function((_ctx), "raylib.setShaderValueV", (uintptr_t)cythSetShaderValueV); \
-  jit_set_function((_ctx), "raylib.setShaderValueMatrix", (uintptr_t)cythSetShaderValueMatrix); \
-  jit_set_function((_ctx), "raylib.setShaderValueTexture", (uintptr_t)cythSetShaderValueTexture); \
-  jit_set_function((_ctx), "raylib.unloadShader", (uintptr_t)cythUnloadShader); \
-  jit_set_function((_ctx), "raylib.getScreenToWorldRay", (uintptr_t)cythGetScreenToWorldRay); \
-  jit_set_function((_ctx), "raylib.getScreenToWorldRayEx", (uintptr_t)cythGetScreenToWorldRayEx); \
-  jit_set_function((_ctx), "raylib.getWorldToScreen", (uintptr_t)cythGetWorldToScreen); \
-  jit_set_function((_ctx), "raylib.getWorldToScreenEx", (uintptr_t)cythGetWorldToScreenEx); \
-  jit_set_function((_ctx), "raylib.getWorldToScreen2D", (uintptr_t)cythGetWorldToScreen2D); \
-  jit_set_function((_ctx), "raylib.getScreenToWorld2D", (uintptr_t)cythGetScreenToWorld2D); \
-  jit_set_function((_ctx), "raylib.getCameraMatrix", (uintptr_t)cythGetCameraMatrix); \
-  jit_set_function((_ctx), "raylib.getCameraMatrix2D", (uintptr_t)cythGetCameraMatrix2D); \
-  jit_set_function((_ctx), "raylib.setTargetFPS", (uintptr_t)cythSetTargetFPS); \
-  jit_set_function((_ctx), "raylib.getFrameTime", (uintptr_t)cythGetFrameTime); \
-  jit_set_function((_ctx), "raylib.getTime", (uintptr_t)cythGetTime); \
-  jit_set_function((_ctx), "raylib.getFPS", (uintptr_t)cythGetFPS); \
-  jit_set_function((_ctx), "raylib.swapScreenBuffer", (uintptr_t)cythSwapScreenBuffer); \
-  jit_set_function((_ctx), "raylib.pollInputEvents", (uintptr_t)cythPollInputEvents); \
-  jit_set_function((_ctx), "raylib.waitTime", (uintptr_t)cythWaitTime); \
-  jit_set_function((_ctx), "raylib.setRandomSeed", (uintptr_t)cythSetRandomSeed); \
-  jit_set_function((_ctx), "raylib.getRandomValue", (uintptr_t)cythGetRandomValue); \
-  jit_set_function((_ctx), "raylib.loadRandomSequence", (uintptr_t)cythLoadRandomSequence); \
-  jit_set_function((_ctx), "raylib.unloadRandomSequence", (uintptr_t)cythUnloadRandomSequence); \
-  jit_set_function((_ctx), "raylib.takeScreenshot", (uintptr_t)cythTakeScreenshot); \
-  jit_set_function((_ctx), "raylib.setConfigFlags", (uintptr_t)cythSetConfigFlags); \
-  jit_set_function((_ctx), "raylib.openURL", (uintptr_t)cythOpenURL); \
-  jit_set_function((_ctx), "raylib.setTraceLogLevel", (uintptr_t)cythSetTraceLogLevel); \
-  jit_set_function((_ctx), "raylib.memAlloc", (uintptr_t)cythMemAlloc); \
-  jit_set_function((_ctx), "raylib.memRealloc", (uintptr_t)cythMemRealloc); \
-  jit_set_function((_ctx), "raylib.memFree", (uintptr_t)cythMemFree); \
-  jit_set_function((_ctx), "raylib.setTraceLogCallback", (uintptr_t)cythSetTraceLogCallback); \
-  jit_set_function((_ctx), "raylib.setLoadFileDataCallback", (uintptr_t)cythSetLoadFileDataCallback); \
-  jit_set_function((_ctx), "raylib.setSaveFileDataCallback", (uintptr_t)cythSetSaveFileDataCallback); \
-  jit_set_function((_ctx), "raylib.setLoadFileTextCallback", (uintptr_t)cythSetLoadFileTextCallback); \
-  jit_set_function((_ctx), "raylib.setSaveFileTextCallback", (uintptr_t)cythSetSaveFileTextCallback); \
-  jit_set_function((_ctx), "raylib.loadFileData", (uintptr_t)cythLoadFileData); \
-  jit_set_function((_ctx), "raylib.unloadFileData", (uintptr_t)cythUnloadFileData); \
-  jit_set_function((_ctx), "raylib.saveFileData", (uintptr_t)cythSaveFileData); \
-  jit_set_function((_ctx), "raylib.exportDataAsCode", (uintptr_t)cythExportDataAsCode); \
-  jit_set_function((_ctx), "raylib.loadFileText", (uintptr_t)cythLoadFileText); \
-  jit_set_function((_ctx), "raylib.unloadFileText", (uintptr_t)cythUnloadFileText); \
-  jit_set_function((_ctx), "raylib.saveFileText", (uintptr_t)cythSaveFileText); \
-  jit_set_function((_ctx), "raylib.fileExists", (uintptr_t)cythFileExists); \
-  jit_set_function((_ctx), "raylib.directoryExists", (uintptr_t)cythDirectoryExists); \
-  jit_set_function((_ctx), "raylib.isFileExtension", (uintptr_t)cythIsFileExtension); \
-  jit_set_function((_ctx), "raylib.getFileLength", (uintptr_t)cythGetFileLength); \
-  jit_set_function((_ctx), "raylib.getFileExtension", (uintptr_t)cythGetFileExtension); \
-  jit_set_function((_ctx), "raylib.getFileName", (uintptr_t)cythGetFileName); \
-  jit_set_function((_ctx), "raylib.getFileNameWithoutExt", (uintptr_t)cythGetFileNameWithoutExt); \
-  jit_set_function((_ctx), "raylib.getDirectoryPath", (uintptr_t)cythGetDirectoryPath); \
-  jit_set_function((_ctx), "raylib.getPrevDirectoryPath", (uintptr_t)cythGetPrevDirectoryPath); \
-  jit_set_function((_ctx), "raylib.getWorkingDirectory", (uintptr_t)cythGetWorkingDirectory); \
-  jit_set_function((_ctx), "raylib.getApplicationDirectory", (uintptr_t)cythGetApplicationDirectory); \
-  jit_set_function((_ctx), "raylib.makeDirectory", (uintptr_t)cythMakeDirectory); \
-  jit_set_function((_ctx), "raylib.changeDirectory", (uintptr_t)cythChangeDirectory); \
-  jit_set_function((_ctx), "raylib.isPathFile", (uintptr_t)cythIsPathFile); \
-  jit_set_function((_ctx), "raylib.isFileNameValid", (uintptr_t)cythIsFileNameValid); \
-  jit_set_function((_ctx), "raylib.loadDirectoryFiles", (uintptr_t)cythLoadDirectoryFiles); \
-  jit_set_function((_ctx), "raylib.loadDirectoryFilesEx", (uintptr_t)cythLoadDirectoryFilesEx); \
-  jit_set_function((_ctx), "raylib.unloadDirectoryFiles", (uintptr_t)cythUnloadDirectoryFiles); \
-  jit_set_function((_ctx), "raylib.isFileDropped", (uintptr_t)cythIsFileDropped); \
-  jit_set_function((_ctx), "raylib.loadDroppedFiles", (uintptr_t)cythLoadDroppedFiles); \
-  jit_set_function((_ctx), "raylib.unloadDroppedFiles", (uintptr_t)cythUnloadDroppedFiles); \
-  jit_set_function((_ctx), "raylib.getFileModTime", (uintptr_t)cythGetFileModTime); \
-  jit_set_function((_ctx), "raylib.compressData", (uintptr_t)cythCompressData); \
-  jit_set_function((_ctx), "raylib.decompressData", (uintptr_t)cythDecompressData); \
-  jit_set_function((_ctx), "raylib.encodeDataBase64", (uintptr_t)cythEncodeDataBase64); \
-  jit_set_function((_ctx), "raylib.decodeDataBase64", (uintptr_t)cythDecodeDataBase64); \
-  jit_set_function((_ctx), "raylib.computeCRC32", (uintptr_t)cythComputeCRC32); \
-  jit_set_function((_ctx), "raylib.computeMD5", (uintptr_t)cythComputeMD5); \
-  jit_set_function((_ctx), "raylib.computeSHA1", (uintptr_t)cythComputeSHA1); \
-  jit_set_function((_ctx), "raylib.loadAutomationEventList", (uintptr_t)cythLoadAutomationEventList); \
-  jit_set_function((_ctx), "raylib.unloadAutomationEventList", (uintptr_t)cythUnloadAutomationEventList); \
-  jit_set_function((_ctx), "raylib.exportAutomationEventList", (uintptr_t)cythExportAutomationEventList); \
-  jit_set_function((_ctx), "raylib.setAutomationEventList", (uintptr_t)cythSetAutomationEventList); \
-  jit_set_function((_ctx), "raylib.setAutomationEventBaseFrame", (uintptr_t)cythSetAutomationEventBaseFrame); \
-  jit_set_function((_ctx), "raylib.startAutomationEventRecording", (uintptr_t)cythStartAutomationEventRecording); \
-  jit_set_function((_ctx), "raylib.stopAutomationEventRecording", (uintptr_t)cythStopAutomationEventRecording); \
-  jit_set_function((_ctx), "raylib.playAutomationEvent", (uintptr_t)cythPlayAutomationEvent); \
-  jit_set_function((_ctx), "raylib.isKeyPressed", (uintptr_t)cythIsKeyPressed); \
-  jit_set_function((_ctx), "raylib.isKeyPressedRepeat", (uintptr_t)cythIsKeyPressedRepeat); \
-  jit_set_function((_ctx), "raylib.isKeyDown", (uintptr_t)cythIsKeyDown); \
-  jit_set_function((_ctx), "raylib.isKeyReleased", (uintptr_t)cythIsKeyReleased); \
-  jit_set_function((_ctx), "raylib.isKeyUp", (uintptr_t)cythIsKeyUp); \
-  jit_set_function((_ctx), "raylib.getKeyPressed", (uintptr_t)cythGetKeyPressed); \
-  jit_set_function((_ctx), "raylib.getCharPressed", (uintptr_t)cythGetCharPressed); \
-  jit_set_function((_ctx), "raylib.setExitKey", (uintptr_t)cythSetExitKey); \
-  jit_set_function((_ctx), "raylib.isGamepadAvailable", (uintptr_t)cythIsGamepadAvailable); \
-  jit_set_function((_ctx), "raylib.getGamepadName", (uintptr_t)cythGetGamepadName); \
-  jit_set_function((_ctx), "raylib.isGamepadButtonPressed", (uintptr_t)cythIsGamepadButtonPressed); \
-  jit_set_function((_ctx), "raylib.isGamepadButtonDown", (uintptr_t)cythIsGamepadButtonDown); \
-  jit_set_function((_ctx), "raylib.isGamepadButtonReleased", (uintptr_t)cythIsGamepadButtonReleased); \
-  jit_set_function((_ctx), "raylib.isGamepadButtonUp", (uintptr_t)cythIsGamepadButtonUp); \
-  jit_set_function((_ctx), "raylib.getGamepadButtonPressed", (uintptr_t)cythGetGamepadButtonPressed); \
-  jit_set_function((_ctx), "raylib.getGamepadAxisCount", (uintptr_t)cythGetGamepadAxisCount); \
-  jit_set_function((_ctx), "raylib.getGamepadAxisMovement", (uintptr_t)cythGetGamepadAxisMovement); \
-  jit_set_function((_ctx), "raylib.setGamepadMappings", (uintptr_t)cythSetGamepadMappings); \
-  jit_set_function((_ctx), "raylib.setGamepadVibration", (uintptr_t)cythSetGamepadVibration); \
-  jit_set_function((_ctx), "raylib.isMouseButtonPressed", (uintptr_t)cythIsMouseButtonPressed); \
-  jit_set_function((_ctx), "raylib.isMouseButtonDown", (uintptr_t)cythIsMouseButtonDown); \
-  jit_set_function((_ctx), "raylib.isMouseButtonReleased", (uintptr_t)cythIsMouseButtonReleased); \
-  jit_set_function((_ctx), "raylib.isMouseButtonUp", (uintptr_t)cythIsMouseButtonUp); \
-  jit_set_function((_ctx), "raylib.getMouseX", (uintptr_t)cythGetMouseX); \
-  jit_set_function((_ctx), "raylib.getMouseY", (uintptr_t)cythGetMouseY); \
-  jit_set_function((_ctx), "raylib.getMousePosition", (uintptr_t)cythGetMousePosition); \
-  jit_set_function((_ctx), "raylib.getMouseDelta", (uintptr_t)cythGetMouseDelta); \
-  jit_set_function((_ctx), "raylib.setMousePosition", (uintptr_t)cythSetMousePosition); \
-  jit_set_function((_ctx), "raylib.setMouseOffset", (uintptr_t)cythSetMouseOffset); \
-  jit_set_function((_ctx), "raylib.setMouseScale", (uintptr_t)cythSetMouseScale); \
-  jit_set_function((_ctx), "raylib.getMouseWheelMove", (uintptr_t)cythGetMouseWheelMove); \
-  jit_set_function((_ctx), "raylib.getMouseWheelMoveV", (uintptr_t)cythGetMouseWheelMoveV); \
-  jit_set_function((_ctx), "raylib.setMouseCursor", (uintptr_t)cythSetMouseCursor); \
-  jit_set_function((_ctx), "raylib.getTouchX", (uintptr_t)cythGetTouchX); \
-  jit_set_function((_ctx), "raylib.getTouchY", (uintptr_t)cythGetTouchY); \
-  jit_set_function((_ctx), "raylib.getTouchPosition", (uintptr_t)cythGetTouchPosition); \
-  jit_set_function((_ctx), "raylib.getTouchPointId", (uintptr_t)cythGetTouchPointId); \
-  jit_set_function((_ctx), "raylib.getTouchPointCount", (uintptr_t)cythGetTouchPointCount); \
-  jit_set_function((_ctx), "raylib.setGesturesEnabled", (uintptr_t)cythSetGesturesEnabled); \
-  jit_set_function((_ctx), "raylib.isGestureDetected", (uintptr_t)cythIsGestureDetected); \
-  jit_set_function((_ctx), "raylib.getGestureDetected", (uintptr_t)cythGetGestureDetected); \
-  jit_set_function((_ctx), "raylib.getGestureHoldDuration", (uintptr_t)cythGetGestureHoldDuration); \
-  jit_set_function((_ctx), "raylib.getGestureDragVector", (uintptr_t)cythGetGestureDragVector); \
-  jit_set_function((_ctx), "raylib.getGestureDragAngle", (uintptr_t)cythGetGestureDragAngle); \
-  jit_set_function((_ctx), "raylib.getGesturePinchVector", (uintptr_t)cythGetGesturePinchVector); \
-  jit_set_function((_ctx), "raylib.getGesturePinchAngle", (uintptr_t)cythGetGesturePinchAngle); \
-  jit_set_function((_ctx), "raylib.updateCamera", (uintptr_t)cythUpdateCamera); \
-  jit_set_function((_ctx), "raylib.updateCameraPro", (uintptr_t)cythUpdateCameraPro); \
-  jit_set_function((_ctx), "raylib.setShapesTexture", (uintptr_t)cythSetShapesTexture); \
-  jit_set_function((_ctx), "raylib.getShapesTexture", (uintptr_t)cythGetShapesTexture); \
-  jit_set_function((_ctx), "raylib.getShapesTextureRectangle", (uintptr_t)cythGetShapesTextureRectangle); \
-  jit_set_function((_ctx), "raylib.drawPixel", (uintptr_t)cythDrawPixel); \
-  jit_set_function((_ctx), "raylib.drawPixelV", (uintptr_t)cythDrawPixelV); \
-  jit_set_function((_ctx), "raylib.drawLine", (uintptr_t)cythDrawLine); \
-  jit_set_function((_ctx), "raylib.drawLineV", (uintptr_t)cythDrawLineV); \
-  jit_set_function((_ctx), "raylib.drawLineEx", (uintptr_t)cythDrawLineEx); \
-  jit_set_function((_ctx), "raylib.drawLineStrip", (uintptr_t)cythDrawLineStrip); \
-  jit_set_function((_ctx), "raylib.drawLineBezier", (uintptr_t)cythDrawLineBezier); \
-  jit_set_function((_ctx), "raylib.drawCircle", (uintptr_t)cythDrawCircle); \
-  jit_set_function((_ctx), "raylib.drawCircleSector", (uintptr_t)cythDrawCircleSector); \
-  jit_set_function((_ctx), "raylib.drawCircleSectorLines", (uintptr_t)cythDrawCircleSectorLines); \
-  jit_set_function((_ctx), "raylib.drawCircleGradient", (uintptr_t)cythDrawCircleGradient); \
-  jit_set_function((_ctx), "raylib.drawCircleV", (uintptr_t)cythDrawCircleV); \
-  jit_set_function((_ctx), "raylib.drawCircleLines", (uintptr_t)cythDrawCircleLines); \
-  jit_set_function((_ctx), "raylib.drawCircleLinesV", (uintptr_t)cythDrawCircleLinesV); \
-  jit_set_function((_ctx), "raylib.drawEllipse", (uintptr_t)cythDrawEllipse); \
-  jit_set_function((_ctx), "raylib.drawEllipseLines", (uintptr_t)cythDrawEllipseLines); \
-  jit_set_function((_ctx), "raylib.drawRing", (uintptr_t)cythDrawRing); \
-  jit_set_function((_ctx), "raylib.drawRingLines", (uintptr_t)cythDrawRingLines); \
-  jit_set_function((_ctx), "raylib.drawRectangle", (uintptr_t)cythDrawRectangle); \
-  jit_set_function((_ctx), "raylib.drawRectangleV", (uintptr_t)cythDrawRectangleV); \
-  jit_set_function((_ctx), "raylib.drawRectangleRec", (uintptr_t)cythDrawRectangleRec); \
-  jit_set_function((_ctx), "raylib.drawRectanglePro", (uintptr_t)cythDrawRectanglePro); \
-  jit_set_function((_ctx), "raylib.drawRectangleGradientV", (uintptr_t)cythDrawRectangleGradientV); \
-  jit_set_function((_ctx), "raylib.drawRectangleGradientH", (uintptr_t)cythDrawRectangleGradientH); \
-  jit_set_function((_ctx), "raylib.drawRectangleGradientEx", (uintptr_t)cythDrawRectangleGradientEx); \
-  jit_set_function((_ctx), "raylib.drawRectangleLines", (uintptr_t)cythDrawRectangleLines); \
-  jit_set_function((_ctx), "raylib.drawRectangleLinesEx", (uintptr_t)cythDrawRectangleLinesEx); \
-  jit_set_function((_ctx), "raylib.drawRectangleRounded", (uintptr_t)cythDrawRectangleRounded); \
-  jit_set_function((_ctx), "raylib.drawRectangleRoundedLines", (uintptr_t)cythDrawRectangleRoundedLines); \
-  jit_set_function((_ctx), "raylib.drawRectangleRoundedLinesEx", (uintptr_t)cythDrawRectangleRoundedLinesEx); \
-  jit_set_function((_ctx), "raylib.drawTriangle", (uintptr_t)cythDrawTriangle); \
-  jit_set_function((_ctx), "raylib.drawTriangleLines", (uintptr_t)cythDrawTriangleLines); \
-  jit_set_function((_ctx), "raylib.drawTriangleFan", (uintptr_t)cythDrawTriangleFan); \
-  jit_set_function((_ctx), "raylib.drawTriangleStrip", (uintptr_t)cythDrawTriangleStrip); \
-  jit_set_function((_ctx), "raylib.drawPoly", (uintptr_t)cythDrawPoly); \
-  jit_set_function((_ctx), "raylib.drawPolyLines", (uintptr_t)cythDrawPolyLines); \
-  jit_set_function((_ctx), "raylib.drawPolyLinesEx", (uintptr_t)cythDrawPolyLinesEx); \
-  jit_set_function((_ctx), "raylib.drawSplineLinear", (uintptr_t)cythDrawSplineLinear); \
-  jit_set_function((_ctx), "raylib.drawSplineBasis", (uintptr_t)cythDrawSplineBasis); \
-  jit_set_function((_ctx), "raylib.drawSplineCatmullRom", (uintptr_t)cythDrawSplineCatmullRom); \
-  jit_set_function((_ctx), "raylib.drawSplineBezierQuadratic", (uintptr_t)cythDrawSplineBezierQuadratic); \
-  jit_set_function((_ctx), "raylib.drawSplineBezierCubic", (uintptr_t)cythDrawSplineBezierCubic); \
-  jit_set_function((_ctx), "raylib.drawSplineSegmentLinear", (uintptr_t)cythDrawSplineSegmentLinear); \
-  jit_set_function((_ctx), "raylib.drawSplineSegmentBasis", (uintptr_t)cythDrawSplineSegmentBasis); \
-  jit_set_function((_ctx), "raylib.drawSplineSegmentCatmullRom", (uintptr_t)cythDrawSplineSegmentCatmullRom); \
-  jit_set_function((_ctx), "raylib.drawSplineSegmentBezierQuadratic", (uintptr_t)cythDrawSplineSegmentBezierQuadratic); \
-  jit_set_function((_ctx), "raylib.drawSplineSegmentBezierCubic", (uintptr_t)cythDrawSplineSegmentBezierCubic); \
-  jit_set_function((_ctx), "raylib.getSplinePointLinear", (uintptr_t)cythGetSplinePointLinear); \
-  jit_set_function((_ctx), "raylib.getSplinePointBasis", (uintptr_t)cythGetSplinePointBasis); \
-  jit_set_function((_ctx), "raylib.getSplinePointCatmullRom", (uintptr_t)cythGetSplinePointCatmullRom); \
-  jit_set_function((_ctx), "raylib.getSplinePointBezierQuad", (uintptr_t)cythGetSplinePointBezierQuad); \
-  jit_set_function((_ctx), "raylib.getSplinePointBezierCubic", (uintptr_t)cythGetSplinePointBezierCubic); \
-  jit_set_function((_ctx), "raylib.checkCollisionRecs", (uintptr_t)cythCheckCollisionRecs); \
-  jit_set_function((_ctx), "raylib.checkCollisionCircles", (uintptr_t)cythCheckCollisionCircles); \
-  jit_set_function((_ctx), "raylib.checkCollisionCircleRec", (uintptr_t)cythCheckCollisionCircleRec); \
-  jit_set_function((_ctx), "raylib.checkCollisionCircleLine", (uintptr_t)cythCheckCollisionCircleLine); \
-  jit_set_function((_ctx), "raylib.checkCollisionPointRec", (uintptr_t)cythCheckCollisionPointRec); \
-  jit_set_function((_ctx), "raylib.checkCollisionPointCircle", (uintptr_t)cythCheckCollisionPointCircle); \
-  jit_set_function((_ctx), "raylib.checkCollisionPointTriangle", (uintptr_t)cythCheckCollisionPointTriangle); \
-  jit_set_function((_ctx), "raylib.checkCollisionPointLine", (uintptr_t)cythCheckCollisionPointLine); \
-  jit_set_function((_ctx), "raylib.checkCollisionPointPoly", (uintptr_t)cythCheckCollisionPointPoly); \
-  jit_set_function((_ctx), "raylib.checkCollisionLines", (uintptr_t)cythCheckCollisionLines); \
-  jit_set_function((_ctx), "raylib.getCollisionRec", (uintptr_t)cythGetCollisionRec); \
-  jit_set_function((_ctx), "raylib.loadImage", (uintptr_t)cythLoadImage); \
-  jit_set_function((_ctx), "raylib.loadImageRaw", (uintptr_t)cythLoadImageRaw); \
-  jit_set_function((_ctx), "raylib.loadImageAnim", (uintptr_t)cythLoadImageAnim); \
-  jit_set_function((_ctx), "raylib.loadImageAnimFromMemory", (uintptr_t)cythLoadImageAnimFromMemory); \
-  jit_set_function((_ctx), "raylib.loadImageFromMemory", (uintptr_t)cythLoadImageFromMemory); \
-  jit_set_function((_ctx), "raylib.loadImageFromTexture", (uintptr_t)cythLoadImageFromTexture); \
-  jit_set_function((_ctx), "raylib.loadImageFromScreen", (uintptr_t)cythLoadImageFromScreen); \
-  jit_set_function((_ctx), "raylib.isImageValid", (uintptr_t)cythIsImageValid); \
-  jit_set_function((_ctx), "raylib.unloadImage", (uintptr_t)cythUnloadImage); \
-  jit_set_function((_ctx), "raylib.exportImage", (uintptr_t)cythExportImage); \
-  jit_set_function((_ctx), "raylib.exportImageToMemory", (uintptr_t)cythExportImageToMemory); \
-  jit_set_function((_ctx), "raylib.exportImageAsCode", (uintptr_t)cythExportImageAsCode); \
-  jit_set_function((_ctx), "raylib.genImageColor", (uintptr_t)cythGenImageColor); \
-  jit_set_function((_ctx), "raylib.genImageGradientLinear", (uintptr_t)cythGenImageGradientLinear); \
-  jit_set_function((_ctx), "raylib.genImageGradientRadial", (uintptr_t)cythGenImageGradientRadial); \
-  jit_set_function((_ctx), "raylib.genImageGradientSquare", (uintptr_t)cythGenImageGradientSquare); \
-  jit_set_function((_ctx), "raylib.genImageChecked", (uintptr_t)cythGenImageChecked); \
-  jit_set_function((_ctx), "raylib.genImageWhiteNoise", (uintptr_t)cythGenImageWhiteNoise); \
-  jit_set_function((_ctx), "raylib.genImagePerlinNoise", (uintptr_t)cythGenImagePerlinNoise); \
-  jit_set_function((_ctx), "raylib.genImageCellular", (uintptr_t)cythGenImageCellular); \
-  jit_set_function((_ctx), "raylib.genImageText", (uintptr_t)cythGenImageText); \
-  jit_set_function((_ctx), "raylib.imageCopy", (uintptr_t)cythImageCopy); \
-  jit_set_function((_ctx), "raylib.imageFromImage", (uintptr_t)cythImageFromImage); \
-  jit_set_function((_ctx), "raylib.imageFromChannel", (uintptr_t)cythImageFromChannel); \
-  jit_set_function((_ctx), "raylib.imageText", (uintptr_t)cythImageText); \
-  jit_set_function((_ctx), "raylib.imageTextEx", (uintptr_t)cythImageTextEx); \
-  jit_set_function((_ctx), "raylib.imageFormat", (uintptr_t)cythImageFormat); \
-  jit_set_function((_ctx), "raylib.imageToPOT", (uintptr_t)cythImageToPOT); \
-  jit_set_function((_ctx), "raylib.imageCrop", (uintptr_t)cythImageCrop); \
-  jit_set_function((_ctx), "raylib.imageAlphaCrop", (uintptr_t)cythImageAlphaCrop); \
-  jit_set_function((_ctx), "raylib.imageAlphaClear", (uintptr_t)cythImageAlphaClear); \
-  jit_set_function((_ctx), "raylib.imageAlphaMask", (uintptr_t)cythImageAlphaMask); \
-  jit_set_function((_ctx), "raylib.imageAlphaPremultiply", (uintptr_t)cythImageAlphaPremultiply); \
-  jit_set_function((_ctx), "raylib.imageBlurGaussian", (uintptr_t)cythImageBlurGaussian); \
-  jit_set_function((_ctx), "raylib.imageKernelConvolution", (uintptr_t)cythImageKernelConvolution); \
-  jit_set_function((_ctx), "raylib.imageResize", (uintptr_t)cythImageResize); \
-  jit_set_function((_ctx), "raylib.imageResizeNN", (uintptr_t)cythImageResizeNN); \
-  jit_set_function((_ctx), "raylib.imageResizeCanvas", (uintptr_t)cythImageResizeCanvas); \
-  jit_set_function((_ctx), "raylib.imageMipmaps", (uintptr_t)cythImageMipmaps); \
-  jit_set_function((_ctx), "raylib.imageDither", (uintptr_t)cythImageDither); \
-  jit_set_function((_ctx), "raylib.imageFlipVertical", (uintptr_t)cythImageFlipVertical); \
-  jit_set_function((_ctx), "raylib.imageFlipHorizontal", (uintptr_t)cythImageFlipHorizontal); \
-  jit_set_function((_ctx), "raylib.imageRotate", (uintptr_t)cythImageRotate); \
-  jit_set_function((_ctx), "raylib.imageRotateCW", (uintptr_t)cythImageRotateCW); \
-  jit_set_function((_ctx), "raylib.imageRotateCCW", (uintptr_t)cythImageRotateCCW); \
-  jit_set_function((_ctx), "raylib.imageColorTint", (uintptr_t)cythImageColorTint); \
-  jit_set_function((_ctx), "raylib.imageColorInvert", (uintptr_t)cythImageColorInvert); \
-  jit_set_function((_ctx), "raylib.imageColorGrayscale", (uintptr_t)cythImageColorGrayscale); \
-  jit_set_function((_ctx), "raylib.imageColorContrast", (uintptr_t)cythImageColorContrast); \
-  jit_set_function((_ctx), "raylib.imageColorBrightness", (uintptr_t)cythImageColorBrightness); \
-  jit_set_function((_ctx), "raylib.imageColorReplace", (uintptr_t)cythImageColorReplace); \
-  jit_set_function((_ctx), "raylib.loadImageColors", (uintptr_t)cythLoadImageColors); \
-  jit_set_function((_ctx), "raylib.loadImagePalette", (uintptr_t)cythLoadImagePalette); \
-  jit_set_function((_ctx), "raylib.unloadImageColors", (uintptr_t)cythUnloadImageColors); \
-  jit_set_function((_ctx), "raylib.unloadImagePalette", (uintptr_t)cythUnloadImagePalette); \
-  jit_set_function((_ctx), "raylib.getImageAlphaBorder", (uintptr_t)cythGetImageAlphaBorder); \
-  jit_set_function((_ctx), "raylib.getImageColor", (uintptr_t)cythGetImageColor); \
-  jit_set_function((_ctx), "raylib.imageClearBackground", (uintptr_t)cythImageClearBackground); \
-  jit_set_function((_ctx), "raylib.imageDrawPixel", (uintptr_t)cythImageDrawPixel); \
-  jit_set_function((_ctx), "raylib.imageDrawPixelV", (uintptr_t)cythImageDrawPixelV); \
-  jit_set_function((_ctx), "raylib.imageDrawLine", (uintptr_t)cythImageDrawLine); \
-  jit_set_function((_ctx), "raylib.imageDrawLineV", (uintptr_t)cythImageDrawLineV); \
-  jit_set_function((_ctx), "raylib.imageDrawLineEx", (uintptr_t)cythImageDrawLineEx); \
-  jit_set_function((_ctx), "raylib.imageDrawCircle", (uintptr_t)cythImageDrawCircle); \
-  jit_set_function((_ctx), "raylib.imageDrawCircleV", (uintptr_t)cythImageDrawCircleV); \
-  jit_set_function((_ctx), "raylib.imageDrawCircleLines", (uintptr_t)cythImageDrawCircleLines); \
-  jit_set_function((_ctx), "raylib.imageDrawCircleLinesV", (uintptr_t)cythImageDrawCircleLinesV); \
-  jit_set_function((_ctx), "raylib.imageDrawRectangle", (uintptr_t)cythImageDrawRectangle); \
-  jit_set_function((_ctx), "raylib.imageDrawRectangleV", (uintptr_t)cythImageDrawRectangleV); \
-  jit_set_function((_ctx), "raylib.imageDrawRectangleRec", (uintptr_t)cythImageDrawRectangleRec); \
-  jit_set_function((_ctx), "raylib.imageDrawRectangleLines", (uintptr_t)cythImageDrawRectangleLines); \
-  jit_set_function((_ctx), "raylib.imageDrawTriangle", (uintptr_t)cythImageDrawTriangle); \
-  jit_set_function((_ctx), "raylib.imageDrawTriangleEx", (uintptr_t)cythImageDrawTriangleEx); \
-  jit_set_function((_ctx), "raylib.imageDrawTriangleLines", (uintptr_t)cythImageDrawTriangleLines); \
-  jit_set_function((_ctx), "raylib.imageDrawTriangleFan", (uintptr_t)cythImageDrawTriangleFan); \
-  jit_set_function((_ctx), "raylib.imageDrawTriangleStrip", (uintptr_t)cythImageDrawTriangleStrip); \
-  jit_set_function((_ctx), "raylib.imageDraw", (uintptr_t)cythImageDraw); \
-  jit_set_function((_ctx), "raylib.imageDrawText", (uintptr_t)cythImageDrawText); \
-  jit_set_function((_ctx), "raylib.imageDrawTextEx", (uintptr_t)cythImageDrawTextEx); \
-  jit_set_function((_ctx), "raylib.loadTexture", (uintptr_t)cythLoadTexture); \
-  jit_set_function((_ctx), "raylib.loadTextureFromImage", (uintptr_t)cythLoadTextureFromImage); \
-  jit_set_function((_ctx), "raylib.loadTextureCubemap", (uintptr_t)cythLoadTextureCubemap); \
-  jit_set_function((_ctx), "raylib.loadRenderTexture", (uintptr_t)cythLoadRenderTexture); \
-  jit_set_function((_ctx), "raylib.isTextureValid", (uintptr_t)cythIsTextureValid); \
-  jit_set_function((_ctx), "raylib.unloadTexture", (uintptr_t)cythUnloadTexture); \
-  jit_set_function((_ctx), "raylib.isRenderTextureValid", (uintptr_t)cythIsRenderTextureValid); \
-  jit_set_function((_ctx), "raylib.unloadRenderTexture", (uintptr_t)cythUnloadRenderTexture); \
-  jit_set_function((_ctx), "raylib.updateTexture", (uintptr_t)cythUpdateTexture); \
-  jit_set_function((_ctx), "raylib.updateTextureRec", (uintptr_t)cythUpdateTextureRec); \
-  jit_set_function((_ctx), "raylib.genTextureMipmaps", (uintptr_t)cythGenTextureMipmaps); \
-  jit_set_function((_ctx), "raylib.setTextureFilter", (uintptr_t)cythSetTextureFilter); \
-  jit_set_function((_ctx), "raylib.setTextureWrap", (uintptr_t)cythSetTextureWrap); \
-  jit_set_function((_ctx), "raylib.drawTexture", (uintptr_t)cythDrawTexture); \
-  jit_set_function((_ctx), "raylib.drawTextureV", (uintptr_t)cythDrawTextureV); \
-  jit_set_function((_ctx), "raylib.drawTextureEx", (uintptr_t)cythDrawTextureEx); \
-  jit_set_function((_ctx), "raylib.drawTextureRec", (uintptr_t)cythDrawTextureRec); \
-  jit_set_function((_ctx), "raylib.drawTexturePro", (uintptr_t)cythDrawTexturePro); \
-  jit_set_function((_ctx), "raylib.drawTextureNPatch", (uintptr_t)cythDrawTextureNPatch); \
-  jit_set_function((_ctx), "raylib.colorIsEqual", (uintptr_t)cythColorIsEqual); \
-  jit_set_function((_ctx), "raylib.fade", (uintptr_t)cythFade); \
-  jit_set_function((_ctx), "raylib.colorToInt", (uintptr_t)cythColorToInt); \
-  jit_set_function((_ctx), "raylib.colorNormalize", (uintptr_t)cythColorNormalize); \
-  jit_set_function((_ctx), "raylib.colorFromNormalized", (uintptr_t)cythColorFromNormalized); \
-  jit_set_function((_ctx), "raylib.colorToHSV", (uintptr_t)cythColorToHSV); \
-  jit_set_function((_ctx), "raylib.colorFromHSV", (uintptr_t)cythColorFromHSV); \
-  jit_set_function((_ctx), "raylib.colorTint", (uintptr_t)cythColorTint); \
-  jit_set_function((_ctx), "raylib.colorBrightness", (uintptr_t)cythColorBrightness); \
-  jit_set_function((_ctx), "raylib.colorContrast", (uintptr_t)cythColorContrast); \
-  jit_set_function((_ctx), "raylib.colorAlpha", (uintptr_t)cythColorAlpha); \
-  jit_set_function((_ctx), "raylib.colorAlphaBlend", (uintptr_t)cythColorAlphaBlend); \
-  jit_set_function((_ctx), "raylib.colorLerp", (uintptr_t)cythColorLerp); \
-  jit_set_function((_ctx), "raylib.getColor", (uintptr_t)cythGetColor); \
-  jit_set_function((_ctx), "raylib.getPixelColor", (uintptr_t)cythGetPixelColor); \
-  jit_set_function((_ctx), "raylib.setPixelColor", (uintptr_t)cythSetPixelColor); \
-  jit_set_function((_ctx), "raylib.getPixelDataSize", (uintptr_t)cythGetPixelDataSize); \
-  jit_set_function((_ctx), "raylib.getFontDefault", (uintptr_t)cythGetFontDefault); \
-  jit_set_function((_ctx), "raylib.loadFont", (uintptr_t)cythLoadFont); \
-  jit_set_function((_ctx), "raylib.loadFontEx", (uintptr_t)cythLoadFontEx); \
-  jit_set_function((_ctx), "raylib.loadFontFromImage", (uintptr_t)cythLoadFontFromImage); \
-  jit_set_function((_ctx), "raylib.loadFontFromMemory", (uintptr_t)cythLoadFontFromMemory); \
-  jit_set_function((_ctx), "raylib.isFontValid", (uintptr_t)cythIsFontValid); \
-  jit_set_function((_ctx), "raylib.loadFontData", (uintptr_t)cythLoadFontData); \
-  jit_set_function((_ctx), "raylib.genImageFontAtlas", (uintptr_t)cythGenImageFontAtlas); \
-  jit_set_function((_ctx), "raylib.unloadFontData", (uintptr_t)cythUnloadFontData); \
-  jit_set_function((_ctx), "raylib.unloadFont", (uintptr_t)cythUnloadFont); \
-  jit_set_function((_ctx), "raylib.exportFontAsCode", (uintptr_t)cythExportFontAsCode); \
-  jit_set_function((_ctx), "raylib.drawFPS", (uintptr_t)cythDrawFPS); \
-  jit_set_function((_ctx), "raylib.drawText", (uintptr_t)cythDrawText); \
-  jit_set_function((_ctx), "raylib.drawTextEx", (uintptr_t)cythDrawTextEx); \
-  jit_set_function((_ctx), "raylib.drawTextPro", (uintptr_t)cythDrawTextPro); \
-  jit_set_function((_ctx), "raylib.drawTextCodepoint", (uintptr_t)cythDrawTextCodepoint); \
-  jit_set_function((_ctx), "raylib.drawTextCodepoints", (uintptr_t)cythDrawTextCodepoints); \
-  jit_set_function((_ctx), "raylib.setTextLineSpacing", (uintptr_t)cythSetTextLineSpacing); \
-  jit_set_function((_ctx), "raylib.measureText", (uintptr_t)cythMeasureText); \
-  jit_set_function((_ctx), "raylib.measureTextEx", (uintptr_t)cythMeasureTextEx); \
-  jit_set_function((_ctx), "raylib.getGlyphIndex", (uintptr_t)cythGetGlyphIndex); \
-  jit_set_function((_ctx), "raylib.getGlyphInfo", (uintptr_t)cythGetGlyphInfo); \
-  jit_set_function((_ctx), "raylib.getGlyphAtlasRec", (uintptr_t)cythGetGlyphAtlasRec); \
-  jit_set_function((_ctx), "raylib.loadUTF8", (uintptr_t)cythLoadUTF8); \
-  jit_set_function((_ctx), "raylib.unloadUTF8", (uintptr_t)cythUnloadUTF8); \
-  jit_set_function((_ctx), "raylib.loadCodepoints", (uintptr_t)cythLoadCodepoints); \
-  jit_set_function((_ctx), "raylib.unloadCodepoints", (uintptr_t)cythUnloadCodepoints); \
-  jit_set_function((_ctx), "raylib.getCodepointCount", (uintptr_t)cythGetCodepointCount); \
-  jit_set_function((_ctx), "raylib.getCodepoint", (uintptr_t)cythGetCodepoint); \
-  jit_set_function((_ctx), "raylib.getCodepointNext", (uintptr_t)cythGetCodepointNext); \
-  jit_set_function((_ctx), "raylib.getCodepointPrevious", (uintptr_t)cythGetCodepointPrevious); \
-  jit_set_function((_ctx), "raylib.codepointToUTF8", (uintptr_t)cythCodepointToUTF8); \
-  jit_set_function((_ctx), "raylib.textCopy", (uintptr_t)cythTextCopy); \
-  jit_set_function((_ctx), "raylib.textIsEqual", (uintptr_t)cythTextIsEqual); \
-  jit_set_function((_ctx), "raylib.textLength", (uintptr_t)cythTextLength); \
-  jit_set_function((_ctx), "raylib.textSubtext", (uintptr_t)cythTextSubtext); \
-  jit_set_function((_ctx), "raylib.textReplace", (uintptr_t)cythTextReplace); \
-  jit_set_function((_ctx), "raylib.textInsert", (uintptr_t)cythTextInsert); \
-  jit_set_function((_ctx), "raylib.textJoin", (uintptr_t)cythTextJoin); \
-  jit_set_function((_ctx), "raylib.textSplit", (uintptr_t)cythTextSplit); \
-  jit_set_function((_ctx), "raylib.textAppend", (uintptr_t)cythTextAppend); \
-  jit_set_function((_ctx), "raylib.textFindIndex", (uintptr_t)cythTextFindIndex); \
-  jit_set_function((_ctx), "raylib.textToUpper", (uintptr_t)cythTextToUpper); \
-  jit_set_function((_ctx), "raylib.textToLower", (uintptr_t)cythTextToLower); \
-  jit_set_function((_ctx), "raylib.textToPascal", (uintptr_t)cythTextToPascal); \
-  jit_set_function((_ctx), "raylib.textToSnake", (uintptr_t)cythTextToSnake); \
-  jit_set_function((_ctx), "raylib.textToCamel", (uintptr_t)cythTextToCamel); \
-  jit_set_function((_ctx), "raylib.textToInteger", (uintptr_t)cythTextToInteger); \
-  jit_set_function((_ctx), "raylib.textToFloat", (uintptr_t)cythTextToFloat); \
-  jit_set_function((_ctx), "raylib.drawLine3D", (uintptr_t)cythDrawLine3D); \
-  jit_set_function((_ctx), "raylib.drawPoint3D", (uintptr_t)cythDrawPoint3D); \
-  jit_set_function((_ctx), "raylib.drawCircle3D", (uintptr_t)cythDrawCircle3D); \
-  jit_set_function((_ctx), "raylib.drawTriangle3D", (uintptr_t)cythDrawTriangle3D); \
-  jit_set_function((_ctx), "raylib.drawTriangleStrip3D", (uintptr_t)cythDrawTriangleStrip3D); \
-  jit_set_function((_ctx), "raylib.drawCube", (uintptr_t)cythDrawCube); \
-  jit_set_function((_ctx), "raylib.drawCubeV", (uintptr_t)cythDrawCubeV); \
-  jit_set_function((_ctx), "raylib.drawCubeWires", (uintptr_t)cythDrawCubeWires); \
-  jit_set_function((_ctx), "raylib.drawCubeWiresV", (uintptr_t)cythDrawCubeWiresV); \
-  jit_set_function((_ctx), "raylib.drawSphere", (uintptr_t)cythDrawSphere); \
-  jit_set_function((_ctx), "raylib.drawSphereEx", (uintptr_t)cythDrawSphereEx); \
-  jit_set_function((_ctx), "raylib.drawSphereWires", (uintptr_t)cythDrawSphereWires); \
-  jit_set_function((_ctx), "raylib.drawCylinder", (uintptr_t)cythDrawCylinder); \
-  jit_set_function((_ctx), "raylib.drawCylinderEx", (uintptr_t)cythDrawCylinderEx); \
-  jit_set_function((_ctx), "raylib.drawCylinderWires", (uintptr_t)cythDrawCylinderWires); \
-  jit_set_function((_ctx), "raylib.drawCylinderWiresEx", (uintptr_t)cythDrawCylinderWiresEx); \
-  jit_set_function((_ctx), "raylib.drawCapsule", (uintptr_t)cythDrawCapsule); \
-  jit_set_function((_ctx), "raylib.drawCapsuleWires", (uintptr_t)cythDrawCapsuleWires); \
-  jit_set_function((_ctx), "raylib.drawPlane", (uintptr_t)cythDrawPlane); \
-  jit_set_function((_ctx), "raylib.drawRay", (uintptr_t)cythDrawRay); \
-  jit_set_function((_ctx), "raylib.drawGrid", (uintptr_t)cythDrawGrid); \
-  jit_set_function((_ctx), "raylib.loadModel", (uintptr_t)cythLoadModel); \
-  jit_set_function((_ctx), "raylib.loadModelFromMesh", (uintptr_t)cythLoadModelFromMesh); \
-  jit_set_function((_ctx), "raylib.isModelValid", (uintptr_t)cythIsModelValid); \
-  jit_set_function((_ctx), "raylib.unloadModel", (uintptr_t)cythUnloadModel); \
-  jit_set_function((_ctx), "raylib.getModelBoundingBox", (uintptr_t)cythGetModelBoundingBox); \
-  jit_set_function((_ctx), "raylib.drawModel", (uintptr_t)cythDrawModel); \
-  jit_set_function((_ctx), "raylib.drawModelEx", (uintptr_t)cythDrawModelEx); \
-  jit_set_function((_ctx), "raylib.drawModelWires", (uintptr_t)cythDrawModelWires); \
-  jit_set_function((_ctx), "raylib.drawModelWiresEx", (uintptr_t)cythDrawModelWiresEx); \
-  jit_set_function((_ctx), "raylib.drawModelPoints", (uintptr_t)cythDrawModelPoints); \
-  jit_set_function((_ctx), "raylib.drawModelPointsEx", (uintptr_t)cythDrawModelPointsEx); \
-  jit_set_function((_ctx), "raylib.drawBoundingBox", (uintptr_t)cythDrawBoundingBox); \
-  jit_set_function((_ctx), "raylib.drawBillboard", (uintptr_t)cythDrawBillboard); \
-  jit_set_function((_ctx), "raylib.drawBillboardRec", (uintptr_t)cythDrawBillboardRec); \
-  jit_set_function((_ctx), "raylib.drawBillboardPro", (uintptr_t)cythDrawBillboardPro); \
-  jit_set_function((_ctx), "raylib.uploadMesh", (uintptr_t)cythUploadMesh); \
-  jit_set_function((_ctx), "raylib.updateMeshBuffer", (uintptr_t)cythUpdateMeshBuffer); \
-  jit_set_function((_ctx), "raylib.unloadMesh", (uintptr_t)cythUnloadMesh); \
-  jit_set_function((_ctx), "raylib.drawMesh", (uintptr_t)cythDrawMesh); \
-  jit_set_function((_ctx), "raylib.drawMeshInstanced", (uintptr_t)cythDrawMeshInstanced); \
-  jit_set_function((_ctx), "raylib.getMeshBoundingBox", (uintptr_t)cythGetMeshBoundingBox); \
-  jit_set_function((_ctx), "raylib.genMeshTangents", (uintptr_t)cythGenMeshTangents); \
-  jit_set_function((_ctx), "raylib.exportMesh", (uintptr_t)cythExportMesh); \
-  jit_set_function((_ctx), "raylib.exportMeshAsCode", (uintptr_t)cythExportMeshAsCode); \
-  jit_set_function((_ctx), "raylib.genMeshPoly", (uintptr_t)cythGenMeshPoly); \
-  jit_set_function((_ctx), "raylib.genMeshPlane", (uintptr_t)cythGenMeshPlane); \
-  jit_set_function((_ctx), "raylib.genMeshCube", (uintptr_t)cythGenMeshCube); \
-  jit_set_function((_ctx), "raylib.genMeshSphere", (uintptr_t)cythGenMeshSphere); \
-  jit_set_function((_ctx), "raylib.genMeshHemiSphere", (uintptr_t)cythGenMeshHemiSphere); \
-  jit_set_function((_ctx), "raylib.genMeshCylinder", (uintptr_t)cythGenMeshCylinder); \
-  jit_set_function((_ctx), "raylib.genMeshCone", (uintptr_t)cythGenMeshCone); \
-  jit_set_function((_ctx), "raylib.genMeshTorus", (uintptr_t)cythGenMeshTorus); \
-  jit_set_function((_ctx), "raylib.genMeshKnot", (uintptr_t)cythGenMeshKnot); \
-  jit_set_function((_ctx), "raylib.genMeshHeightmap", (uintptr_t)cythGenMeshHeightmap); \
-  jit_set_function((_ctx), "raylib.genMeshCubicmap", (uintptr_t)cythGenMeshCubicmap); \
-  jit_set_function((_ctx), "raylib.loadMaterials", (uintptr_t)cythLoadMaterials); \
-  jit_set_function((_ctx), "raylib.loadMaterialDefault", (uintptr_t)cythLoadMaterialDefault); \
-  jit_set_function((_ctx), "raylib.isMaterialValid", (uintptr_t)cythIsMaterialValid); \
-  jit_set_function((_ctx), "raylib.unloadMaterial", (uintptr_t)cythUnloadMaterial); \
-  jit_set_function((_ctx), "raylib.setMaterialTexture", (uintptr_t)cythSetMaterialTexture); \
-  jit_set_function((_ctx), "raylib.setModelMeshMaterial", (uintptr_t)cythSetModelMeshMaterial); \
-  jit_set_function((_ctx), "raylib.loadModelAnimations", (uintptr_t)cythLoadModelAnimations); \
-  jit_set_function((_ctx), "raylib.updateModelAnimation", (uintptr_t)cythUpdateModelAnimation); \
-  jit_set_function((_ctx), "raylib.updateModelAnimationBones", (uintptr_t)cythUpdateModelAnimationBones); \
-  jit_set_function((_ctx), "raylib.unloadModelAnimation", (uintptr_t)cythUnloadModelAnimation); \
-  jit_set_function((_ctx), "raylib.unloadModelAnimations", (uintptr_t)cythUnloadModelAnimations); \
-  jit_set_function((_ctx), "raylib.isModelAnimationValid", (uintptr_t)cythIsModelAnimationValid); \
-  jit_set_function((_ctx), "raylib.checkCollisionSpheres", (uintptr_t)cythCheckCollisionSpheres); \
-  jit_set_function((_ctx), "raylib.checkCollisionBoxes", (uintptr_t)cythCheckCollisionBoxes); \
-  jit_set_function((_ctx), "raylib.checkCollisionBoxSphere", (uintptr_t)cythCheckCollisionBoxSphere); \
-  jit_set_function((_ctx), "raylib.getRayCollisionSphere", (uintptr_t)cythGetRayCollisionSphere); \
-  jit_set_function((_ctx), "raylib.getRayCollisionBox", (uintptr_t)cythGetRayCollisionBox); \
-  jit_set_function((_ctx), "raylib.getRayCollisionMesh", (uintptr_t)cythGetRayCollisionMesh); \
-  jit_set_function((_ctx), "raylib.getRayCollisionTriangle", (uintptr_t)cythGetRayCollisionTriangle); \
-  jit_set_function((_ctx), "raylib.getRayCollisionQuad", (uintptr_t)cythGetRayCollisionQuad); \
-  jit_set_function((_ctx), "raylib.initAudioDevice", (uintptr_t)cythInitAudioDevice); \
-  jit_set_function((_ctx), "raylib.closeAudioDevice", (uintptr_t)cythCloseAudioDevice); \
-  jit_set_function((_ctx), "raylib.isAudioDeviceReady", (uintptr_t)cythIsAudioDeviceReady); \
-  jit_set_function((_ctx), "raylib.setMasterVolume", (uintptr_t)cythSetMasterVolume); \
-  jit_set_function((_ctx), "raylib.getMasterVolume", (uintptr_t)cythGetMasterVolume); \
-  jit_set_function((_ctx), "raylib.loadWave", (uintptr_t)cythLoadWave); \
-  jit_set_function((_ctx), "raylib.loadWaveFromMemory", (uintptr_t)cythLoadWaveFromMemory); \
-  jit_set_function((_ctx), "raylib.isWaveValid", (uintptr_t)cythIsWaveValid); \
-  jit_set_function((_ctx), "raylib.loadSound", (uintptr_t)cythLoadSound); \
-  jit_set_function((_ctx), "raylib.loadSoundFromWave", (uintptr_t)cythLoadSoundFromWave); \
-  jit_set_function((_ctx), "raylib.loadSoundAlias", (uintptr_t)cythLoadSoundAlias); \
-  jit_set_function((_ctx), "raylib.isSoundValid", (uintptr_t)cythIsSoundValid); \
-  jit_set_function((_ctx), "raylib.updateSound", (uintptr_t)cythUpdateSound); \
-  jit_set_function((_ctx), "raylib.unloadWave", (uintptr_t)cythUnloadWave); \
-  jit_set_function((_ctx), "raylib.unloadSound", (uintptr_t)cythUnloadSound); \
-  jit_set_function((_ctx), "raylib.unloadSoundAlias", (uintptr_t)cythUnloadSoundAlias); \
-  jit_set_function((_ctx), "raylib.exportWave", (uintptr_t)cythExportWave); \
-  jit_set_function((_ctx), "raylib.exportWaveAsCode", (uintptr_t)cythExportWaveAsCode); \
-  jit_set_function((_ctx), "raylib.playSound", (uintptr_t)cythPlaySound); \
-  jit_set_function((_ctx), "raylib.stopSound", (uintptr_t)cythStopSound); \
-  jit_set_function((_ctx), "raylib.pauseSound", (uintptr_t)cythPauseSound); \
-  jit_set_function((_ctx), "raylib.resumeSound", (uintptr_t)cythResumeSound); \
-  jit_set_function((_ctx), "raylib.isSoundPlaying", (uintptr_t)cythIsSoundPlaying); \
-  jit_set_function((_ctx), "raylib.setSoundVolume", (uintptr_t)cythSetSoundVolume); \
-  jit_set_function((_ctx), "raylib.setSoundPitch", (uintptr_t)cythSetSoundPitch); \
-  jit_set_function((_ctx), "raylib.setSoundPan", (uintptr_t)cythSetSoundPan); \
-  jit_set_function((_ctx), "raylib.waveCopy", (uintptr_t)cythWaveCopy); \
-  jit_set_function((_ctx), "raylib.waveCrop", (uintptr_t)cythWaveCrop); \
-  jit_set_function((_ctx), "raylib.waveFormat", (uintptr_t)cythWaveFormat); \
-  jit_set_function((_ctx), "raylib.loadWaveSamples", (uintptr_t)cythLoadWaveSamples); \
-  jit_set_function((_ctx), "raylib.unloadWaveSamples", (uintptr_t)cythUnloadWaveSamples); \
-  jit_set_function((_ctx), "raylib.loadMusicStream", (uintptr_t)cythLoadMusicStream); \
-  jit_set_function((_ctx), "raylib.loadMusicStreamFromMemory", (uintptr_t)cythLoadMusicStreamFromMemory); \
-  jit_set_function((_ctx), "raylib.isMusicValid", (uintptr_t)cythIsMusicValid); \
-  jit_set_function((_ctx), "raylib.unloadMusicStream", (uintptr_t)cythUnloadMusicStream); \
-  jit_set_function((_ctx), "raylib.playMusicStream", (uintptr_t)cythPlayMusicStream); \
-  jit_set_function((_ctx), "raylib.isMusicStreamPlaying", (uintptr_t)cythIsMusicStreamPlaying); \
-  jit_set_function((_ctx), "raylib.updateMusicStream", (uintptr_t)cythUpdateMusicStream); \
-  jit_set_function((_ctx), "raylib.stopMusicStream", (uintptr_t)cythStopMusicStream); \
-  jit_set_function((_ctx), "raylib.pauseMusicStream", (uintptr_t)cythPauseMusicStream); \
-  jit_set_function((_ctx), "raylib.resumeMusicStream", (uintptr_t)cythResumeMusicStream); \
-  jit_set_function((_ctx), "raylib.seekMusicStream", (uintptr_t)cythSeekMusicStream); \
-  jit_set_function((_ctx), "raylib.setMusicVolume", (uintptr_t)cythSetMusicVolume); \
-  jit_set_function((_ctx), "raylib.setMusicPitch", (uintptr_t)cythSetMusicPitch); \
-  jit_set_function((_ctx), "raylib.setMusicPan", (uintptr_t)cythSetMusicPan); \
-  jit_set_function((_ctx), "raylib.getMusicTimeLength", (uintptr_t)cythGetMusicTimeLength); \
-  jit_set_function((_ctx), "raylib.getMusicTimePlayed", (uintptr_t)cythGetMusicTimePlayed); \
-  jit_set_function((_ctx), "raylib.loadAudioStream", (uintptr_t)cythLoadAudioStream); \
-  jit_set_function((_ctx), "raylib.isAudioStreamValid", (uintptr_t)cythIsAudioStreamValid); \
-  jit_set_function((_ctx), "raylib.unloadAudioStream", (uintptr_t)cythUnloadAudioStream); \
-  jit_set_function((_ctx), "raylib.updateAudioStream", (uintptr_t)cythUpdateAudioStream); \
-  jit_set_function((_ctx), "raylib.isAudioStreamProcessed", (uintptr_t)cythIsAudioStreamProcessed); \
-  jit_set_function((_ctx), "raylib.playAudioStream", (uintptr_t)cythPlayAudioStream); \
-  jit_set_function((_ctx), "raylib.pauseAudioStream", (uintptr_t)cythPauseAudioStream); \
-  jit_set_function((_ctx), "raylib.resumeAudioStream", (uintptr_t)cythResumeAudioStream); \
-  jit_set_function((_ctx), "raylib.isAudioStreamPlaying", (uintptr_t)cythIsAudioStreamPlaying); \
-  jit_set_function((_ctx), "raylib.stopAudioStream", (uintptr_t)cythStopAudioStream); \
-  jit_set_function((_ctx), "raylib.setAudioStreamVolume", (uintptr_t)cythSetAudioStreamVolume); \
-  jit_set_function((_ctx), "raylib.setAudioStreamPitch", (uintptr_t)cythSetAudioStreamPitch); \
-  jit_set_function((_ctx), "raylib.setAudioStreamPan", (uintptr_t)cythSetAudioStreamPan); \
-  jit_set_function((_ctx), "raylib.setAudioStreamBufferSizeDefault", (uintptr_t)cythSetAudioStreamBufferSizeDefault); \
-  jit_set_function((_ctx), "raylib.setAudioStreamCallback", (uintptr_t)cythSetAudioStreamCallback); \
-  jit_set_function((_ctx), "raylib.attachAudioStreamProcessor", (uintptr_t)cythAttachAudioStreamProcessor); \
-  jit_set_function((_ctx), "raylib.detachAudioStreamProcessor", (uintptr_t)cythDetachAudioStreamProcessor); \
-  jit_set_function((_ctx), "raylib.attachAudioMixedProcessor", (uintptr_t)cythAttachAudioMixedProcessor); \
-  jit_set_function((_ctx), "raylib.detachAudioMixedProcessor", (uintptr_t)cythDetachAudioMixedProcessor); \
+  jit_set_function((_ctx), "raylib.initWindow.void(int, int, string)", (uintptr_t)cythInitWindow); \
+  jit_set_function((_ctx), "raylib.closeWindow.void()", (uintptr_t)cythCloseWindow); \
+  jit_set_function((_ctx), "raylib.windowShouldClose.bool()", (uintptr_t)cythWindowShouldClose); \
+  jit_set_function((_ctx), "raylib.isWindowReady.bool()", (uintptr_t)cythIsWindowReady); \
+  jit_set_function((_ctx), "raylib.isWindowFullscreen.bool()", (uintptr_t)cythIsWindowFullscreen); \
+  jit_set_function((_ctx), "raylib.isWindowHidden.bool()", (uintptr_t)cythIsWindowHidden); \
+  jit_set_function((_ctx), "raylib.isWindowMinimized.bool()", (uintptr_t)cythIsWindowMinimized); \
+  jit_set_function((_ctx), "raylib.isWindowMaximized.bool()", (uintptr_t)cythIsWindowMaximized); \
+  jit_set_function((_ctx), "raylib.isWindowFocused.bool()", (uintptr_t)cythIsWindowFocused); \
+  jit_set_function((_ctx), "raylib.isWindowResized.bool()", (uintptr_t)cythIsWindowResized); \
+  jit_set_function((_ctx), "raylib.isWindowState.bool(int)", (uintptr_t)cythIsWindowState); \
+  jit_set_function((_ctx), "raylib.setWindowState.void(int)", (uintptr_t)cythSetWindowState); \
+  jit_set_function((_ctx), "raylib.clearWindowState.void(int)", (uintptr_t)cythClearWindowState); \
+  jit_set_function((_ctx), "raylib.toggleFullscreen.void()", (uintptr_t)cythToggleFullscreen); \
+  jit_set_function((_ctx), "raylib.toggleBorderlessWindowed.void()", (uintptr_t)cythToggleBorderlessWindowed); \
+  jit_set_function((_ctx), "raylib.maximizeWindow.void()", (uintptr_t)cythMaximizeWindow); \
+  jit_set_function((_ctx), "raylib.minimizeWindow.void()", (uintptr_t)cythMinimizeWindow); \
+  jit_set_function((_ctx), "raylib.restoreWindow.void()", (uintptr_t)cythRestoreWindow); \
+  jit_set_function((_ctx), "raylib.setWindowIcon.void(Image)", (uintptr_t)cythSetWindowIcon); \
+  jit_set_function((_ctx), "raylib.setWindowIcons.void(Image, int)", (uintptr_t)cythSetWindowIcons); \
+  jit_set_function((_ctx), "raylib.setWindowTitle.void(string)", (uintptr_t)cythSetWindowTitle); \
+  jit_set_function((_ctx), "raylib.setWindowPosition.void(int, int)", (uintptr_t)cythSetWindowPosition); \
+  jit_set_function((_ctx), "raylib.setWindowMonitor.void(int)", (uintptr_t)cythSetWindowMonitor); \
+  jit_set_function((_ctx), "raylib.setWindowMinSize.void(int, int)", (uintptr_t)cythSetWindowMinSize); \
+  jit_set_function((_ctx), "raylib.setWindowMaxSize.void(int, int)", (uintptr_t)cythSetWindowMaxSize); \
+  jit_set_function((_ctx), "raylib.setWindowSize.void(int, int)", (uintptr_t)cythSetWindowSize); \
+  jit_set_function((_ctx), "raylib.setWindowOpacity.void(float)", (uintptr_t)cythSetWindowOpacity); \
+  jit_set_function((_ctx), "raylib.setWindowFocused.void()", (uintptr_t)cythSetWindowFocused); \
+  jit_set_function((_ctx), "raylib.getWindowHandle.any()", (uintptr_t)cythGetWindowHandle); \
+  jit_set_function((_ctx), "raylib.getScreenWidth.int()", (uintptr_t)cythGetScreenWidth); \
+  jit_set_function((_ctx), "raylib.getScreenHeight.int()", (uintptr_t)cythGetScreenHeight); \
+  jit_set_function((_ctx), "raylib.getRenderWidth.int()", (uintptr_t)cythGetRenderWidth); \
+  jit_set_function((_ctx), "raylib.getRenderHeight.int()", (uintptr_t)cythGetRenderHeight); \
+  jit_set_function((_ctx), "raylib.getMonitorCount.int()", (uintptr_t)cythGetMonitorCount); \
+  jit_set_function((_ctx), "raylib.getCurrentMonitor.int()", (uintptr_t)cythGetCurrentMonitor); \
+  jit_set_function((_ctx), "raylib.getMonitorPosition.Vector2(int)", (uintptr_t)cythGetMonitorPosition); \
+  jit_set_function((_ctx), "raylib.getMonitorWidth.int(int)", (uintptr_t)cythGetMonitorWidth); \
+  jit_set_function((_ctx), "raylib.getMonitorHeight.int(int)", (uintptr_t)cythGetMonitorHeight); \
+  jit_set_function((_ctx), "raylib.getMonitorPhysicalWidth.int(int)", (uintptr_t)cythGetMonitorPhysicalWidth); \
+  jit_set_function((_ctx), "raylib.getMonitorPhysicalHeight.int(int)", (uintptr_t)cythGetMonitorPhysicalHeight); \
+  jit_set_function((_ctx), "raylib.getMonitorRefreshRate.int(int)", (uintptr_t)cythGetMonitorRefreshRate); \
+  jit_set_function((_ctx), "raylib.getWindowPosition.Vector2()", (uintptr_t)cythGetWindowPosition); \
+  jit_set_function((_ctx), "raylib.getWindowScaleDPI.Vector2()", (uintptr_t)cythGetWindowScaleDPI); \
+  jit_set_function((_ctx), "raylib.getMonitorName.string(int)", (uintptr_t)cythGetMonitorName); \
+  jit_set_function((_ctx), "raylib.setClipboardText.void(string)", (uintptr_t)cythSetClipboardText); \
+  jit_set_function((_ctx), "raylib.getClipboardText.string()", (uintptr_t)cythGetClipboardText); \
+  jit_set_function((_ctx), "raylib.getClipboardImage.Image()", (uintptr_t)cythGetClipboardImage); \
+  jit_set_function((_ctx), "raylib.enableEventWaiting.void()", (uintptr_t)cythEnableEventWaiting); \
+  jit_set_function((_ctx), "raylib.disableEventWaiting.void()", (uintptr_t)cythDisableEventWaiting); \
+  jit_set_function((_ctx), "raylib.showCursor.void()", (uintptr_t)cythShowCursor); \
+  jit_set_function((_ctx), "raylib.hideCursor.void()", (uintptr_t)cythHideCursor); \
+  jit_set_function((_ctx), "raylib.isCursorHidden.bool()", (uintptr_t)cythIsCursorHidden); \
+  jit_set_function((_ctx), "raylib.enableCursor.void()", (uintptr_t)cythEnableCursor); \
+  jit_set_function((_ctx), "raylib.disableCursor.void()", (uintptr_t)cythDisableCursor); \
+  jit_set_function((_ctx), "raylib.isCursorOnScreen.bool()", (uintptr_t)cythIsCursorOnScreen); \
+  jit_set_function((_ctx), "raylib.clearBackground.void(Color)", (uintptr_t)cythClearBackground); \
+  jit_set_function((_ctx), "raylib.beginDrawing.void()", (uintptr_t)cythBeginDrawing); \
+  jit_set_function((_ctx), "raylib.endDrawing.void()", (uintptr_t)cythEndDrawing); \
+  jit_set_function((_ctx), "raylib.beginMode2D.void(Camera2D)", (uintptr_t)cythBeginMode2D); \
+  jit_set_function((_ctx), "raylib.endMode2D.void()", (uintptr_t)cythEndMode2D); \
+  jit_set_function((_ctx), "raylib.beginMode3D.void(Camera3D)", (uintptr_t)cythBeginMode3D); \
+  jit_set_function((_ctx), "raylib.endMode3D.void()", (uintptr_t)cythEndMode3D); \
+  jit_set_function((_ctx), "raylib.beginTextureMode.void(RenderTexture2D)", (uintptr_t)cythBeginTextureMode); \
+  jit_set_function((_ctx), "raylib.endTextureMode.void()", (uintptr_t)cythEndTextureMode); \
+  jit_set_function((_ctx), "raylib.beginShaderMode.void(Shader)", (uintptr_t)cythBeginShaderMode); \
+  jit_set_function((_ctx), "raylib.endShaderMode.void()", (uintptr_t)cythEndShaderMode); \
+  jit_set_function((_ctx), "raylib.beginBlendMode.void(int)", (uintptr_t)cythBeginBlendMode); \
+  jit_set_function((_ctx), "raylib.endBlendMode.void()", (uintptr_t)cythEndBlendMode); \
+  jit_set_function((_ctx), "raylib.beginScissorMode.void(int, int, int, int)", (uintptr_t)cythBeginScissorMode); \
+  jit_set_function((_ctx), "raylib.endScissorMode.void()", (uintptr_t)cythEndScissorMode); \
+  jit_set_function((_ctx), "raylib.beginVrStereoMode.void(VrStereoConfig)", (uintptr_t)cythBeginVrStereoMode); \
+  jit_set_function((_ctx), "raylib.endVrStereoMode.void()", (uintptr_t)cythEndVrStereoMode); \
+  jit_set_function((_ctx), "raylib.loadVrStereoConfig.VrStereoConfig(VrDeviceInfo)", (uintptr_t)cythLoadVrStereoConfig); \
+  jit_set_function((_ctx), "raylib.unloadVrStereoConfig.void(VrStereoConfig)", (uintptr_t)cythUnloadVrStereoConfig); \
+  jit_set_function((_ctx), "raylib.loadShader.Shader(string, string)", (uintptr_t)cythLoadShader); \
+  jit_set_function((_ctx), "raylib.loadShaderFromMemory.Shader(string, string)", (uintptr_t)cythLoadShaderFromMemory); \
+  jit_set_function((_ctx), "raylib.isShaderValid.bool(Shader)", (uintptr_t)cythIsShaderValid); \
+  jit_set_function((_ctx), "raylib.getShaderLocation.int(Shader, string)", (uintptr_t)cythGetShaderLocation); \
+  jit_set_function((_ctx), "raylib.getShaderLocationAttrib.int(Shader, string)", (uintptr_t)cythGetShaderLocationAttrib); \
+  jit_set_function((_ctx), "raylib.setShaderValue.void(Shader, int, any, int)", (uintptr_t)cythSetShaderValue); \
+  jit_set_function((_ctx), "raylib.setShaderValueV.void(Shader, int, any, int, int)", (uintptr_t)cythSetShaderValueV); \
+  jit_set_function((_ctx), "raylib.setShaderValueMatrix.void(Shader, int, Matrix)", (uintptr_t)cythSetShaderValueMatrix); \
+  jit_set_function((_ctx), "raylib.setShaderValueTexture.void(Shader, int, Texture2D)", (uintptr_t)cythSetShaderValueTexture); \
+  jit_set_function((_ctx), "raylib.unloadShader.void(Shader)", (uintptr_t)cythUnloadShader); \
+  jit_set_function((_ctx), "raylib.getScreenToWorldRay.Ray(Vector2, Camera)", (uintptr_t)cythGetScreenToWorldRay); \
+  jit_set_function((_ctx), "raylib.getScreenToWorldRayEx.Ray(Vector2, Camera, int, int)", (uintptr_t)cythGetScreenToWorldRayEx); \
+  jit_set_function((_ctx), "raylib.getWorldToScreen.Vector2(Vector3, Camera)", (uintptr_t)cythGetWorldToScreen); \
+  jit_set_function((_ctx), "raylib.getWorldToScreenEx.Vector2(Vector3, Camera, int, int)", (uintptr_t)cythGetWorldToScreenEx); \
+  jit_set_function((_ctx), "raylib.getWorldToScreen2D.Vector2(Vector2, Camera2D)", (uintptr_t)cythGetWorldToScreen2D); \
+  jit_set_function((_ctx), "raylib.getScreenToWorld2D.Vector2(Vector2, Camera2D)", (uintptr_t)cythGetScreenToWorld2D); \
+  jit_set_function((_ctx), "raylib.getCameraMatrix.Matrix(Camera)", (uintptr_t)cythGetCameraMatrix); \
+  jit_set_function((_ctx), "raylib.getCameraMatrix2D.Matrix(Camera2D)", (uintptr_t)cythGetCameraMatrix2D); \
+  jit_set_function((_ctx), "raylib.setTargetFPS.void(int)", (uintptr_t)cythSetTargetFPS); \
+  jit_set_function((_ctx), "raylib.getFrameTime.float()", (uintptr_t)cythGetFrameTime); \
+  jit_set_function((_ctx), "raylib.getTime.float()", (uintptr_t)cythGetTime); \
+  jit_set_function((_ctx), "raylib.getFPS.int()", (uintptr_t)cythGetFPS); \
+  jit_set_function((_ctx), "raylib.swapScreenBuffer.void()", (uintptr_t)cythSwapScreenBuffer); \
+  jit_set_function((_ctx), "raylib.pollInputEvents.void()", (uintptr_t)cythPollInputEvents); \
+  jit_set_function((_ctx), "raylib.waitTime.void(float)", (uintptr_t)cythWaitTime); \
+  jit_set_function((_ctx), "raylib.setRandomSeed.void(int)", (uintptr_t)cythSetRandomSeed); \
+  jit_set_function((_ctx), "raylib.getRandomValue.int(int, int)", (uintptr_t)cythGetRandomValue); \
+  jit_set_function((_ctx), "raylib.loadRandomSequence.any(int, int, int)", (uintptr_t)cythLoadRandomSequence); \
+  jit_set_function((_ctx), "raylib.unloadRandomSequence.void(any)", (uintptr_t)cythUnloadRandomSequence); \
+  jit_set_function((_ctx), "raylib.takeScreenshot.void(string)", (uintptr_t)cythTakeScreenshot); \
+  jit_set_function((_ctx), "raylib.setConfigFlags.void(int)", (uintptr_t)cythSetConfigFlags); \
+  jit_set_function((_ctx), "raylib.openURL.void(string)", (uintptr_t)cythOpenURL); \
+  jit_set_function((_ctx), "raylib.setTraceLogLevel.void(int)", (uintptr_t)cythSetTraceLogLevel); \
+  jit_set_function((_ctx), "raylib.memAlloc.any(int)", (uintptr_t)cythMemAlloc); \
+  jit_set_function((_ctx), "raylib.memRealloc.any(any, int)", (uintptr_t)cythMemRealloc); \
+  jit_set_function((_ctx), "raylib.memFree.void(any)", (uintptr_t)cythMemFree); \
+  jit_set_function((_ctx), "raylib.setTraceLogCallback.void(TraceLogCallback)", (uintptr_t)cythSetTraceLogCallback); \
+  jit_set_function((_ctx), "raylib.setLoadFileDataCallback.void(LoadFileDataCallback)", (uintptr_t)cythSetLoadFileDataCallback); \
+  jit_set_function((_ctx), "raylib.setSaveFileDataCallback.void(SaveFileDataCallback)", (uintptr_t)cythSetSaveFileDataCallback); \
+  jit_set_function((_ctx), "raylib.setLoadFileTextCallback.void(LoadFileTextCallback)", (uintptr_t)cythSetLoadFileTextCallback); \
+  jit_set_function((_ctx), "raylib.setSaveFileTextCallback.void(SaveFileTextCallback)", (uintptr_t)cythSetSaveFileTextCallback); \
+  jit_set_function((_ctx), "raylib.loadFileData.any(string, any)", (uintptr_t)cythLoadFileData); \
+  jit_set_function((_ctx), "raylib.unloadFileData.void(any)", (uintptr_t)cythUnloadFileData); \
+  jit_set_function((_ctx), "raylib.saveFileData.bool(string, any, int)", (uintptr_t)cythSaveFileData); \
+  jit_set_function((_ctx), "raylib.exportDataAsCode.bool(any, int, string)", (uintptr_t)cythExportDataAsCode); \
+  jit_set_function((_ctx), "raylib.loadFileText.char[](string)", (uintptr_t)cythLoadFileText); \
+  jit_set_function((_ctx), "raylib.unloadFileText.void(char[])", (uintptr_t)cythUnloadFileText); \
+  jit_set_function((_ctx), "raylib.saveFileText.bool(string, char[])", (uintptr_t)cythSaveFileText); \
+  jit_set_function((_ctx), "raylib.fileExists.bool(string)", (uintptr_t)cythFileExists); \
+  jit_set_function((_ctx), "raylib.directoryExists.bool(string)", (uintptr_t)cythDirectoryExists); \
+  jit_set_function((_ctx), "raylib.isFileExtension.bool(string, string)", (uintptr_t)cythIsFileExtension); \
+  jit_set_function((_ctx), "raylib.getFileLength.int(string)", (uintptr_t)cythGetFileLength); \
+  jit_set_function((_ctx), "raylib.getFileExtension.string(string)", (uintptr_t)cythGetFileExtension); \
+  jit_set_function((_ctx), "raylib.getFileName.string(string)", (uintptr_t)cythGetFileName); \
+  jit_set_function((_ctx), "raylib.getFileNameWithoutExt.string(string)", (uintptr_t)cythGetFileNameWithoutExt); \
+  jit_set_function((_ctx), "raylib.getDirectoryPath.string(string)", (uintptr_t)cythGetDirectoryPath); \
+  jit_set_function((_ctx), "raylib.getPrevDirectoryPath.string(string)", (uintptr_t)cythGetPrevDirectoryPath); \
+  jit_set_function((_ctx), "raylib.getWorkingDirectory.string()", (uintptr_t)cythGetWorkingDirectory); \
+  jit_set_function((_ctx), "raylib.getApplicationDirectory.string()", (uintptr_t)cythGetApplicationDirectory); \
+  jit_set_function((_ctx), "raylib.makeDirectory.int(string)", (uintptr_t)cythMakeDirectory); \
+  jit_set_function((_ctx), "raylib.changeDirectory.bool(string)", (uintptr_t)cythChangeDirectory); \
+  jit_set_function((_ctx), "raylib.isPathFile.bool(string)", (uintptr_t)cythIsPathFile); \
+  jit_set_function((_ctx), "raylib.isFileNameValid.bool(string)", (uintptr_t)cythIsFileNameValid); \
+  jit_set_function((_ctx), "raylib.loadDirectoryFiles.FilePathList(string)", (uintptr_t)cythLoadDirectoryFiles); \
+  jit_set_function((_ctx), "raylib.loadDirectoryFilesEx.FilePathList(string, string, bool)", (uintptr_t)cythLoadDirectoryFilesEx); \
+  jit_set_function((_ctx), "raylib.unloadDirectoryFiles.void(FilePathList)", (uintptr_t)cythUnloadDirectoryFiles); \
+  jit_set_function((_ctx), "raylib.isFileDropped.bool()", (uintptr_t)cythIsFileDropped); \
+  jit_set_function((_ctx), "raylib.loadDroppedFiles.FilePathList()", (uintptr_t)cythLoadDroppedFiles); \
+  jit_set_function((_ctx), "raylib.unloadDroppedFiles.void(FilePathList)", (uintptr_t)cythUnloadDroppedFiles); \
+  jit_set_function((_ctx), "raylib.getFileModTime.int(string)", (uintptr_t)cythGetFileModTime); \
+  jit_set_function((_ctx), "raylib.compressData.any(any, int, any)", (uintptr_t)cythCompressData); \
+  jit_set_function((_ctx), "raylib.decompressData.any(any, int, any)", (uintptr_t)cythDecompressData); \
+  jit_set_function((_ctx), "raylib.encodeDataBase64.char[](any, int, any)", (uintptr_t)cythEncodeDataBase64); \
+  jit_set_function((_ctx), "raylib.decodeDataBase64.any(any, any)", (uintptr_t)cythDecodeDataBase64); \
+  jit_set_function((_ctx), "raylib.computeCRC32.int(any, int)", (uintptr_t)cythComputeCRC32); \
+  jit_set_function((_ctx), "raylib.computeMD5.any(any, int)", (uintptr_t)cythComputeMD5); \
+  jit_set_function((_ctx), "raylib.computeSHA1.any(any, int)", (uintptr_t)cythComputeSHA1); \
+  jit_set_function((_ctx), "raylib.loadAutomationEventList.AutomationEventList(string)", (uintptr_t)cythLoadAutomationEventList); \
+  jit_set_function((_ctx), "raylib.unloadAutomationEventList.void(AutomationEventList)", (uintptr_t)cythUnloadAutomationEventList); \
+  jit_set_function((_ctx), "raylib.exportAutomationEventList.bool(AutomationEventList, string)", (uintptr_t)cythExportAutomationEventList); \
+  jit_set_function((_ctx), "raylib.setAutomationEventList.void(any)", (uintptr_t)cythSetAutomationEventList); \
+  jit_set_function((_ctx), "raylib.setAutomationEventBaseFrame.void(int)", (uintptr_t)cythSetAutomationEventBaseFrame); \
+  jit_set_function((_ctx), "raylib.startAutomationEventRecording.void()", (uintptr_t)cythStartAutomationEventRecording); \
+  jit_set_function((_ctx), "raylib.stopAutomationEventRecording.void()", (uintptr_t)cythStopAutomationEventRecording); \
+  jit_set_function((_ctx), "raylib.playAutomationEvent.void(AutomationEvent)", (uintptr_t)cythPlayAutomationEvent); \
+  jit_set_function((_ctx), "raylib.isKeyPressed.bool(int)", (uintptr_t)cythIsKeyPressed); \
+  jit_set_function((_ctx), "raylib.isKeyPressedRepeat.bool(int)", (uintptr_t)cythIsKeyPressedRepeat); \
+  jit_set_function((_ctx), "raylib.isKeyDown.bool(int)", (uintptr_t)cythIsKeyDown); \
+  jit_set_function((_ctx), "raylib.isKeyReleased.bool(int)", (uintptr_t)cythIsKeyReleased); \
+  jit_set_function((_ctx), "raylib.isKeyUp.bool(int)", (uintptr_t)cythIsKeyUp); \
+  jit_set_function((_ctx), "raylib.getKeyPressed.int()", (uintptr_t)cythGetKeyPressed); \
+  jit_set_function((_ctx), "raylib.getCharPressed.int()", (uintptr_t)cythGetCharPressed); \
+  jit_set_function((_ctx), "raylib.setExitKey.void(int)", (uintptr_t)cythSetExitKey); \
+  jit_set_function((_ctx), "raylib.isGamepadAvailable.bool(int)", (uintptr_t)cythIsGamepadAvailable); \
+  jit_set_function((_ctx), "raylib.getGamepadName.string(int)", (uintptr_t)cythGetGamepadName); \
+  jit_set_function((_ctx), "raylib.isGamepadButtonPressed.bool(int, int)", (uintptr_t)cythIsGamepadButtonPressed); \
+  jit_set_function((_ctx), "raylib.isGamepadButtonDown.bool(int, int)", (uintptr_t)cythIsGamepadButtonDown); \
+  jit_set_function((_ctx), "raylib.isGamepadButtonReleased.bool(int, int)", (uintptr_t)cythIsGamepadButtonReleased); \
+  jit_set_function((_ctx), "raylib.isGamepadButtonUp.bool(int, int)", (uintptr_t)cythIsGamepadButtonUp); \
+  jit_set_function((_ctx), "raylib.getGamepadButtonPressed.int()", (uintptr_t)cythGetGamepadButtonPressed); \
+  jit_set_function((_ctx), "raylib.getGamepadAxisCount.int(int)", (uintptr_t)cythGetGamepadAxisCount); \
+  jit_set_function((_ctx), "raylib.getGamepadAxisMovement.float(int, int)", (uintptr_t)cythGetGamepadAxisMovement); \
+  jit_set_function((_ctx), "raylib.setGamepadMappings.int(string)", (uintptr_t)cythSetGamepadMappings); \
+  jit_set_function((_ctx), "raylib.setGamepadVibration.void(int, float, float, float)", (uintptr_t)cythSetGamepadVibration); \
+  jit_set_function((_ctx), "raylib.isMouseButtonPressed.bool(int)", (uintptr_t)cythIsMouseButtonPressed); \
+  jit_set_function((_ctx), "raylib.isMouseButtonDown.bool(int)", (uintptr_t)cythIsMouseButtonDown); \
+  jit_set_function((_ctx), "raylib.isMouseButtonReleased.bool(int)", (uintptr_t)cythIsMouseButtonReleased); \
+  jit_set_function((_ctx), "raylib.isMouseButtonUp.bool(int)", (uintptr_t)cythIsMouseButtonUp); \
+  jit_set_function((_ctx), "raylib.getMouseX.int()", (uintptr_t)cythGetMouseX); \
+  jit_set_function((_ctx), "raylib.getMouseY.int()", (uintptr_t)cythGetMouseY); \
+  jit_set_function((_ctx), "raylib.getMousePosition.Vector2()", (uintptr_t)cythGetMousePosition); \
+  jit_set_function((_ctx), "raylib.getMouseDelta.Vector2()", (uintptr_t)cythGetMouseDelta); \
+  jit_set_function((_ctx), "raylib.setMousePosition.void(int, int)", (uintptr_t)cythSetMousePosition); \
+  jit_set_function((_ctx), "raylib.setMouseOffset.void(int, int)", (uintptr_t)cythSetMouseOffset); \
+  jit_set_function((_ctx), "raylib.setMouseScale.void(float, float)", (uintptr_t)cythSetMouseScale); \
+  jit_set_function((_ctx), "raylib.getMouseWheelMove.float()", (uintptr_t)cythGetMouseWheelMove); \
+  jit_set_function((_ctx), "raylib.getMouseWheelMoveV.Vector2()", (uintptr_t)cythGetMouseWheelMoveV); \
+  jit_set_function((_ctx), "raylib.setMouseCursor.void(int)", (uintptr_t)cythSetMouseCursor); \
+  jit_set_function((_ctx), "raylib.getTouchX.int()", (uintptr_t)cythGetTouchX); \
+  jit_set_function((_ctx), "raylib.getTouchY.int()", (uintptr_t)cythGetTouchY); \
+  jit_set_function((_ctx), "raylib.getTouchPosition.Vector2(int)", (uintptr_t)cythGetTouchPosition); \
+  jit_set_function((_ctx), "raylib.getTouchPointId.int(int)", (uintptr_t)cythGetTouchPointId); \
+  jit_set_function((_ctx), "raylib.getTouchPointCount.int()", (uintptr_t)cythGetTouchPointCount); \
+  jit_set_function((_ctx), "raylib.setGesturesEnabled.void(int)", (uintptr_t)cythSetGesturesEnabled); \
+  jit_set_function((_ctx), "raylib.isGestureDetected.bool(int)", (uintptr_t)cythIsGestureDetected); \
+  jit_set_function((_ctx), "raylib.getGestureDetected.int()", (uintptr_t)cythGetGestureDetected); \
+  jit_set_function((_ctx), "raylib.getGestureHoldDuration.float()", (uintptr_t)cythGetGestureHoldDuration); \
+  jit_set_function((_ctx), "raylib.getGestureDragVector.Vector2()", (uintptr_t)cythGetGestureDragVector); \
+  jit_set_function((_ctx), "raylib.getGestureDragAngle.float()", (uintptr_t)cythGetGestureDragAngle); \
+  jit_set_function((_ctx), "raylib.getGesturePinchVector.Vector2()", (uintptr_t)cythGetGesturePinchVector); \
+  jit_set_function((_ctx), "raylib.getGesturePinchAngle.float()", (uintptr_t)cythGetGesturePinchAngle); \
+  jit_set_function((_ctx), "raylib.updateCamera.void(any, int)", (uintptr_t)cythUpdateCamera); \
+  jit_set_function((_ctx), "raylib.updateCameraPro.void(any, Vector3, Vector3, float)", (uintptr_t)cythUpdateCameraPro); \
+  jit_set_function((_ctx), "raylib.setShapesTexture.void(Texture2D, Rectangle)", (uintptr_t)cythSetShapesTexture); \
+  jit_set_function((_ctx), "raylib.getShapesTexture.Texture2D()", (uintptr_t)cythGetShapesTexture); \
+  jit_set_function((_ctx), "raylib.getShapesTextureRectangle.Rectangle()", (uintptr_t)cythGetShapesTextureRectangle); \
+  jit_set_function((_ctx), "raylib.drawPixel.void(int, int, Color)", (uintptr_t)cythDrawPixel); \
+  jit_set_function((_ctx), "raylib.drawPixelV.void(Vector2, Color)", (uintptr_t)cythDrawPixelV); \
+  jit_set_function((_ctx), "raylib.drawLine.void(int, int, int, int, Color)", (uintptr_t)cythDrawLine); \
+  jit_set_function((_ctx), "raylib.drawLineV.void(Vector2, Vector2, Color)", (uintptr_t)cythDrawLineV); \
+  jit_set_function((_ctx), "raylib.drawLineEx.void(Vector2, Vector2, float, Color)", (uintptr_t)cythDrawLineEx); \
+  jit_set_function((_ctx), "raylib.drawLineStrip.void(any, int, Color)", (uintptr_t)cythDrawLineStrip); \
+  jit_set_function((_ctx), "raylib.drawLineBezier.void(Vector2, Vector2, float, Color)", (uintptr_t)cythDrawLineBezier); \
+  jit_set_function((_ctx), "raylib.drawCircle.void(int, int, float, Color)", (uintptr_t)cythDrawCircle); \
+  jit_set_function((_ctx), "raylib.drawCircleSector.void(Vector2, float, float, float, int, Color)", (uintptr_t)cythDrawCircleSector); \
+  jit_set_function((_ctx), "raylib.drawCircleSectorLines.void(Vector2, float, float, float, int, Color)", (uintptr_t)cythDrawCircleSectorLines); \
+  jit_set_function((_ctx), "raylib.drawCircleGradient.void(int, int, float, Color, Color)", (uintptr_t)cythDrawCircleGradient); \
+  jit_set_function((_ctx), "raylib.drawCircleV.void(Vector2, float, Color)", (uintptr_t)cythDrawCircleV); \
+  jit_set_function((_ctx), "raylib.drawCircleLines.void(int, int, float, Color)", (uintptr_t)cythDrawCircleLines); \
+  jit_set_function((_ctx), "raylib.drawCircleLinesV.void(Vector2, float, Color)", (uintptr_t)cythDrawCircleLinesV); \
+  jit_set_function((_ctx), "raylib.drawEllipse.void(int, int, float, float, Color)", (uintptr_t)cythDrawEllipse); \
+  jit_set_function((_ctx), "raylib.drawEllipseLines.void(int, int, float, float, Color)", (uintptr_t)cythDrawEllipseLines); \
+  jit_set_function((_ctx), "raylib.drawRing.void(Vector2, float, float, float, float, int, Color)", (uintptr_t)cythDrawRing); \
+  jit_set_function((_ctx), "raylib.drawRingLines.void(Vector2, float, float, float, float, int, Color)", (uintptr_t)cythDrawRingLines); \
+  jit_set_function((_ctx), "raylib.drawRectangle.void(int, int, int, int, Color)", (uintptr_t)cythDrawRectangle); \
+  jit_set_function((_ctx), "raylib.drawRectangleV.void(Vector2, Vector2, Color)", (uintptr_t)cythDrawRectangleV); \
+  jit_set_function((_ctx), "raylib.drawRectangleRec.void(Rectangle, Color)", (uintptr_t)cythDrawRectangleRec); \
+  jit_set_function((_ctx), "raylib.drawRectanglePro.void(Rectangle, Vector2, float, Color)", (uintptr_t)cythDrawRectanglePro); \
+  jit_set_function((_ctx), "raylib.drawRectangleGradientV.void(int, int, int, int, Color, Color)", (uintptr_t)cythDrawRectangleGradientV); \
+  jit_set_function((_ctx), "raylib.drawRectangleGradientH.void(int, int, int, int, Color, Color)", (uintptr_t)cythDrawRectangleGradientH); \
+  jit_set_function((_ctx), "raylib.drawRectangleGradientEx.void(Rectangle, Color, Color, Color, Color)", (uintptr_t)cythDrawRectangleGradientEx); \
+  jit_set_function((_ctx), "raylib.drawRectangleLines.void(int, int, int, int, Color)", (uintptr_t)cythDrawRectangleLines); \
+  jit_set_function((_ctx), "raylib.drawRectangleLinesEx.void(Rectangle, float, Color)", (uintptr_t)cythDrawRectangleLinesEx); \
+  jit_set_function((_ctx), "raylib.drawRectangleRounded.void(Rectangle, float, int, Color)", (uintptr_t)cythDrawRectangleRounded); \
+  jit_set_function((_ctx), "raylib.drawRectangleRoundedLines.void(Rectangle, float, int, Color)", (uintptr_t)cythDrawRectangleRoundedLines); \
+  jit_set_function((_ctx), "raylib.drawRectangleRoundedLinesEx.void(Rectangle, float, int, float, Color)", (uintptr_t)cythDrawRectangleRoundedLinesEx); \
+  jit_set_function((_ctx), "raylib.drawTriangle.void(Vector2, Vector2, Vector2, Color)", (uintptr_t)cythDrawTriangle); \
+  jit_set_function((_ctx), "raylib.drawTriangleLines.void(Vector2, Vector2, Vector2, Color)", (uintptr_t)cythDrawTriangleLines); \
+  jit_set_function((_ctx), "raylib.drawTriangleFan.void(any, int, Color)", (uintptr_t)cythDrawTriangleFan); \
+  jit_set_function((_ctx), "raylib.drawTriangleStrip.void(any, int, Color)", (uintptr_t)cythDrawTriangleStrip); \
+  jit_set_function((_ctx), "raylib.drawPoly.void(Vector2, int, float, float, Color)", (uintptr_t)cythDrawPoly); \
+  jit_set_function((_ctx), "raylib.drawPolyLines.void(Vector2, int, float, float, Color)", (uintptr_t)cythDrawPolyLines); \
+  jit_set_function((_ctx), "raylib.drawPolyLinesEx.void(Vector2, int, float, float, float, Color)", (uintptr_t)cythDrawPolyLinesEx); \
+  jit_set_function((_ctx), "raylib.drawSplineLinear.void(any, int, float, Color)", (uintptr_t)cythDrawSplineLinear); \
+  jit_set_function((_ctx), "raylib.drawSplineBasis.void(any, int, float, Color)", (uintptr_t)cythDrawSplineBasis); \
+  jit_set_function((_ctx), "raylib.drawSplineCatmullRom.void(any, int, float, Color)", (uintptr_t)cythDrawSplineCatmullRom); \
+  jit_set_function((_ctx), "raylib.drawSplineBezierQuadratic.void(any, int, float, Color)", (uintptr_t)cythDrawSplineBezierQuadratic); \
+  jit_set_function((_ctx), "raylib.drawSplineBezierCubic.void(any, int, float, Color)", (uintptr_t)cythDrawSplineBezierCubic); \
+  jit_set_function((_ctx), "raylib.drawSplineSegmentLinear.void(Vector2, Vector2, float, Color)", (uintptr_t)cythDrawSplineSegmentLinear); \
+  jit_set_function((_ctx), "raylib.drawSplineSegmentBasis.void(Vector2, Vector2, Vector2, Vector2, float, Color)", (uintptr_t)cythDrawSplineSegmentBasis); \
+  jit_set_function((_ctx), "raylib.drawSplineSegmentCatmullRom.void(Vector2, Vector2, Vector2, Vector2, float, Color)", (uintptr_t)cythDrawSplineSegmentCatmullRom); \
+  jit_set_function((_ctx), "raylib.drawSplineSegmentBezierQuadratic.void(Vector2, Vector2, Vector2, float, Color)", (uintptr_t)cythDrawSplineSegmentBezierQuadratic); \
+  jit_set_function((_ctx), "raylib.drawSplineSegmentBezierCubic.void(Vector2, Vector2, Vector2, Vector2, float, Color)", (uintptr_t)cythDrawSplineSegmentBezierCubic); \
+  jit_set_function((_ctx), "raylib.getSplinePointLinear.Vector2(Vector2, Vector2, float)", (uintptr_t)cythGetSplinePointLinear); \
+  jit_set_function((_ctx), "raylib.getSplinePointBasis.Vector2(Vector2, Vector2, Vector2, Vector2, float)", (uintptr_t)cythGetSplinePointBasis); \
+  jit_set_function((_ctx), "raylib.getSplinePointCatmullRom.Vector2(Vector2, Vector2, Vector2, Vector2, float)", (uintptr_t)cythGetSplinePointCatmullRom); \
+  jit_set_function((_ctx), "raylib.getSplinePointBezierQuad.Vector2(Vector2, Vector2, Vector2, float)", (uintptr_t)cythGetSplinePointBezierQuad); \
+  jit_set_function((_ctx), "raylib.getSplinePointBezierCubic.Vector2(Vector2, Vector2, Vector2, Vector2, float)", (uintptr_t)cythGetSplinePointBezierCubic); \
+  jit_set_function((_ctx), "raylib.checkCollisionRecs.bool(Rectangle, Rectangle)", (uintptr_t)cythCheckCollisionRecs); \
+  jit_set_function((_ctx), "raylib.checkCollisionCircles.bool(Vector2, float, Vector2, float)", (uintptr_t)cythCheckCollisionCircles); \
+  jit_set_function((_ctx), "raylib.checkCollisionCircleRec.bool(Vector2, float, Rectangle)", (uintptr_t)cythCheckCollisionCircleRec); \
+  jit_set_function((_ctx), "raylib.checkCollisionCircleLine.bool(Vector2, float, Vector2, Vector2)", (uintptr_t)cythCheckCollisionCircleLine); \
+  jit_set_function((_ctx), "raylib.checkCollisionPointRec.bool(Vector2, Rectangle)", (uintptr_t)cythCheckCollisionPointRec); \
+  jit_set_function((_ctx), "raylib.checkCollisionPointCircle.bool(Vector2, Vector2, float)", (uintptr_t)cythCheckCollisionPointCircle); \
+  jit_set_function((_ctx), "raylib.checkCollisionPointTriangle.bool(Vector2, Vector2, Vector2, Vector2)", (uintptr_t)cythCheckCollisionPointTriangle); \
+  jit_set_function((_ctx), "raylib.checkCollisionPointLine.bool(Vector2, Vector2, Vector2, int)", (uintptr_t)cythCheckCollisionPointLine); \
+  jit_set_function((_ctx), "raylib.checkCollisionPointPoly.bool(Vector2, any, int)", (uintptr_t)cythCheckCollisionPointPoly); \
+  jit_set_function((_ctx), "raylib.checkCollisionLines.bool(Vector2, Vector2, Vector2, Vector2, any)", (uintptr_t)cythCheckCollisionLines); \
+  jit_set_function((_ctx), "raylib.getCollisionRec.Rectangle(Rectangle, Rectangle)", (uintptr_t)cythGetCollisionRec); \
+  jit_set_function((_ctx), "raylib.loadImage.Image(string)", (uintptr_t)cythLoadImage); \
+  jit_set_function((_ctx), "raylib.loadImageRaw.Image(string, int, int, int, int)", (uintptr_t)cythLoadImageRaw); \
+  jit_set_function((_ctx), "raylib.loadImageAnim.Image(string, any)", (uintptr_t)cythLoadImageAnim); \
+  jit_set_function((_ctx), "raylib.loadImageAnimFromMemory.Image(string, any, int, any)", (uintptr_t)cythLoadImageAnimFromMemory); \
+  jit_set_function((_ctx), "raylib.loadImageFromMemory.Image(string, any, int)", (uintptr_t)cythLoadImageFromMemory); \
+  jit_set_function((_ctx), "raylib.loadImageFromTexture.Image(Texture2D)", (uintptr_t)cythLoadImageFromTexture); \
+  jit_set_function((_ctx), "raylib.loadImageFromScreen.Image()", (uintptr_t)cythLoadImageFromScreen); \
+  jit_set_function((_ctx), "raylib.isImageValid.bool(Image)", (uintptr_t)cythIsImageValid); \
+  jit_set_function((_ctx), "raylib.unloadImage.void(Image)", (uintptr_t)cythUnloadImage); \
+  jit_set_function((_ctx), "raylib.exportImage.bool(Image, string)", (uintptr_t)cythExportImage); \
+  jit_set_function((_ctx), "raylib.exportImageToMemory.any(Image, string, any)", (uintptr_t)cythExportImageToMemory); \
+  jit_set_function((_ctx), "raylib.exportImageAsCode.bool(Image, string)", (uintptr_t)cythExportImageAsCode); \
+  jit_set_function((_ctx), "raylib.genImageColor.Image(int, int, Color)", (uintptr_t)cythGenImageColor); \
+  jit_set_function((_ctx), "raylib.genImageGradientLinear.Image(int, int, int, Color, Color)", (uintptr_t)cythGenImageGradientLinear); \
+  jit_set_function((_ctx), "raylib.genImageGradientRadial.Image(int, int, float, Color, Color)", (uintptr_t)cythGenImageGradientRadial); \
+  jit_set_function((_ctx), "raylib.genImageGradientSquare.Image(int, int, float, Color, Color)", (uintptr_t)cythGenImageGradientSquare); \
+  jit_set_function((_ctx), "raylib.genImageChecked.Image(int, int, int, int, Color, Color)", (uintptr_t)cythGenImageChecked); \
+  jit_set_function((_ctx), "raylib.genImageWhiteNoise.Image(int, int, float)", (uintptr_t)cythGenImageWhiteNoise); \
+  jit_set_function((_ctx), "raylib.genImagePerlinNoise.Image(int, int, int, int, float)", (uintptr_t)cythGenImagePerlinNoise); \
+  jit_set_function((_ctx), "raylib.genImageCellular.Image(int, int, int)", (uintptr_t)cythGenImageCellular); \
+  jit_set_function((_ctx), "raylib.genImageText.Image(int, int, string)", (uintptr_t)cythGenImageText); \
+  jit_set_function((_ctx), "raylib.imageCopy.Image(Image)", (uintptr_t)cythImageCopy); \
+  jit_set_function((_ctx), "raylib.imageFromImage.Image(Image, Rectangle)", (uintptr_t)cythImageFromImage); \
+  jit_set_function((_ctx), "raylib.imageFromChannel.Image(Image, int)", (uintptr_t)cythImageFromChannel); \
+  jit_set_function((_ctx), "raylib.imageText.Image(string, int, Color)", (uintptr_t)cythImageText); \
+  jit_set_function((_ctx), "raylib.imageTextEx.Image(Font, string, float, float, Color)", (uintptr_t)cythImageTextEx); \
+  jit_set_function((_ctx), "raylib.imageFormat.void(Image, int)", (uintptr_t)cythImageFormat); \
+  jit_set_function((_ctx), "raylib.imageToPOT.void(Image, Color)", (uintptr_t)cythImageToPOT); \
+  jit_set_function((_ctx), "raylib.imageCrop.void(Image, Rectangle)", (uintptr_t)cythImageCrop); \
+  jit_set_function((_ctx), "raylib.imageAlphaCrop.void(Image, float)", (uintptr_t)cythImageAlphaCrop); \
+  jit_set_function((_ctx), "raylib.imageAlphaClear.void(Image, Color, float)", (uintptr_t)cythImageAlphaClear); \
+  jit_set_function((_ctx), "raylib.imageAlphaMask.void(Image, Image)", (uintptr_t)cythImageAlphaMask); \
+  jit_set_function((_ctx), "raylib.imageAlphaPremultiply.void(Image)", (uintptr_t)cythImageAlphaPremultiply); \
+  jit_set_function((_ctx), "raylib.imageBlurGaussian.void(Image, int)", (uintptr_t)cythImageBlurGaussian); \
+  jit_set_function((_ctx), "raylib.imageKernelConvolution.void(Image, any, int)", (uintptr_t)cythImageKernelConvolution); \
+  jit_set_function((_ctx), "raylib.imageResize.void(Image, int, int)", (uintptr_t)cythImageResize); \
+  jit_set_function((_ctx), "raylib.imageResizeNN.void(Image, int, int)", (uintptr_t)cythImageResizeNN); \
+  jit_set_function((_ctx), "raylib.imageResizeCanvas.void(Image, int, int, int, int, Color)", (uintptr_t)cythImageResizeCanvas); \
+  jit_set_function((_ctx), "raylib.imageMipmaps.void(Image)", (uintptr_t)cythImageMipmaps); \
+  jit_set_function((_ctx), "raylib.imageDither.void(Image, int, int, int, int)", (uintptr_t)cythImageDither); \
+  jit_set_function((_ctx), "raylib.imageFlipVertical.void(Image)", (uintptr_t)cythImageFlipVertical); \
+  jit_set_function((_ctx), "raylib.imageFlipHorizontal.void(Image)", (uintptr_t)cythImageFlipHorizontal); \
+  jit_set_function((_ctx), "raylib.imageRotate.void(Image, int)", (uintptr_t)cythImageRotate); \
+  jit_set_function((_ctx), "raylib.imageRotateCW.void(Image)", (uintptr_t)cythImageRotateCW); \
+  jit_set_function((_ctx), "raylib.imageRotateCCW.void(Image)", (uintptr_t)cythImageRotateCCW); \
+  jit_set_function((_ctx), "raylib.imageColorTint.void(Image, Color)", (uintptr_t)cythImageColorTint); \
+  jit_set_function((_ctx), "raylib.imageColorInvert.void(Image)", (uintptr_t)cythImageColorInvert); \
+  jit_set_function((_ctx), "raylib.imageColorGrayscale.void(Image)", (uintptr_t)cythImageColorGrayscale); \
+  jit_set_function((_ctx), "raylib.imageColorContrast.void(Image, float)", (uintptr_t)cythImageColorContrast); \
+  jit_set_function((_ctx), "raylib.imageColorBrightness.void(Image, int)", (uintptr_t)cythImageColorBrightness); \
+  jit_set_function((_ctx), "raylib.imageColorReplace.void(Image, Color, Color)", (uintptr_t)cythImageColorReplace); \
+  jit_set_function((_ctx), "raylib.loadImageColors.Color(Image)", (uintptr_t)cythLoadImageColors); \
+  jit_set_function((_ctx), "raylib.loadImagePalette.Color(Image, int, any)", (uintptr_t)cythLoadImagePalette); \
+  jit_set_function((_ctx), "raylib.unloadImageColors.void(Color)", (uintptr_t)cythUnloadImageColors); \
+  jit_set_function((_ctx), "raylib.unloadImagePalette.void(Color)", (uintptr_t)cythUnloadImagePalette); \
+  jit_set_function((_ctx), "raylib.getImageAlphaBorder.Rectangle(Image, float)", (uintptr_t)cythGetImageAlphaBorder); \
+  jit_set_function((_ctx), "raylib.getImageColor.Color(Image, int, int)", (uintptr_t)cythGetImageColor); \
+  jit_set_function((_ctx), "raylib.imageClearBackground.void(Image, Color)", (uintptr_t)cythImageClearBackground); \
+  jit_set_function((_ctx), "raylib.imageDrawPixel.void(Image, int, int, Color)", (uintptr_t)cythImageDrawPixel); \
+  jit_set_function((_ctx), "raylib.imageDrawPixelV.void(Image, Vector2, Color)", (uintptr_t)cythImageDrawPixelV); \
+  jit_set_function((_ctx), "raylib.imageDrawLine.void(Image, int, int, int, int, Color)", (uintptr_t)cythImageDrawLine); \
+  jit_set_function((_ctx), "raylib.imageDrawLineV.void(Image, Vector2, Vector2, Color)", (uintptr_t)cythImageDrawLineV); \
+  jit_set_function((_ctx), "raylib.imageDrawLineEx.void(Image, Vector2, Vector2, int, Color)", (uintptr_t)cythImageDrawLineEx); \
+  jit_set_function((_ctx), "raylib.imageDrawCircle.void(Image, int, int, int, Color)", (uintptr_t)cythImageDrawCircle); \
+  jit_set_function((_ctx), "raylib.imageDrawCircleV.void(Image, Vector2, int, Color)", (uintptr_t)cythImageDrawCircleV); \
+  jit_set_function((_ctx), "raylib.imageDrawCircleLines.void(Image, int, int, int, Color)", (uintptr_t)cythImageDrawCircleLines); \
+  jit_set_function((_ctx), "raylib.imageDrawCircleLinesV.void(Image, Vector2, int, Color)", (uintptr_t)cythImageDrawCircleLinesV); \
+  jit_set_function((_ctx), "raylib.imageDrawRectangle.void(Image, int, int, int, int, Color)", (uintptr_t)cythImageDrawRectangle); \
+  jit_set_function((_ctx), "raylib.imageDrawRectangleV.void(Image, Vector2, Vector2, Color)", (uintptr_t)cythImageDrawRectangleV); \
+  jit_set_function((_ctx), "raylib.imageDrawRectangleRec.void(Image, Rectangle, Color)", (uintptr_t)cythImageDrawRectangleRec); \
+  jit_set_function((_ctx), "raylib.imageDrawRectangleLines.void(Image, Rectangle, int, Color)", (uintptr_t)cythImageDrawRectangleLines); \
+  jit_set_function((_ctx), "raylib.imageDrawTriangle.void(Image, Vector2, Vector2, Vector2, Color)", (uintptr_t)cythImageDrawTriangle); \
+  jit_set_function((_ctx), "raylib.imageDrawTriangleEx.void(Image, Vector2, Vector2, Vector2, Color, Color, Color)", (uintptr_t)cythImageDrawTriangleEx); \
+  jit_set_function((_ctx), "raylib.imageDrawTriangleLines.void(Image, Vector2, Vector2, Vector2, Color)", (uintptr_t)cythImageDrawTriangleLines); \
+  jit_set_function((_ctx), "raylib.imageDrawTriangleFan.void(Image, any, int, Color)", (uintptr_t)cythImageDrawTriangleFan); \
+  jit_set_function((_ctx), "raylib.imageDrawTriangleStrip.void(Image, any, int, Color)", (uintptr_t)cythImageDrawTriangleStrip); \
+  jit_set_function((_ctx), "raylib.imageDraw.void(Image, Image, Rectangle, Rectangle, Color)", (uintptr_t)cythImageDraw); \
+  jit_set_function((_ctx), "raylib.imageDrawText.void(Image, string, int, int, int, Color)", (uintptr_t)cythImageDrawText); \
+  jit_set_function((_ctx), "raylib.imageDrawTextEx.void(Image, Font, string, Vector2, float, float, Color)", (uintptr_t)cythImageDrawTextEx); \
+  jit_set_function((_ctx), "raylib.loadTexture.Texture2D(string)", (uintptr_t)cythLoadTexture); \
+  jit_set_function((_ctx), "raylib.loadTextureFromImage.Texture2D(Image)", (uintptr_t)cythLoadTextureFromImage); \
+  jit_set_function((_ctx), "raylib.loadTextureCubemap.TextureCubemap(Image, int)", (uintptr_t)cythLoadTextureCubemap); \
+  jit_set_function((_ctx), "raylib.loadRenderTexture.RenderTexture2D(int, int)", (uintptr_t)cythLoadRenderTexture); \
+  jit_set_function((_ctx), "raylib.isTextureValid.bool(Texture2D)", (uintptr_t)cythIsTextureValid); \
+  jit_set_function((_ctx), "raylib.unloadTexture.void(Texture2D)", (uintptr_t)cythUnloadTexture); \
+  jit_set_function((_ctx), "raylib.isRenderTextureValid.bool(RenderTexture2D)", (uintptr_t)cythIsRenderTextureValid); \
+  jit_set_function((_ctx), "raylib.unloadRenderTexture.void(RenderTexture2D)", (uintptr_t)cythUnloadRenderTexture); \
+  jit_set_function((_ctx), "raylib.updateTexture.void(Texture2D, any)", (uintptr_t)cythUpdateTexture); \
+  jit_set_function((_ctx), "raylib.updateTextureRec.void(Texture2D, Rectangle, any)", (uintptr_t)cythUpdateTextureRec); \
+  jit_set_function((_ctx), "raylib.genTextureMipmaps.void(any)", (uintptr_t)cythGenTextureMipmaps); \
+  jit_set_function((_ctx), "raylib.setTextureFilter.void(Texture2D, int)", (uintptr_t)cythSetTextureFilter); \
+  jit_set_function((_ctx), "raylib.setTextureWrap.void(Texture2D, int)", (uintptr_t)cythSetTextureWrap); \
+  jit_set_function((_ctx), "raylib.drawTexture.void(Texture2D, int, int, Color)", (uintptr_t)cythDrawTexture); \
+  jit_set_function((_ctx), "raylib.drawTextureV.void(Texture2D, Vector2, Color)", (uintptr_t)cythDrawTextureV); \
+  jit_set_function((_ctx), "raylib.drawTextureEx.void(Texture2D, Vector2, float, float, Color)", (uintptr_t)cythDrawTextureEx); \
+  jit_set_function((_ctx), "raylib.drawTextureRec.void(Texture2D, Rectangle, Vector2, Color)", (uintptr_t)cythDrawTextureRec); \
+  jit_set_function((_ctx), "raylib.drawTexturePro.void(Texture2D, Rectangle, Rectangle, Vector2, float, Color)", (uintptr_t)cythDrawTexturePro); \
+  jit_set_function((_ctx), "raylib.drawTextureNPatch.void(Texture2D, NPatchInfo, Rectangle, Vector2, float, Color)", (uintptr_t)cythDrawTextureNPatch); \
+  jit_set_function((_ctx), "raylib.colorIsEqual.bool(Color, Color)", (uintptr_t)cythColorIsEqual); \
+  jit_set_function((_ctx), "raylib.fade.Color(Color, float)", (uintptr_t)cythFade); \
+  jit_set_function((_ctx), "raylib.colorToInt.int(Color)", (uintptr_t)cythColorToInt); \
+  jit_set_function((_ctx), "raylib.colorNormalize.Vector4(Color)", (uintptr_t)cythColorNormalize); \
+  jit_set_function((_ctx), "raylib.colorFromNormalized.Color(Vector4)", (uintptr_t)cythColorFromNormalized); \
+  jit_set_function((_ctx), "raylib.colorToHSV.Vector3(Color)", (uintptr_t)cythColorToHSV); \
+  jit_set_function((_ctx), "raylib.colorFromHSV.Color(float, float, float)", (uintptr_t)cythColorFromHSV); \
+  jit_set_function((_ctx), "raylib.colorTint.Color(Color, Color)", (uintptr_t)cythColorTint); \
+  jit_set_function((_ctx), "raylib.colorBrightness.Color(Color, float)", (uintptr_t)cythColorBrightness); \
+  jit_set_function((_ctx), "raylib.colorContrast.Color(Color, float)", (uintptr_t)cythColorContrast); \
+  jit_set_function((_ctx), "raylib.colorAlpha.Color(Color, float)", (uintptr_t)cythColorAlpha); \
+  jit_set_function((_ctx), "raylib.colorAlphaBlend.Color(Color, Color, Color)", (uintptr_t)cythColorAlphaBlend); \
+  jit_set_function((_ctx), "raylib.colorLerp.Color(Color, Color, float)", (uintptr_t)cythColorLerp); \
+  jit_set_function((_ctx), "raylib.getColor.Color(int)", (uintptr_t)cythGetColor); \
+  jit_set_function((_ctx), "raylib.getPixelColor.Color(any, int)", (uintptr_t)cythGetPixelColor); \
+  jit_set_function((_ctx), "raylib.setPixelColor.void(any, Color, int)", (uintptr_t)cythSetPixelColor); \
+  jit_set_function((_ctx), "raylib.getPixelDataSize.int(int, int, int)", (uintptr_t)cythGetPixelDataSize); \
+  jit_set_function((_ctx), "raylib.getFontDefault.Font()", (uintptr_t)cythGetFontDefault); \
+  jit_set_function((_ctx), "raylib.loadFont.Font(string)", (uintptr_t)cythLoadFont); \
+  jit_set_function((_ctx), "raylib.loadFontEx.Font(string, int, any, int)", (uintptr_t)cythLoadFontEx); \
+  jit_set_function((_ctx), "raylib.loadFontFromImage.Font(Image, Color, int)", (uintptr_t)cythLoadFontFromImage); \
+  jit_set_function((_ctx), "raylib.loadFontFromMemory.Font(string, any, int, int, any, int)", (uintptr_t)cythLoadFontFromMemory); \
+  jit_set_function((_ctx), "raylib.isFontValid.bool(Font)", (uintptr_t)cythIsFontValid); \
+  jit_set_function((_ctx), "raylib.loadFontData.any(any, int, int, any, int, int)", (uintptr_t)cythLoadFontData); \
+  jit_set_function((_ctx), "raylib.genImageFontAtlas.Image(any, any, int, int, int, int)", (uintptr_t)cythGenImageFontAtlas); \
+  jit_set_function((_ctx), "raylib.unloadFontData.void(any, int)", (uintptr_t)cythUnloadFontData); \
+  jit_set_function((_ctx), "raylib.unloadFont.void(Font)", (uintptr_t)cythUnloadFont); \
+  jit_set_function((_ctx), "raylib.exportFontAsCode.bool(Font, string)", (uintptr_t)cythExportFontAsCode); \
+  jit_set_function((_ctx), "raylib.drawFPS.void(int, int)", (uintptr_t)cythDrawFPS); \
+  jit_set_function((_ctx), "raylib.drawText.void(string, int, int, int, Color)", (uintptr_t)cythDrawText); \
+  jit_set_function((_ctx), "raylib.drawTextEx.void(Font, string, Vector2, float, float, Color)", (uintptr_t)cythDrawTextEx); \
+  jit_set_function((_ctx), "raylib.drawTextPro.void(Font, string, Vector2, Vector2, float, float, float, Color)", (uintptr_t)cythDrawTextPro); \
+  jit_set_function((_ctx), "raylib.drawTextCodepoint.void(Font, int, Vector2, float, Color)", (uintptr_t)cythDrawTextCodepoint); \
+  jit_set_function((_ctx), "raylib.drawTextCodepoints.void(Font, any, int, Vector2, float, float, Color)", (uintptr_t)cythDrawTextCodepoints); \
+  jit_set_function((_ctx), "raylib.setTextLineSpacing.void(int)", (uintptr_t)cythSetTextLineSpacing); \
+  jit_set_function((_ctx), "raylib.measureText.int(string, int)", (uintptr_t)cythMeasureText); \
+  jit_set_function((_ctx), "raylib.measureTextEx.Vector2(Font, string, float, float)", (uintptr_t)cythMeasureTextEx); \
+  jit_set_function((_ctx), "raylib.getGlyphIndex.int(Font, int)", (uintptr_t)cythGetGlyphIndex); \
+  jit_set_function((_ctx), "raylib.getGlyphInfo.GlyphInfo(Font, int)", (uintptr_t)cythGetGlyphInfo); \
+  jit_set_function((_ctx), "raylib.getGlyphAtlasRec.Rectangle(Font, int)", (uintptr_t)cythGetGlyphAtlasRec); \
+  jit_set_function((_ctx), "raylib.loadUTF8.char[](any, int)", (uintptr_t)cythLoadUTF8); \
+  jit_set_function((_ctx), "raylib.unloadUTF8.void(char[])", (uintptr_t)cythUnloadUTF8); \
+  jit_set_function((_ctx), "raylib.loadCodepoints.any(string, any)", (uintptr_t)cythLoadCodepoints); \
+  jit_set_function((_ctx), "raylib.unloadCodepoints.void(any)", (uintptr_t)cythUnloadCodepoints); \
+  jit_set_function((_ctx), "raylib.getCodepointCount.int(string)", (uintptr_t)cythGetCodepointCount); \
+  jit_set_function((_ctx), "raylib.getCodepoint.int(string, any)", (uintptr_t)cythGetCodepoint); \
+  jit_set_function((_ctx), "raylib.getCodepointNext.int(string, any)", (uintptr_t)cythGetCodepointNext); \
+  jit_set_function((_ctx), "raylib.getCodepointPrevious.int(string, any)", (uintptr_t)cythGetCodepointPrevious); \
+  jit_set_function((_ctx), "raylib.codepointToUTF8.string(int, any)", (uintptr_t)cythCodepointToUTF8); \
+  jit_set_function((_ctx), "raylib.textCopy.int(char[], string)", (uintptr_t)cythTextCopy); \
+  jit_set_function((_ctx), "raylib.textIsEqual.bool(string, string)", (uintptr_t)cythTextIsEqual); \
+  jit_set_function((_ctx), "raylib.textLength.int(string)", (uintptr_t)cythTextLength); \
+  jit_set_function((_ctx), "raylib.textSubtext.string(string, int, int)", (uintptr_t)cythTextSubtext); \
+  jit_set_function((_ctx), "raylib.textReplace.char[](string, string, string)", (uintptr_t)cythTextReplace); \
+  jit_set_function((_ctx), "raylib.textInsert.char[](string, string, int)", (uintptr_t)cythTextInsert); \
+  jit_set_function((_ctx), "raylib.textJoin.string(any, int, string)", (uintptr_t)cythTextJoin); \
+  jit_set_function((_ctx), "raylib.textSplit.any(string, char, any)", (uintptr_t)cythTextSplit); \
+  jit_set_function((_ctx), "raylib.textAppend.void(char[], string, any)", (uintptr_t)cythTextAppend); \
+  jit_set_function((_ctx), "raylib.textFindIndex.int(string, string)", (uintptr_t)cythTextFindIndex); \
+  jit_set_function((_ctx), "raylib.textToUpper.string(string)", (uintptr_t)cythTextToUpper); \
+  jit_set_function((_ctx), "raylib.textToLower.string(string)", (uintptr_t)cythTextToLower); \
+  jit_set_function((_ctx), "raylib.textToPascal.string(string)", (uintptr_t)cythTextToPascal); \
+  jit_set_function((_ctx), "raylib.textToSnake.string(string)", (uintptr_t)cythTextToSnake); \
+  jit_set_function((_ctx), "raylib.textToCamel.string(string)", (uintptr_t)cythTextToCamel); \
+  jit_set_function((_ctx), "raylib.textToInteger.int(string)", (uintptr_t)cythTextToInteger); \
+  jit_set_function((_ctx), "raylib.textToFloat.float(string)", (uintptr_t)cythTextToFloat); \
+  jit_set_function((_ctx), "raylib.drawLine3D.void(Vector3, Vector3, Color)", (uintptr_t)cythDrawLine3D); \
+  jit_set_function((_ctx), "raylib.drawPoint3D.void(Vector3, Color)", (uintptr_t)cythDrawPoint3D); \
+  jit_set_function((_ctx), "raylib.drawCircle3D.void(Vector3, float, Vector3, float, Color)", (uintptr_t)cythDrawCircle3D); \
+  jit_set_function((_ctx), "raylib.drawTriangle3D.void(Vector3, Vector3, Vector3, Color)", (uintptr_t)cythDrawTriangle3D); \
+  jit_set_function((_ctx), "raylib.drawTriangleStrip3D.void(any, int, Color)", (uintptr_t)cythDrawTriangleStrip3D); \
+  jit_set_function((_ctx), "raylib.drawCube.void(Vector3, float, float, float, Color)", (uintptr_t)cythDrawCube); \
+  jit_set_function((_ctx), "raylib.drawCubeV.void(Vector3, Vector3, Color)", (uintptr_t)cythDrawCubeV); \
+  jit_set_function((_ctx), "raylib.drawCubeWires.void(Vector3, float, float, float, Color)", (uintptr_t)cythDrawCubeWires); \
+  jit_set_function((_ctx), "raylib.drawCubeWiresV.void(Vector3, Vector3, Color)", (uintptr_t)cythDrawCubeWiresV); \
+  jit_set_function((_ctx), "raylib.drawSphere.void(Vector3, float, Color)", (uintptr_t)cythDrawSphere); \
+  jit_set_function((_ctx), "raylib.drawSphereEx.void(Vector3, float, int, int, Color)", (uintptr_t)cythDrawSphereEx); \
+  jit_set_function((_ctx), "raylib.drawSphereWires.void(Vector3, float, int, int, Color)", (uintptr_t)cythDrawSphereWires); \
+  jit_set_function((_ctx), "raylib.drawCylinder.void(Vector3, float, float, float, int, Color)", (uintptr_t)cythDrawCylinder); \
+  jit_set_function((_ctx), "raylib.drawCylinderEx.void(Vector3, Vector3, float, float, int, Color)", (uintptr_t)cythDrawCylinderEx); \
+  jit_set_function((_ctx), "raylib.drawCylinderWires.void(Vector3, float, float, float, int, Color)", (uintptr_t)cythDrawCylinderWires); \
+  jit_set_function((_ctx), "raylib.drawCylinderWiresEx.void(Vector3, Vector3, float, float, int, Color)", (uintptr_t)cythDrawCylinderWiresEx); \
+  jit_set_function((_ctx), "raylib.drawCapsule.void(Vector3, Vector3, float, int, int, Color)", (uintptr_t)cythDrawCapsule); \
+  jit_set_function((_ctx), "raylib.drawCapsuleWires.void(Vector3, Vector3, float, int, int, Color)", (uintptr_t)cythDrawCapsuleWires); \
+  jit_set_function((_ctx), "raylib.drawPlane.void(Vector3, Vector2, Color)", (uintptr_t)cythDrawPlane); \
+  jit_set_function((_ctx), "raylib.drawRay.void(Ray, Color)", (uintptr_t)cythDrawRay); \
+  jit_set_function((_ctx), "raylib.drawGrid.void(int, float)", (uintptr_t)cythDrawGrid); \
+  jit_set_function((_ctx), "raylib.loadModel.Model(string)", (uintptr_t)cythLoadModel); \
+  jit_set_function((_ctx), "raylib.loadModelFromMesh.Model(Mesh)", (uintptr_t)cythLoadModelFromMesh); \
+  jit_set_function((_ctx), "raylib.isModelValid.bool(Model)", (uintptr_t)cythIsModelValid); \
+  jit_set_function((_ctx), "raylib.unloadModel.void(Model)", (uintptr_t)cythUnloadModel); \
+  jit_set_function((_ctx), "raylib.getModelBoundingBox.BoundingBox(Model)", (uintptr_t)cythGetModelBoundingBox); \
+  jit_set_function((_ctx), "raylib.drawModel.void(Model, Vector3, float, Color)", (uintptr_t)cythDrawModel); \
+  jit_set_function((_ctx), "raylib.drawModelEx.void(Model, Vector3, Vector3, float, Vector3, Color)", (uintptr_t)cythDrawModelEx); \
+  jit_set_function((_ctx), "raylib.drawModelWires.void(Model, Vector3, float, Color)", (uintptr_t)cythDrawModelWires); \
+  jit_set_function((_ctx), "raylib.drawModelWiresEx.void(Model, Vector3, Vector3, float, Vector3, Color)", (uintptr_t)cythDrawModelWiresEx); \
+  jit_set_function((_ctx), "raylib.drawModelPoints.void(Model, Vector3, float, Color)", (uintptr_t)cythDrawModelPoints); \
+  jit_set_function((_ctx), "raylib.drawModelPointsEx.void(Model, Vector3, Vector3, float, Vector3, Color)", (uintptr_t)cythDrawModelPointsEx); \
+  jit_set_function((_ctx), "raylib.drawBoundingBox.void(BoundingBox, Color)", (uintptr_t)cythDrawBoundingBox); \
+  jit_set_function((_ctx), "raylib.drawBillboard.void(Camera, Texture2D, Vector3, float, Color)", (uintptr_t)cythDrawBillboard); \
+  jit_set_function((_ctx), "raylib.drawBillboardRec.void(Camera, Texture2D, Rectangle, Vector3, Vector2, Color)", (uintptr_t)cythDrawBillboardRec); \
+  jit_set_function((_ctx), "raylib.drawBillboardPro.void(Camera, Texture2D, Rectangle, Vector3, Vector3, Vector2, Vector2, float, Color)", (uintptr_t)cythDrawBillboardPro); \
+  jit_set_function((_ctx), "raylib.uploadMesh.void(any, bool)", (uintptr_t)cythUploadMesh); \
+  jit_set_function((_ctx), "raylib.updateMeshBuffer.void(Mesh, int, any, int, int)", (uintptr_t)cythUpdateMeshBuffer); \
+  jit_set_function((_ctx), "raylib.unloadMesh.void(Mesh)", (uintptr_t)cythUnloadMesh); \
+  jit_set_function((_ctx), "raylib.drawMesh.void(Mesh, Material, Matrix)", (uintptr_t)cythDrawMesh); \
+  jit_set_function((_ctx), "raylib.drawMeshInstanced.void(Mesh, Material, any, int)", (uintptr_t)cythDrawMeshInstanced); \
+  jit_set_function((_ctx), "raylib.getMeshBoundingBox.BoundingBox(Mesh)", (uintptr_t)cythGetMeshBoundingBox); \
+  jit_set_function((_ctx), "raylib.genMeshTangents.void(any)", (uintptr_t)cythGenMeshTangents); \
+  jit_set_function((_ctx), "raylib.exportMesh.bool(Mesh, string)", (uintptr_t)cythExportMesh); \
+  jit_set_function((_ctx), "raylib.exportMeshAsCode.bool(Mesh, string)", (uintptr_t)cythExportMeshAsCode); \
+  jit_set_function((_ctx), "raylib.genMeshPoly.Mesh(int, float)", (uintptr_t)cythGenMeshPoly); \
+  jit_set_function((_ctx), "raylib.genMeshPlane.Mesh(float, float, int, int)", (uintptr_t)cythGenMeshPlane); \
+  jit_set_function((_ctx), "raylib.genMeshCube.Mesh(float, float, float)", (uintptr_t)cythGenMeshCube); \
+  jit_set_function((_ctx), "raylib.genMeshSphere.Mesh(float, int, int)", (uintptr_t)cythGenMeshSphere); \
+  jit_set_function((_ctx), "raylib.genMeshHemiSphere.Mesh(float, int, int)", (uintptr_t)cythGenMeshHemiSphere); \
+  jit_set_function((_ctx), "raylib.genMeshCylinder.Mesh(float, float, int)", (uintptr_t)cythGenMeshCylinder); \
+  jit_set_function((_ctx), "raylib.genMeshCone.Mesh(float, float, int)", (uintptr_t)cythGenMeshCone); \
+  jit_set_function((_ctx), "raylib.genMeshTorus.Mesh(float, float, int, int)", (uintptr_t)cythGenMeshTorus); \
+  jit_set_function((_ctx), "raylib.genMeshKnot.Mesh(float, float, int, int)", (uintptr_t)cythGenMeshKnot); \
+  jit_set_function((_ctx), "raylib.genMeshHeightmap.Mesh(Image, Vector3)", (uintptr_t)cythGenMeshHeightmap); \
+  jit_set_function((_ctx), "raylib.genMeshCubicmap.Mesh(Image, Vector3)", (uintptr_t)cythGenMeshCubicmap); \
+  jit_set_function((_ctx), "raylib.loadMaterials.any(string, any)", (uintptr_t)cythLoadMaterials); \
+  jit_set_function((_ctx), "raylib.loadMaterialDefault.Material()", (uintptr_t)cythLoadMaterialDefault); \
+  jit_set_function((_ctx), "raylib.isMaterialValid.bool(Material)", (uintptr_t)cythIsMaterialValid); \
+  jit_set_function((_ctx), "raylib.unloadMaterial.void(Material)", (uintptr_t)cythUnloadMaterial); \
+  jit_set_function((_ctx), "raylib.setMaterialTexture.void(any, int, Texture2D)", (uintptr_t)cythSetMaterialTexture); \
+  jit_set_function((_ctx), "raylib.setModelMeshMaterial.void(any, int, int)", (uintptr_t)cythSetModelMeshMaterial); \
+  jit_set_function((_ctx), "raylib.loadModelAnimations.any(string, any)", (uintptr_t)cythLoadModelAnimations); \
+  jit_set_function((_ctx), "raylib.updateModelAnimation.void(Model, ModelAnimation, int)", (uintptr_t)cythUpdateModelAnimation); \
+  jit_set_function((_ctx), "raylib.updateModelAnimationBones.void(Model, ModelAnimation, int)", (uintptr_t)cythUpdateModelAnimationBones); \
+  jit_set_function((_ctx), "raylib.unloadModelAnimation.void(ModelAnimation)", (uintptr_t)cythUnloadModelAnimation); \
+  jit_set_function((_ctx), "raylib.unloadModelAnimations.void(any, int)", (uintptr_t)cythUnloadModelAnimations); \
+  jit_set_function((_ctx), "raylib.isModelAnimationValid.bool(Model, ModelAnimation)", (uintptr_t)cythIsModelAnimationValid); \
+  jit_set_function((_ctx), "raylib.checkCollisionSpheres.bool(Vector3, float, Vector3, float)", (uintptr_t)cythCheckCollisionSpheres); \
+  jit_set_function((_ctx), "raylib.checkCollisionBoxes.bool(BoundingBox, BoundingBox)", (uintptr_t)cythCheckCollisionBoxes); \
+  jit_set_function((_ctx), "raylib.checkCollisionBoxSphere.bool(BoundingBox, Vector3, float)", (uintptr_t)cythCheckCollisionBoxSphere); \
+  jit_set_function((_ctx), "raylib.getRayCollisionSphere.RayCollision(Ray, Vector3, float)", (uintptr_t)cythGetRayCollisionSphere); \
+  jit_set_function((_ctx), "raylib.getRayCollisionBox.RayCollision(Ray, BoundingBox)", (uintptr_t)cythGetRayCollisionBox); \
+  jit_set_function((_ctx), "raylib.getRayCollisionMesh.RayCollision(Ray, Mesh, Matrix)", (uintptr_t)cythGetRayCollisionMesh); \
+  jit_set_function((_ctx), "raylib.getRayCollisionTriangle.RayCollision(Ray, Vector3, Vector3, Vector3)", (uintptr_t)cythGetRayCollisionTriangle); \
+  jit_set_function((_ctx), "raylib.getRayCollisionQuad.RayCollision(Ray, Vector3, Vector3, Vector3, Vector3)", (uintptr_t)cythGetRayCollisionQuad); \
+  jit_set_function((_ctx), "raylib.initAudioDevice.void()", (uintptr_t)cythInitAudioDevice); \
+  jit_set_function((_ctx), "raylib.closeAudioDevice.void()", (uintptr_t)cythCloseAudioDevice); \
+  jit_set_function((_ctx), "raylib.isAudioDeviceReady.bool()", (uintptr_t)cythIsAudioDeviceReady); \
+  jit_set_function((_ctx), "raylib.setMasterVolume.void(float)", (uintptr_t)cythSetMasterVolume); \
+  jit_set_function((_ctx), "raylib.getMasterVolume.float()", (uintptr_t)cythGetMasterVolume); \
+  jit_set_function((_ctx), "raylib.loadWave.Wave(string)", (uintptr_t)cythLoadWave); \
+  jit_set_function((_ctx), "raylib.loadWaveFromMemory.Wave(string, any, int)", (uintptr_t)cythLoadWaveFromMemory); \
+  jit_set_function((_ctx), "raylib.isWaveValid.bool(Wave)", (uintptr_t)cythIsWaveValid); \
+  jit_set_function((_ctx), "raylib.loadSound.Sound(string)", (uintptr_t)cythLoadSound); \
+  jit_set_function((_ctx), "raylib.loadSoundFromWave.Sound(Wave)", (uintptr_t)cythLoadSoundFromWave); \
+  jit_set_function((_ctx), "raylib.loadSoundAlias.Sound(Sound)", (uintptr_t)cythLoadSoundAlias); \
+  jit_set_function((_ctx), "raylib.isSoundValid.bool(Sound)", (uintptr_t)cythIsSoundValid); \
+  jit_set_function((_ctx), "raylib.updateSound.void(Sound, any, int)", (uintptr_t)cythUpdateSound); \
+  jit_set_function((_ctx), "raylib.unloadWave.void(Wave)", (uintptr_t)cythUnloadWave); \
+  jit_set_function((_ctx), "raylib.unloadSound.void(Sound)", (uintptr_t)cythUnloadSound); \
+  jit_set_function((_ctx), "raylib.unloadSoundAlias.void(Sound)", (uintptr_t)cythUnloadSoundAlias); \
+  jit_set_function((_ctx), "raylib.exportWave.bool(Wave, string)", (uintptr_t)cythExportWave); \
+  jit_set_function((_ctx), "raylib.exportWaveAsCode.bool(Wave, string)", (uintptr_t)cythExportWaveAsCode); \
+  jit_set_function((_ctx), "raylib.playSound.void(Sound)", (uintptr_t)cythPlaySound); \
+  jit_set_function((_ctx), "raylib.stopSound.void(Sound)", (uintptr_t)cythStopSound); \
+  jit_set_function((_ctx), "raylib.pauseSound.void(Sound)", (uintptr_t)cythPauseSound); \
+  jit_set_function((_ctx), "raylib.resumeSound.void(Sound)", (uintptr_t)cythResumeSound); \
+  jit_set_function((_ctx), "raylib.isSoundPlaying.bool(Sound)", (uintptr_t)cythIsSoundPlaying); \
+  jit_set_function((_ctx), "raylib.setSoundVolume.void(Sound, float)", (uintptr_t)cythSetSoundVolume); \
+  jit_set_function((_ctx), "raylib.setSoundPitch.void(Sound, float)", (uintptr_t)cythSetSoundPitch); \
+  jit_set_function((_ctx), "raylib.setSoundPan.void(Sound, float)", (uintptr_t)cythSetSoundPan); \
+  jit_set_function((_ctx), "raylib.waveCopy.Wave(Wave)", (uintptr_t)cythWaveCopy); \
+  jit_set_function((_ctx), "raylib.waveCrop.void(any, int, int)", (uintptr_t)cythWaveCrop); \
+  jit_set_function((_ctx), "raylib.waveFormat.void(any, int, int, int)", (uintptr_t)cythWaveFormat); \
+  jit_set_function((_ctx), "raylib.loadWaveSamples.any(Wave)", (uintptr_t)cythLoadWaveSamples); \
+  jit_set_function((_ctx), "raylib.unloadWaveSamples.void(any)", (uintptr_t)cythUnloadWaveSamples); \
+  jit_set_function((_ctx), "raylib.loadMusicStream.Music(string)", (uintptr_t)cythLoadMusicStream); \
+  jit_set_function((_ctx), "raylib.loadMusicStreamFromMemory.Music(string, any, int)", (uintptr_t)cythLoadMusicStreamFromMemory); \
+  jit_set_function((_ctx), "raylib.isMusicValid.bool(Music)", (uintptr_t)cythIsMusicValid); \
+  jit_set_function((_ctx), "raylib.unloadMusicStream.void(Music)", (uintptr_t)cythUnloadMusicStream); \
+  jit_set_function((_ctx), "raylib.playMusicStream.void(Music)", (uintptr_t)cythPlayMusicStream); \
+  jit_set_function((_ctx), "raylib.isMusicStreamPlaying.bool(Music)", (uintptr_t)cythIsMusicStreamPlaying); \
+  jit_set_function((_ctx), "raylib.updateMusicStream.void(Music)", (uintptr_t)cythUpdateMusicStream); \
+  jit_set_function((_ctx), "raylib.stopMusicStream.void(Music)", (uintptr_t)cythStopMusicStream); \
+  jit_set_function((_ctx), "raylib.pauseMusicStream.void(Music)", (uintptr_t)cythPauseMusicStream); \
+  jit_set_function((_ctx), "raylib.resumeMusicStream.void(Music)", (uintptr_t)cythResumeMusicStream); \
+  jit_set_function((_ctx), "raylib.seekMusicStream.void(Music, float)", (uintptr_t)cythSeekMusicStream); \
+  jit_set_function((_ctx), "raylib.setMusicVolume.void(Music, float)", (uintptr_t)cythSetMusicVolume); \
+  jit_set_function((_ctx), "raylib.setMusicPitch.void(Music, float)", (uintptr_t)cythSetMusicPitch); \
+  jit_set_function((_ctx), "raylib.setMusicPan.void(Music, float)", (uintptr_t)cythSetMusicPan); \
+  jit_set_function((_ctx), "raylib.getMusicTimeLength.float(Music)", (uintptr_t)cythGetMusicTimeLength); \
+  jit_set_function((_ctx), "raylib.getMusicTimePlayed.float(Music)", (uintptr_t)cythGetMusicTimePlayed); \
+  jit_set_function((_ctx), "raylib.loadAudioStream.AudioStream(int, int, int)", (uintptr_t)cythLoadAudioStream); \
+  jit_set_function((_ctx), "raylib.isAudioStreamValid.bool(AudioStream)", (uintptr_t)cythIsAudioStreamValid); \
+  jit_set_function((_ctx), "raylib.unloadAudioStream.void(AudioStream)", (uintptr_t)cythUnloadAudioStream); \
+  jit_set_function((_ctx), "raylib.updateAudioStream.void(AudioStream, any, int)", (uintptr_t)cythUpdateAudioStream); \
+  jit_set_function((_ctx), "raylib.isAudioStreamProcessed.bool(AudioStream)", (uintptr_t)cythIsAudioStreamProcessed); \
+  jit_set_function((_ctx), "raylib.playAudioStream.void(AudioStream)", (uintptr_t)cythPlayAudioStream); \
+  jit_set_function((_ctx), "raylib.pauseAudioStream.void(AudioStream)", (uintptr_t)cythPauseAudioStream); \
+  jit_set_function((_ctx), "raylib.resumeAudioStream.void(AudioStream)", (uintptr_t)cythResumeAudioStream); \
+  jit_set_function((_ctx), "raylib.isAudioStreamPlaying.bool(AudioStream)", (uintptr_t)cythIsAudioStreamPlaying); \
+  jit_set_function((_ctx), "raylib.stopAudioStream.void(AudioStream)", (uintptr_t)cythStopAudioStream); \
+  jit_set_function((_ctx), "raylib.setAudioStreamVolume.void(AudioStream, float)", (uintptr_t)cythSetAudioStreamVolume); \
+  jit_set_function((_ctx), "raylib.setAudioStreamPitch.void(AudioStream, float)", (uintptr_t)cythSetAudioStreamPitch); \
+  jit_set_function((_ctx), "raylib.setAudioStreamPan.void(AudioStream, float)", (uintptr_t)cythSetAudioStreamPan); \
+  jit_set_function((_ctx), "raylib.setAudioStreamBufferSizeDefault.void(int)", (uintptr_t)cythSetAudioStreamBufferSizeDefault); \
+  jit_set_function((_ctx), "raylib.setAudioStreamCallback.void(AudioStream, AudioCallback)", (uintptr_t)cythSetAudioStreamCallback); \
+  jit_set_function((_ctx), "raylib.attachAudioStreamProcessor.void(AudioStream, AudioCallback)", (uintptr_t)cythAttachAudioStreamProcessor); \
+  jit_set_function((_ctx), "raylib.detachAudioStreamProcessor.void(AudioStream, AudioCallback)", (uintptr_t)cythDetachAudioStreamProcessor); \
+  jit_set_function((_ctx), "raylib.attachAudioMixedProcessor.void(AudioCallback)", (uintptr_t)cythAttachAudioMixedProcessor); \
+  jit_set_function((_ctx), "raylib.detachAudioMixedProcessor.void(AudioCallback)", (uintptr_t)cythDetachAudioMixedProcessor); \
 } while (0)
 static const char* PREFIX = "import \"raylib\"\n"
 "  void initWindow(int width, int height, string title)\n"

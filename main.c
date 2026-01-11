@@ -76,12 +76,12 @@ int main(int argc, char **argv) {
   SetConfigFlags(FLAG_MSAA_4X_HINT);
 
   jit_set_raylib_functions(jit);
-  jit_set_function(jit, "env.cos", (uintptr_t)cosf);
-  jit_set_function(jit, "env.sin", (uintptr_t)sinf);
-  jit_set_function(jit, "env.tan", (uintptr_t)tanf);
-  jit_set_function(jit, "env.pow", (uintptr_t)powf);
-  jit_set_function(jit, "env.print", (uintptr_t)print);
-  jit_set_function(jit, "env.println", (uintptr_t)println);
+  jit_set_function(jit, "env.cos.float(float)", (uintptr_t)cosf);
+  jit_set_function(jit, "env.sin.float(float)", (uintptr_t)sinf);
+  jit_set_function(jit, "env.tan.float(float)", (uintptr_t)tanf);
+  jit_set_function(jit, "env.pow.float(float, float)", (uintptr_t)powf);
+  jit_set_function(jit, "env.print.void(string)", (uintptr_t)print);
+  jit_set_function(jit, "env.println.void(string)", (uintptr_t)println);
   jit_generate(jit, false);
   jit_run(jit);
   jit_destroy(jit);
