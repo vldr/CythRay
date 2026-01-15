@@ -9,7 +9,7 @@ def generate_header():
     print("#include <stdbool.h>")
     print("#include <stddef.h>")
     print("#include <raylib.h>")
-    print("#include <jit.h>")
+    print("#include <cyth.h>")
     print()
 
     for function in data["functions"]:
@@ -169,11 +169,11 @@ def generate_header():
             ):
                 buffer += "_v;\n"
             elif function["returnType"] == "const char *":
-                buffer += "jit_alloc(1, sizeof(String) + strlen(_v));\n"
+                buffer += "cyth_alloc(1, sizeof(String) + strlen(_v));\n"
                 buffer += "\t_r->size = (int)strlen(_v);\n"
                 buffer += "\tmemcpy(_r->data, _v, _r->size);\n"
             elif function["returnType"] == "char *":
-                buffer += "jit_alloc(1, sizeof(Array));\n"
+                buffer += "cyth_alloc(1, sizeof(Array));\n"
                 buffer += "\t_r->size = (int)strlen(_v);\n"
                 buffer += "\t_r->capacity = _r->capacity;\n"
                 buffer += "\t_r->data = (void*)_v;\n"
@@ -181,7 +181,7 @@ def generate_header():
                 buffer += "_v;\n"
             else:
                 ppp = function["returnType"]
-                buffer += f"jit_alloc(1, sizeof({ppp}));\n"
+                buffer += f"cyth_alloc(1, sizeof({ppp}));\n"
                 buffer += "\t*_r = _v;\n"
 
         if function["returnType"] != "void":
@@ -196,7 +196,7 @@ def generate_header():
         print(buffer)
 
 def generate_link():
-    buffer = "#define jit_set_raylib_functions(_ctx) do { \\\n"
+    buffer = "#define cyth_set_raylib_functions(_ctx) do { \\\n"
     for function in data["functions"]:
         failure = False
         if "params" in function:
@@ -282,7 +282,7 @@ def generate_link():
 
 
 
-        buffer += f"  jit_set_function((_ctx), \"raylib.{importName}\", (uintptr_t)cyth{name}); \\\n"
+        buffer += f"  cyth_set_function((_ctx), \"raylib.{importName}\", (uintptr_t)cyth{name}); \\\n"
     buffer += "} while (0)"
     print(buffer)
 

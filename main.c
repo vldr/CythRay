@@ -68,23 +68,23 @@ int main(int argc, char **argv) {
   memcpy(source + strlen(PREFIX), text, strlen(text));
   source[strlen(PREFIX) + strlen(text)] = '\0';
 
-  Jit *jit = jit_init(source, error_callback, panic_callback);
+  Jit *jit = cyth_init(source, error_callback, panic_callback);
   if (!jit)
     return -1;
 
   SetConfigFlags(FLAG_VSYNC_HINT);
   SetConfigFlags(FLAG_MSAA_4X_HINT);
 
-  jit_set_raylib_functions(jit);
-  jit_set_function(jit, "env.cos.float(float)", (uintptr_t)cosf);
-  jit_set_function(jit, "env.sin.float(float)", (uintptr_t)sinf);
-  jit_set_function(jit, "env.tan.float(float)", (uintptr_t)tanf);
-  jit_set_function(jit, "env.pow.float(float, float)", (uintptr_t)powf);
-  jit_set_function(jit, "env.print.void(string)", (uintptr_t)print);
-  jit_set_function(jit, "env.println.void(string)", (uintptr_t)println);
-  jit_generate(jit, false);
-  jit_run(jit);
-  jit_destroy(jit);
+  cyth_set_raylib_functions(jit);
+  cyth_set_function(jit, "env.cos.float(float)", (uintptr_t)cosf);
+  cyth_set_function(jit, "env.sin.float(float)", (uintptr_t)sinf);
+  cyth_set_function(jit, "env.tan.float(float)", (uintptr_t)tanf);
+  cyth_set_function(jit, "env.pow.float(float, float)", (uintptr_t)powf);
+  cyth_set_function(jit, "env.print.void(string)", (uintptr_t)print);
+  cyth_set_function(jit, "env.println.void(string)", (uintptr_t)println);
+  cyth_generate(jit, false);
+  cyth_run(jit);
+  cyth_destroy(jit);
 
   UnloadFileText(text);
 }
