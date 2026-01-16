@@ -85,6 +85,7 @@ def generate_header():
                     buffer += param["name"]
                     buffer += "->data"
                 elif param["type"] == "char *":
+                    buffer += "(char*)"
                     buffer += param["name"]
                     buffer += "->data"
                 elif "..." in param["type"]:

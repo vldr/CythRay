@@ -496,10 +496,10 @@ static Array* cythLoadFileText(String* fileName) {
 	return _r;
 }
 static void cythUnloadFileText(Array* text) {
-	UnloadFileText(text->data);
+	UnloadFileText((char*)text->data);
 }
 static bool cythSaveFileText(String* fileName, Array* text) {
-	bool _v = SaveFileText(fileName->data, text->data);
+	bool _v = SaveFileText(fileName->data, (char*)text->data);
 	bool _r = (bool)_v;
 	return _r;
 }
@@ -1768,7 +1768,7 @@ static Array* cythLoadUTF8(const int * codepoints, int length) {
 	return _r;
 }
 static void cythUnloadUTF8(Array* text) {
-	UnloadUTF8(text->data);
+	UnloadUTF8((char*)text->data);
 }
 static int * cythLoadCodepoints(String* text, int * count) {
 	int * _v = LoadCodepoints(text->data, count);
@@ -1806,7 +1806,7 @@ static String* cythCodepointToUTF8(int codepoint, int * utf8Size) {
 	return _r;
 }
 static int cythTextCopy(Array* dst, String* src) {
-	int _v = TextCopy(dst->data, src->data);
+	int _v = TextCopy((char*)dst->data, src->data);
 	int _r = (int)_v;
 	return _r;
 }
@@ -1856,7 +1856,7 @@ static const char ** cythTextSplit(String* text, char* delimiter, int * count) {
 	return _r;
 }
 static void cythTextAppend(Array* text, String* append, int * position) {
-	TextAppend(text->data, append->data, position);
+	TextAppend((char*)text->data, append->data, position);
 }
 static int cythTextFindIndex(String* text, String* find) {
 	int _v = TextFindIndex(text->data, find->data);
