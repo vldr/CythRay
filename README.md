@@ -3,6 +3,8 @@ An example program that combines the [Cyth](https://github.com/vldr/Cyth) progra
 
 Note: This project is incomplete. Some Raylib functions are missing or only partially implemented; this is intended purely as an example.
 
+![](splash.png)
+
 # Building
 
 To build CythRay, you will need to have [CMake](https://cmake.org/) and gcc/clang/MSVC installed. 
