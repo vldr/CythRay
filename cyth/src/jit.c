@@ -1180,21 +1180,6 @@ static Function* generate_float_hash_function(Jit* jit)
   return function;
 }
 
-static float float_sqrt(float n)
-{
-#if defined(__x86_64__)
-  float out;
-  __asm__("sqrtss %1, %0" : "=x"(out) : "x"(n));
-  return out;
-#elif defined(__aarch64__)
-  float out;
-  __asm__("fsqrt %s0, %s1" : "=w"(out) : "w"(n));
-  return out;
-#else
-  return sqrtf(n);
-#endif
-}
-
 static Function* generate_float_sqrt_function(Jit* jit)
 {
   const char* name = "float.sqrt";
@@ -1207,14 +1192,35 @@ static Function* generate_float_sqrt_function(Jit* jit)
       { .name = "n", .size = 0, .type = data_type_to_mir_type(DATA_TYPE(TYPE_FLOAT)) },
     };
 
+    MIR_item_t previous_function = jit->function;
+    MIR_func_t previous_func = MIR_get_curr_func(jit->ctx);
+    MIR_set_curr_func(jit->ctx, NULL);
+
     function = ALLOC(Function);
     function->proto =
       MIR_new_proto_arr(jit->ctx, memory_sprintf("%s.proto", name), return_type != MIR_T_UNDEF,
                         &return_type, sizeof(params) / sizeof_ptr(params), params);
-    function->func = MIR_new_import(jit->ctx, name);
+    function->func = MIR_new_func_arr(jit->ctx, name, return_type != MIR_T_UNDEF, &return_type,
+                                      sizeof(params) / sizeof_ptr(params), params);
 
-    MIR_load_external(jit->ctx, name, (uintptr_t)float_sqrt);
+    jit->function = function->func;
+
+    MIR_reg_t n = MIR_reg(jit->ctx, "n", jit->function->u.func);
+
+    {
+      MIR_append_insn(jit->ctx, jit->function,
+                      MIR_new_insn(jit->ctx, MIR_FSQRT, MIR_new_reg_op(jit->ctx, n),
+                                   MIR_new_reg_op(jit->ctx, n)));
+
+      MIR_append_insn(jit->ctx, jit->function,
+                      MIR_new_ret_insn(jit->ctx, 1, MIR_new_reg_op(jit->ctx, n)));
+    }
+
     map_put_function(&jit->functions, name, function);
+
+    MIR_finish_func(jit->ctx);
+    MIR_set_curr_func(jit->ctx, previous_func);
+    jit->function = previous_function;
   }
 
   return function;
@@ -2369,6 +2375,23 @@ static void generate_literal_expression(Jit* jit, MIR_reg_t dest, LiteralExpr* e
   }
 }
 
+static void generate_binary_expression_function_call(Jit* jit, MIR_reg_t dest,
+                                                     BinaryExpr* expression, MIR_reg_t left,
+                                                     MIR_reg_t right)
+{
+  MIR_insn_t insn =
+    expression->function->data_type.type == TYPE_VOID
+      ? MIR_new_call_insn(jit->ctx, 4, MIR_new_ref_op(jit->ctx, expression->function->proto),
+                          MIR_new_ref_op(jit->ctx, expression->function->item),
+                          MIR_new_reg_op(jit->ctx, left), MIR_new_reg_op(jit->ctx, right))
+      : MIR_new_call_insn(jit->ctx, 5, MIR_new_ref_op(jit->ctx, expression->function->proto),
+                          MIR_new_ref_op(jit->ctx, expression->function->item),
+                          MIR_new_reg_op(jit->ctx, dest), MIR_new_reg_op(jit->ctx, left),
+                          MIR_new_reg_op(jit->ctx, right));
+
+  MIR_append_insn(jit->ctx, jit->function, insn);
+}
+
 static void generate_binary_expression(Jit* jit, MIR_reg_t dest, BinaryExpr* expression)
 {
   MIR_reg_t left = 0;
@@ -2451,12 +2474,7 @@ static void generate_binary_expression(Jit* jit, MIR_reg_t dest, BinaryExpr* exp
     }
     else if (data_type.type == TYPE_OBJECT)
     {
-      MIR_append_insn(
-        jit->ctx, jit->function,
-        MIR_new_call_insn(jit->ctx, 5, MIR_new_ref_op(jit->ctx, expression->function->proto),
-                          MIR_new_ref_op(jit->ctx, expression->function->item),
-                          MIR_new_reg_op(jit->ctx, dest), MIR_new_reg_op(jit->ctx, left),
-                          MIR_new_reg_op(jit->ctx, right)));
+      generate_binary_expression_function_call(jit, dest, expression, left, right);
       return;
     }
 
@@ -2471,12 +2489,7 @@ static void generate_binary_expression(Jit* jit, MIR_reg_t dest, BinaryExpr* exp
       op = MIR_FSUB;
     else if (data_type.type == TYPE_OBJECT)
     {
-      MIR_append_insn(
-        jit->ctx, jit->function,
-        MIR_new_call_insn(jit->ctx, 5, MIR_new_ref_op(jit->ctx, expression->function->proto),
-                          MIR_new_ref_op(jit->ctx, expression->function->item),
-                          MIR_new_reg_op(jit->ctx, dest), MIR_new_reg_op(jit->ctx, left),
-                          MIR_new_reg_op(jit->ctx, right)));
+      generate_binary_expression_function_call(jit, dest, expression, left, right);
       return;
     }
     else
@@ -2490,12 +2503,7 @@ static void generate_binary_expression(Jit* jit, MIR_reg_t dest, BinaryExpr* exp
       op = MIR_FMUL;
     else if (data_type.type == TYPE_OBJECT)
     {
-      MIR_append_insn(
-        jit->ctx, jit->function,
-        MIR_new_call_insn(jit->ctx, 5, MIR_new_ref_op(jit->ctx, expression->function->proto),
-                          MIR_new_ref_op(jit->ctx, expression->function->item),
-                          MIR_new_reg_op(jit->ctx, dest), MIR_new_reg_op(jit->ctx, left),
-                          MIR_new_reg_op(jit->ctx, right)));
+      generate_binary_expression_function_call(jit, dest, expression, left, right);
       return;
     }
     else
@@ -2509,12 +2517,7 @@ static void generate_binary_expression(Jit* jit, MIR_reg_t dest, BinaryExpr* exp
       op = MIR_FDIV;
     else if (data_type.type == TYPE_OBJECT)
     {
-      MIR_append_insn(
-        jit->ctx, jit->function,
-        MIR_new_call_insn(jit->ctx, 5, MIR_new_ref_op(jit->ctx, expression->function->proto),
-                          MIR_new_ref_op(jit->ctx, expression->function->item),
-                          MIR_new_reg_op(jit->ctx, dest), MIR_new_reg_op(jit->ctx, left),
-                          MIR_new_reg_op(jit->ctx, right)));
+      generate_binary_expression_function_call(jit, dest, expression, left, right);
       return;
     }
     else
@@ -2554,12 +2557,7 @@ static void generate_binary_expression(Jit* jit, MIR_reg_t dest, BinaryExpr* exp
 
     if (data_type.type == TYPE_OBJECT)
     {
-      MIR_append_insn(
-        jit->ctx, jit->function,
-        MIR_new_call_insn(jit->ctx, 5, MIR_new_ref_op(jit->ctx, expression->function->proto),
-                          MIR_new_ref_op(jit->ctx, expression->function->item),
-                          MIR_new_reg_op(jit->ctx, dest), MIR_new_reg_op(jit->ctx, left),
-                          MIR_new_reg_op(jit->ctx, right)));
+      generate_binary_expression_function_call(jit, dest, expression, left, right);
       return;
     }
     else if (data_type.type != TYPE_INTEGER && data_type.type != TYPE_CHAR)
@@ -2587,12 +2585,7 @@ static void generate_binary_expression(Jit* jit, MIR_reg_t dest, BinaryExpr* exp
     else if (data_type.type == TYPE_OBJECT)
     {
       if (expression->function)
-        MIR_append_insn(
-          jit->ctx, jit->function,
-          MIR_new_call_insn(jit->ctx, 5, MIR_new_ref_op(jit->ctx, expression->function->proto),
-                            MIR_new_ref_op(jit->ctx, expression->function->item),
-                            MIR_new_reg_op(jit->ctx, dest), MIR_new_reg_op(jit->ctx, left),
-                            MIR_new_reg_op(jit->ctx, right)));
+        generate_binary_expression_function_call(jit, dest, expression, left, right);
       else
         MIR_append_insn(jit->ctx, jit->function,
                         MIR_new_insn(jit->ctx, MIR_EQ, MIR_new_reg_op(jit->ctx, dest),
@@ -2627,12 +2620,7 @@ static void generate_binary_expression(Jit* jit, MIR_reg_t dest, BinaryExpr* exp
     else if (data_type.type == TYPE_OBJECT)
     {
       if (expression->function)
-        MIR_append_insn(
-          jit->ctx, jit->function,
-          MIR_new_call_insn(jit->ctx, 5, MIR_new_ref_op(jit->ctx, expression->function->proto),
-                            MIR_new_ref_op(jit->ctx, expression->function->item),
-                            MIR_new_reg_op(jit->ctx, dest), MIR_new_reg_op(jit->ctx, left),
-                            MIR_new_reg_op(jit->ctx, right)));
+        generate_binary_expression_function_call(jit, dest, expression, left, right);
       else
         MIR_append_insn(jit->ctx, jit->function,
                         MIR_new_insn(jit->ctx, MIR_NE, MIR_new_reg_op(jit->ctx, dest),
@@ -2653,12 +2641,7 @@ static void generate_binary_expression(Jit* jit, MIR_reg_t dest, BinaryExpr* exp
       op = MIR_FLE;
     else if (data_type.type == TYPE_OBJECT)
     {
-      MIR_append_insn(
-        jit->ctx, jit->function,
-        MIR_new_call_insn(jit->ctx, 5, MIR_new_ref_op(jit->ctx, expression->function->proto),
-                          MIR_new_ref_op(jit->ctx, expression->function->item),
-                          MIR_new_reg_op(jit->ctx, dest), MIR_new_reg_op(jit->ctx, left),
-                          MIR_new_reg_op(jit->ctx, right)));
+      generate_binary_expression_function_call(jit, dest, expression, left, right);
       return;
     }
     else
@@ -2674,12 +2657,7 @@ static void generate_binary_expression(Jit* jit, MIR_reg_t dest, BinaryExpr* exp
       op = MIR_FGE;
     else if (data_type.type == TYPE_OBJECT)
     {
-      MIR_append_insn(
-        jit->ctx, jit->function,
-        MIR_new_call_insn(jit->ctx, 5, MIR_new_ref_op(jit->ctx, expression->function->proto),
-                          MIR_new_ref_op(jit->ctx, expression->function->item),
-                          MIR_new_reg_op(jit->ctx, dest), MIR_new_reg_op(jit->ctx, left),
-                          MIR_new_reg_op(jit->ctx, right)));
+      generate_binary_expression_function_call(jit, dest, expression, left, right);
       return;
     }
     else
@@ -2695,12 +2673,7 @@ static void generate_binary_expression(Jit* jit, MIR_reg_t dest, BinaryExpr* exp
       op = MIR_FLT;
     else if (data_type.type == TYPE_OBJECT)
     {
-      MIR_append_insn(
-        jit->ctx, jit->function,
-        MIR_new_call_insn(jit->ctx, 5, MIR_new_ref_op(jit->ctx, expression->function->proto),
-                          MIR_new_ref_op(jit->ctx, expression->function->item),
-                          MIR_new_reg_op(jit->ctx, dest), MIR_new_reg_op(jit->ctx, left),
-                          MIR_new_reg_op(jit->ctx, right)));
+      generate_binary_expression_function_call(jit, dest, expression, left, right);
       return;
     }
     else
@@ -2716,12 +2689,7 @@ static void generate_binary_expression(Jit* jit, MIR_reg_t dest, BinaryExpr* exp
       op = MIR_FGT;
     else if (data_type.type == TYPE_OBJECT)
     {
-      MIR_append_insn(
-        jit->ctx, jit->function,
-        MIR_new_call_insn(jit->ctx, 5, MIR_new_ref_op(jit->ctx, expression->function->proto),
-                          MIR_new_ref_op(jit->ctx, expression->function->item),
-                          MIR_new_reg_op(jit->ctx, dest), MIR_new_reg_op(jit->ctx, left),
-                          MIR_new_reg_op(jit->ctx, right)));
+      generate_binary_expression_function_call(jit, dest, expression, left, right);
       return;
     }
     else
@@ -5141,7 +5109,7 @@ Jit* cyth_init(char* source,
     return NULL;
   }
 
-  checker_init(statements, error_callback);
+  checker_init(statements, error_callback, NULL);
   checker_validate();
 
   if (checker_errors())
