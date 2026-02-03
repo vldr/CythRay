@@ -17,7 +17,7 @@ endif()
 if (EMSCRIPTEN)
     add_link_options(--closure 1 -sFILESYSTEM=0 -sALLOW_MEMORY_GROWTH=1 -sALLOW_TABLE_GROWTH=1 
                      -sEXPORTED_RUNTIME_METHODS=addFunction,UTF8ToString,HEAPU8 -sSTACK_SIZE=524288
-                     -sEXPORTED_FUNCTIONS=_free,_memory_alloc,_run,_set_error_callback,_set_result_callback)
+                     -sEXPORTED_FUNCTIONS=_free,_memory_alloc,_run,_set_error_callback,_set_result_callback,_set_link_callback)
 
     add_custom_target(test
         COMMAND node test/_test_wasm_web.js
@@ -28,6 +28,12 @@ if (EMSCRIPTEN)
     add_custom_target(serve
         COMMAND npx http-server -c-1 editor/
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        DEPENDS cyth
+    )
+
+    add_custom_target(package
+        COMMAND npx @vscode/vsce package --allow-missing-repository
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/editor/extension
         DEPENDS cyth
     )
 else()
@@ -82,8 +88,6 @@ add_executable(cyth src/main.c ${SOURCES})
 if (NOT MSVC)
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         target_compile_options(cyth PRIVATE -fsanitize=address -fsanitize=undefined -D_DEBUG)
-    else()
-        target_compile_options(cyth PRIVATE -flto=auto)
     endif()
 endif()
 
@@ -105,7 +109,15 @@ if (EMSCRIPTEN)
                 ${CMAKE_SOURCE_DIR}/editor/cyth.js
         COMMAND ${CMAKE_COMMAND} -E copy
                 $<TARGET_FILE_DIR:cyth>/cyth.wasm
-                ${CMAKE_SOURCE_DIR}/editor/cyth.wasm)
+                ${CMAKE_SOURCE_DIR}/editor/cyth.wasm
+
+        COMMAND ${CMAKE_COMMAND} -E copy
+                $<TARGET_FILE_DIR:cyth>/cyth.js
+                ${CMAKE_SOURCE_DIR}/editor/extension/cyth.js
+        COMMAND ${CMAKE_COMMAND} -E copy
+                $<TARGET_FILE_DIR:cyth>/cyth.wasm
+                ${CMAKE_SOURCE_DIR}/editor/extension/cyth.wasm
+    )
 endif()
 
 if (WASM OR EMSCRIPTEN)
