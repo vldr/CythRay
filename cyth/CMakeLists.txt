@@ -17,7 +17,7 @@ endif()
 if (EMSCRIPTEN)
     add_link_options(--closure 1 -sFILESYSTEM=0 -sALLOW_MEMORY_GROWTH=1 -sALLOW_TABLE_GROWTH=1 
                      -sEXPORTED_RUNTIME_METHODS=addFunction,UTF8ToString,HEAPU8 -sSTACK_SIZE=524288
-                     -sEXPORTED_FUNCTIONS=_free,_memory_alloc,_run,_set_error_callback,_set_result_callback,_set_link_callback)
+                     -sEXPORTED_FUNCTIONS=_free,_memory_alloc,_cyth_wasm_init,_cyth_wasm_load_function,_cyth_wasm_compile,_cyth_wasm_set_error_callback,_cyth_wasm_set_result_callback,_cyth_wasm_set_link_callback)
 
     add_custom_target(test
         COMMAND node test/_test_wasm_web.js
@@ -38,7 +38,7 @@ if (EMSCRIPTEN)
     )
 else()
     if (NOT MSVC)
-        add_link_options(-pthread -lm)
+        add_link_options(-pthread)
     endif()
 
     add_custom_target(test
@@ -83,19 +83,30 @@ if (NOT EMSCRIPTEN)
     endif()
 endif()
 
-add_executable(cyth src/main.c ${SOURCES})
+if (NOT EMSCRIPTEN)
+    add_executable(cyth src/main.c ${SOURCES})
+else()
+    add_executable(cyth ${SOURCES})
+endif()
 
 if (NOT MSVC)
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         target_compile_options(cyth PRIVATE -fsanitize=address -fsanitize=undefined -D_DEBUG)
+    elseif (EMSCRIPTEN)
+        target_compile_options(cyth PRIVATE -flto)
     endif()
 endif()
 
 if (NOT EMSCRIPTEN)
     add_library(libcyth STATIC ${SOURCES})
     target_include_directories(libcyth PUBLIC src/include/)
-
     set_property(TARGET libcyth PROPERTY OUTPUT_NAME cyth)
+
+    if (NOT MSVC)
+        install(TARGETS cyth DESTINATION bin)
+        install(TARGETS libcyth DESTINATION lib)
+        install(DIRECTORY src/include/ DESTINATION include)
+    endif()
 endif()
 
 if (NOT MSVC)
@@ -127,6 +138,7 @@ if (WASM OR EMSCRIPTEN)
     if (NOT EMSCRIPTEN)
         target_compile_definitions(libcyth PRIVATE WASM=1)
         target_link_libraries(libcyth PRIVATE binaryen)
+        target_sources(libcyth PRIVATE $<TARGET_OBJECTS:binaryen>)
     endif()
 endif()
 
@@ -137,4 +149,3 @@ if (NOT EMSCRIPTEN)
     target_link_libraries(libcyth PRIVATE mir)
     target_link_libraries(libcyth PRIVATE bdwgc)
 endif()
-

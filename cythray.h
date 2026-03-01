@@ -5,7 +5,7 @@
 #include <raylib.h>
 #include <cyth.h>
 
-static void cythInitWindow(int width, int height, String* title) {
+static void cythInitWindow(int width, int height, CyString* title) {
 	InitWindow(width, height, title->data);
 }
 static void cythCloseWindow() {
@@ -83,7 +83,7 @@ static void cythSetWindowIcon(Image* image) {
 static void cythSetWindowIcons(Image * images, int count) {
 	SetWindowIcons(images, count);
 }
-static void cythSetWindowTitle(String* title) {
+static void cythSetWindowTitle(CyString* title) {
 	SetWindowTitle(title->data);
 }
 static void cythSetWindowPosition(int x, int y) {
@@ -185,19 +185,19 @@ static Vector2* cythGetWindowScaleDPI() {
 	*_r = _v;
 	return _r;
 }
-static String* cythGetMonitorName(int monitor) {
+static CyString* cythGetMonitorName(int monitor) {
 	const char * _v = GetMonitorName(monitor);
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static void cythSetClipboardText(String* text) {
+static void cythSetClipboardText(CyString* text) {
 	SetClipboardText(text->data);
 }
-static String* cythGetClipboardText() {
+static CyString* cythGetClipboardText() {
 	const char * _v = GetClipboardText();
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
@@ -296,13 +296,13 @@ static VrStereoConfig* cythLoadVrStereoConfig(VrDeviceInfo* device) {
 static void cythUnloadVrStereoConfig(VrStereoConfig* config) {
 	UnloadVrStereoConfig(*config);
 }
-static Shader* cythLoadShader(String* vsFileName, String* fsFileName) {
+static Shader* cythLoadShader(CyString* vsFileName, CyString* fsFileName) {
 	Shader _v = LoadShader(vsFileName->data, fsFileName->data);
 	Shader* _r = (Shader*)cyth_alloc(1, sizeof(Shader));
 	*_r = _v;
 	return _r;
 }
-static Shader* cythLoadShaderFromMemory(String* vsCode, String* fsCode) {
+static Shader* cythLoadShaderFromMemory(CyString* vsCode, CyString* fsCode) {
 	Shader _v = LoadShaderFromMemory(vsCode->data, fsCode->data);
 	Shader* _r = (Shader*)cyth_alloc(1, sizeof(Shader));
 	*_r = _v;
@@ -313,12 +313,12 @@ static bool cythIsShaderValid(Shader* shader) {
 	bool _r = (bool)_v;
 	return _r;
 }
-static int cythGetShaderLocation(Shader* shader, String* uniformName) {
+static int cythGetShaderLocation(Shader* shader, CyString* uniformName) {
 	int _v = GetShaderLocation(*shader, uniformName->data);
 	int _r = (int)_v;
 	return _r;
 }
-static int cythGetShaderLocationAttrib(Shader* shader, String* attribName) {
+static int cythGetShaderLocationAttrib(Shader* shader, CyString* attribName) {
 	int _v = GetShaderLocationAttrib(*shader, attribName->data);
 	int _r = (int)_v;
 	return _r;
@@ -429,13 +429,13 @@ static int * cythLoadRandomSequence(unsigned int count, int min, int max) {
 static void cythUnloadRandomSequence(int * sequence) {
 	UnloadRandomSequence(sequence);
 }
-static void cythTakeScreenshot(String* fileName) {
+static void cythTakeScreenshot(CyString* fileName) {
 	TakeScreenshot(fileName->data);
 }
 static void cythSetConfigFlags(unsigned int flags) {
 	SetConfigFlags(flags);
 }
-static void cythOpenURL(String* url) {
+static void cythOpenURL(CyString* url) {
 	OpenURL(url->data);
 }
 static void cythSetTraceLogLevel(int logLevel) {
@@ -469,7 +469,7 @@ static void cythSetLoadFileTextCallback(LoadFileTextCallback* callback) {
 static void cythSetSaveFileTextCallback(SaveFileTextCallback* callback) {
 	SetSaveFileTextCallback(*callback);
 }
-static unsigned char * cythLoadFileData(String* fileName, int * dataSize) {
+static unsigned char * cythLoadFileData(CyString* fileName, int * dataSize) {
 	unsigned char * _v = LoadFileData(fileName->data, dataSize);
 	unsigned char * _r = (unsigned char *)_v;
 	return _r;
@@ -477,128 +477,128 @@ static unsigned char * cythLoadFileData(String* fileName, int * dataSize) {
 static void cythUnloadFileData(unsigned char * data) {
 	UnloadFileData(data);
 }
-static bool cythSaveFileData(String* fileName, void * data, int dataSize) {
+static bool cythSaveFileData(CyString* fileName, void * data, int dataSize) {
 	bool _v = SaveFileData(fileName->data, data, dataSize);
 	bool _r = (bool)_v;
 	return _r;
 }
-static bool cythExportDataAsCode(const unsigned char * data, int dataSize, String* fileName) {
+static bool cythExportDataAsCode(const unsigned char * data, int dataSize, CyString* fileName) {
 	bool _v = ExportDataAsCode(data, dataSize, fileName->data);
 	bool _r = (bool)_v;
 	return _r;
 }
-static Array* cythLoadFileText(String* fileName) {
+static CyArray* cythLoadFileText(CyString* fileName) {
 	char * _v = LoadFileText(fileName->data);
-	Array* _r = (Array*)cyth_alloc(1, sizeof(Array));
+	CyArray* _r = (CyArray*)cyth_alloc(1, sizeof(CyArray));
 	_r->size = (int)strlen(_v);
 	_r->capacity = _r->capacity;
 	_r->data = (void*)_v;
 	return _r;
 }
-static void cythUnloadFileText(Array* text) {
+static void cythUnloadFileText(CyArray* text) {
 	UnloadFileText((char*)text->data);
 }
-static bool cythSaveFileText(String* fileName, Array* text) {
+static bool cythSaveFileText(CyString* fileName, CyArray* text) {
 	bool _v = SaveFileText(fileName->data, (char*)text->data);
 	bool _r = (bool)_v;
 	return _r;
 }
-static bool cythFileExists(String* fileName) {
+static bool cythFileExists(CyString* fileName) {
 	bool _v = FileExists(fileName->data);
 	bool _r = (bool)_v;
 	return _r;
 }
-static bool cythDirectoryExists(String* dirPath) {
+static bool cythDirectoryExists(CyString* dirPath) {
 	bool _v = DirectoryExists(dirPath->data);
 	bool _r = (bool)_v;
 	return _r;
 }
-static bool cythIsFileExtension(String* fileName, String* ext) {
+static bool cythIsFileExtension(CyString* fileName, CyString* ext) {
 	bool _v = IsFileExtension(fileName->data, ext->data);
 	bool _r = (bool)_v;
 	return _r;
 }
-static int cythGetFileLength(String* fileName) {
+static int cythGetFileLength(CyString* fileName) {
 	int _v = GetFileLength(fileName->data);
 	int _r = (int)_v;
 	return _r;
 }
-static String* cythGetFileExtension(String* fileName) {
+static CyString* cythGetFileExtension(CyString* fileName) {
 	const char * _v = GetFileExtension(fileName->data);
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static String* cythGetFileName(String* filePath) {
+static CyString* cythGetFileName(CyString* filePath) {
 	const char * _v = GetFileName(filePath->data);
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static String* cythGetFileNameWithoutExt(String* filePath) {
+static CyString* cythGetFileNameWithoutExt(CyString* filePath) {
 	const char * _v = GetFileNameWithoutExt(filePath->data);
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static String* cythGetDirectoryPath(String* filePath) {
+static CyString* cythGetDirectoryPath(CyString* filePath) {
 	const char * _v = GetDirectoryPath(filePath->data);
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static String* cythGetPrevDirectoryPath(String* dirPath) {
+static CyString* cythGetPrevDirectoryPath(CyString* dirPath) {
 	const char * _v = GetPrevDirectoryPath(dirPath->data);
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static String* cythGetWorkingDirectory() {
+static CyString* cythGetWorkingDirectory() {
 	const char * _v = GetWorkingDirectory();
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static String* cythGetApplicationDirectory() {
+static CyString* cythGetApplicationDirectory() {
 	const char * _v = GetApplicationDirectory();
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static int cythMakeDirectory(String* dirPath) {
+static int cythMakeDirectory(CyString* dirPath) {
 	int _v = MakeDirectory(dirPath->data);
 	int _r = (int)_v;
 	return _r;
 }
-static bool cythChangeDirectory(String* dir) {
+static bool cythChangeDirectory(CyString* dir) {
 	bool _v = ChangeDirectory(dir->data);
 	bool _r = (bool)_v;
 	return _r;
 }
-static bool cythIsPathFile(String* path) {
+static bool cythIsPathFile(CyString* path) {
 	bool _v = IsPathFile(path->data);
 	bool _r = (bool)_v;
 	return _r;
 }
-static bool cythIsFileNameValid(String* fileName) {
+static bool cythIsFileNameValid(CyString* fileName) {
 	bool _v = IsFileNameValid(fileName->data);
 	bool _r = (bool)_v;
 	return _r;
 }
-static FilePathList* cythLoadDirectoryFiles(String* dirPath) {
+static FilePathList* cythLoadDirectoryFiles(CyString* dirPath) {
 	FilePathList _v = LoadDirectoryFiles(dirPath->data);
 	FilePathList* _r = (FilePathList*)cyth_alloc(1, sizeof(FilePathList));
 	*_r = _v;
 	return _r;
 }
-static FilePathList* cythLoadDirectoryFilesEx(String* basePath, String* filter, bool scanSubdirs) {
+static FilePathList* cythLoadDirectoryFilesEx(CyString* basePath, CyString* filter, bool scanSubdirs) {
 	FilePathList _v = LoadDirectoryFilesEx(basePath->data, filter->data, scanSubdirs);
 	FilePathList* _r = (FilePathList*)cyth_alloc(1, sizeof(FilePathList));
 	*_r = _v;
@@ -621,7 +621,7 @@ static FilePathList* cythLoadDroppedFiles() {
 static void cythUnloadDroppedFiles(FilePathList* files) {
 	UnloadDroppedFiles(*files);
 }
-static long* cythGetFileModTime(String* fileName) {
+static long* cythGetFileModTime(CyString* fileName) {
 	long _v = GetFileModTime(fileName->data);
 	long* _r = (long*)cyth_alloc(1, sizeof(long));
 	*_r = _v;
@@ -637,9 +637,9 @@ static unsigned char * cythDecompressData(const unsigned char * compData, int co
 	unsigned char * _r = (unsigned char *)_v;
 	return _r;
 }
-static Array* cythEncodeDataBase64(const unsigned char * data, int dataSize, int * outputSize) {
+static CyArray* cythEncodeDataBase64(const unsigned char * data, int dataSize, int * outputSize) {
 	char * _v = EncodeDataBase64(data, dataSize, outputSize);
-	Array* _r = (Array*)cyth_alloc(1, sizeof(Array));
+	CyArray* _r = (CyArray*)cyth_alloc(1, sizeof(CyArray));
 	_r->size = (int)strlen(_v);
 	_r->capacity = _r->capacity;
 	_r->data = (void*)_v;
@@ -665,7 +665,7 @@ static unsigned int * cythComputeSHA1(unsigned char * data, int dataSize) {
 	unsigned int * _r = (unsigned int *)_v;
 	return _r;
 }
-static AutomationEventList* cythLoadAutomationEventList(String* fileName) {
+static AutomationEventList* cythLoadAutomationEventList(CyString* fileName) {
 	AutomationEventList _v = LoadAutomationEventList(fileName->data);
 	AutomationEventList* _r = (AutomationEventList*)cyth_alloc(1, sizeof(AutomationEventList));
 	*_r = _v;
@@ -674,7 +674,7 @@ static AutomationEventList* cythLoadAutomationEventList(String* fileName) {
 static void cythUnloadAutomationEventList(AutomationEventList* list) {
 	UnloadAutomationEventList(*list);
 }
-static bool cythExportAutomationEventList(AutomationEventList* list, String* fileName) {
+static bool cythExportAutomationEventList(AutomationEventList* list, CyString* fileName) {
 	bool _v = ExportAutomationEventList(*list, fileName->data);
 	bool _r = (bool)_v;
 	return _r;
@@ -737,9 +737,9 @@ static bool cythIsGamepadAvailable(int gamepad) {
 	bool _r = (bool)_v;
 	return _r;
 }
-static String* cythGetGamepadName(int gamepad) {
+static CyString* cythGetGamepadName(int gamepad) {
 	const char * _v = GetGamepadName(gamepad);
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
@@ -779,7 +779,7 @@ static float cythGetGamepadAxisMovement(int gamepad, int axis) {
 	float _r = (float)_v;
 	return _r;
 }
-static int cythSetGamepadMappings(String* mappings) {
+static int cythSetGamepadMappings(CyString* mappings) {
 	int _v = SetGamepadMappings(mappings->data);
 	int _r = (int)_v;
 	return _r;
@@ -1166,31 +1166,31 @@ static Rectangle* cythGetCollisionRec(Rectangle* rec1, Rectangle* rec2) {
 	*_r = _v;
 	return _r;
 }
-static Image* cythLoadImage(String* fileName) {
+static Image* cythLoadImage(CyString* fileName) {
 	Image _v = LoadImage(fileName->data);
 	Image* _r = (Image*)cyth_alloc(1, sizeof(Image));
 	*_r = _v;
 	return _r;
 }
-static Image* cythLoadImageRaw(String* fileName, int width, int height, int format, int headerSize) {
+static Image* cythLoadImageRaw(CyString* fileName, int width, int height, int format, int headerSize) {
 	Image _v = LoadImageRaw(fileName->data, width, height, format, headerSize);
 	Image* _r = (Image*)cyth_alloc(1, sizeof(Image));
 	*_r = _v;
 	return _r;
 }
-static Image* cythLoadImageAnim(String* fileName, int * frames) {
+static Image* cythLoadImageAnim(CyString* fileName, int * frames) {
 	Image _v = LoadImageAnim(fileName->data, frames);
 	Image* _r = (Image*)cyth_alloc(1, sizeof(Image));
 	*_r = _v;
 	return _r;
 }
-static Image* cythLoadImageAnimFromMemory(String* fileType, const unsigned char * fileData, int dataSize, int * frames) {
+static Image* cythLoadImageAnimFromMemory(CyString* fileType, const unsigned char * fileData, int dataSize, int * frames) {
 	Image _v = LoadImageAnimFromMemory(fileType->data, fileData, dataSize, frames);
 	Image* _r = (Image*)cyth_alloc(1, sizeof(Image));
 	*_r = _v;
 	return _r;
 }
-static Image* cythLoadImageFromMemory(String* fileType, const unsigned char * fileData, int dataSize) {
+static Image* cythLoadImageFromMemory(CyString* fileType, const unsigned char * fileData, int dataSize) {
 	Image _v = LoadImageFromMemory(fileType->data, fileData, dataSize);
 	Image* _r = (Image*)cyth_alloc(1, sizeof(Image));
 	*_r = _v;
@@ -1216,17 +1216,17 @@ static bool cythIsImageValid(Image* image) {
 static void cythUnloadImage(Image* image) {
 	UnloadImage(*image);
 }
-static bool cythExportImage(Image* image, String* fileName) {
+static bool cythExportImage(Image* image, CyString* fileName) {
 	bool _v = ExportImage(*image, fileName->data);
 	bool _r = (bool)_v;
 	return _r;
 }
-static unsigned char * cythExportImageToMemory(Image* image, String* fileType, int * fileSize) {
+static unsigned char * cythExportImageToMemory(Image* image, CyString* fileType, int * fileSize) {
 	unsigned char * _v = ExportImageToMemory(*image, fileType->data, fileSize);
 	unsigned char * _r = (unsigned char *)_v;
 	return _r;
 }
-static bool cythExportImageAsCode(Image* image, String* fileName) {
+static bool cythExportImageAsCode(Image* image, CyString* fileName) {
 	bool _v = ExportImageAsCode(*image, fileName->data);
 	bool _r = (bool)_v;
 	return _r;
@@ -1279,7 +1279,7 @@ static Image* cythGenImageCellular(int width, int height, int tileSize) {
 	*_r = _v;
 	return _r;
 }
-static Image* cythGenImageText(int width, int height, String* text) {
+static Image* cythGenImageText(int width, int height, CyString* text) {
 	Image _v = GenImageText(width, height, text->data);
 	Image* _r = (Image*)cyth_alloc(1, sizeof(Image));
 	*_r = _v;
@@ -1303,13 +1303,13 @@ static Image* cythImageFromChannel(Image* image, int selectedChannel) {
 	*_r = _v;
 	return _r;
 }
-static Image* cythImageText(String* text, int fontSize, Color* color) {
+static Image* cythImageText(CyString* text, int fontSize, Color* color) {
 	Image _v = ImageText(text->data, fontSize, *color);
 	Image* _r = (Image*)cyth_alloc(1, sizeof(Image));
 	*_r = _v;
 	return _r;
 }
-static Image* cythImageTextEx(Font* font, String* text, float fontSize, float spacing, Color* tint) {
+static Image* cythImageTextEx(Font* font, CyString* text, float fontSize, float spacing, Color* tint) {
 	Image _v = ImageTextEx(*font, text->data, fontSize, spacing, *tint);
 	Image* _r = (Image*)cyth_alloc(1, sizeof(Image));
 	*_r = _v;
@@ -1478,13 +1478,13 @@ static void cythImageDrawTriangleStrip(Image * dst, Vector2 * points, int pointC
 static void cythImageDraw(Image * dst, Image* src, Rectangle* srcRec, Rectangle* dstRec, Color* tint) {
 	ImageDraw(dst, *src, *srcRec, *dstRec, *tint);
 }
-static void cythImageDrawText(Image * dst, String* text, int posX, int posY, int fontSize, Color* color) {
+static void cythImageDrawText(Image * dst, CyString* text, int posX, int posY, int fontSize, Color* color) {
 	ImageDrawText(dst, text->data, posX, posY, fontSize, *color);
 }
-static void cythImageDrawTextEx(Image * dst, Font* font, String* text, Vector2* position, float fontSize, float spacing, Color* tint) {
+static void cythImageDrawTextEx(Image * dst, Font* font, CyString* text, Vector2* position, float fontSize, float spacing, Color* tint) {
 	ImageDrawTextEx(dst, *font, text->data, *position, fontSize, spacing, *tint);
 }
-static Texture2D* cythLoadTexture(String* fileName) {
+static Texture2D* cythLoadTexture(CyString* fileName) {
 	Texture2D _v = LoadTexture(fileName->data);
 	Texture2D* _r = (Texture2D*)cyth_alloc(1, sizeof(Texture2D));
 	*_r = _v;
@@ -1659,13 +1659,13 @@ static Font* cythGetFontDefault() {
 	*_r = _v;
 	return _r;
 }
-static Font* cythLoadFont(String* fileName) {
+static Font* cythLoadFont(CyString* fileName) {
 	Font _v = LoadFont(fileName->data);
 	Font* _r = (Font*)cyth_alloc(1, sizeof(Font));
 	*_r = _v;
 	return _r;
 }
-static Font* cythLoadFontEx(String* fileName, int fontSize, int * codepoints, int codepointCount) {
+static Font* cythLoadFontEx(CyString* fileName, int fontSize, int * codepoints, int codepointCount) {
 	Font _v = LoadFontEx(fileName->data, fontSize, codepoints, codepointCount);
 	Font* _r = (Font*)cyth_alloc(1, sizeof(Font));
 	*_r = _v;
@@ -1677,7 +1677,7 @@ static Font* cythLoadFontFromImage(Image* image, Color* key, int firstChar) {
 	*_r = _v;
 	return _r;
 }
-static Font* cythLoadFontFromMemory(String* fileType, const unsigned char * fileData, int dataSize, int fontSize, int * codepoints, int codepointCount) {
+static Font* cythLoadFontFromMemory(CyString* fileType, const unsigned char * fileData, int dataSize, int fontSize, int * codepoints, int codepointCount) {
 	Font _v = LoadFontFromMemory(fileType->data, fileData, dataSize, fontSize, codepoints, codepointCount);
 	Font* _r = (Font*)cyth_alloc(1, sizeof(Font));
 	*_r = _v;
@@ -1705,7 +1705,7 @@ static void cythUnloadFontData(GlyphInfo * glyphs, int glyphCount) {
 static void cythUnloadFont(Font* font) {
 	UnloadFont(*font);
 }
-static bool cythExportFontAsCode(Font* font, String* fileName) {
+static bool cythExportFontAsCode(Font* font, CyString* fileName) {
 	bool _v = ExportFontAsCode(*font, fileName->data);
 	bool _r = (bool)_v;
 	return _r;
@@ -1713,13 +1713,13 @@ static bool cythExportFontAsCode(Font* font, String* fileName) {
 static void cythDrawFPS(int posX, int posY) {
 	DrawFPS(posX, posY);
 }
-static void cythDrawText(String* text, int posX, int posY, int fontSize, Color* color) {
+static void cythDrawText(CyString* text, int posX, int posY, int fontSize, Color* color) {
 	DrawText(text->data, posX, posY, fontSize, *color);
 }
-static void cythDrawTextEx(Font* font, String* text, Vector2* position, float fontSize, float spacing, Color* tint) {
+static void cythDrawTextEx(Font* font, CyString* text, Vector2* position, float fontSize, float spacing, Color* tint) {
 	DrawTextEx(*font, text->data, *position, fontSize, spacing, *tint);
 }
-static void cythDrawTextPro(Font* font, String* text, Vector2* position, Vector2* origin, float rotation, float fontSize, float spacing, Color* tint) {
+static void cythDrawTextPro(Font* font, CyString* text, Vector2* position, Vector2* origin, float rotation, float fontSize, float spacing, Color* tint) {
 	DrawTextPro(*font, text->data, *position, *origin, rotation, fontSize, spacing, *tint);
 }
 static void cythDrawTextCodepoint(Font* font, int codepoint, Vector2* position, float fontSize, Color* tint) {
@@ -1731,12 +1731,12 @@ static void cythDrawTextCodepoints(Font* font, const int * codepoints, int codep
 static void cythSetTextLineSpacing(int spacing) {
 	SetTextLineSpacing(spacing);
 }
-static int cythMeasureText(String* text, int fontSize) {
+static int cythMeasureText(CyString* text, int fontSize) {
 	int _v = MeasureText(text->data, fontSize);
 	int _r = (int)_v;
 	return _r;
 }
-static Vector2* cythMeasureTextEx(Font* font, String* text, float fontSize, float spacing) {
+static Vector2* cythMeasureTextEx(Font* font, CyString* text, float fontSize, float spacing) {
 	Vector2 _v = MeasureTextEx(*font, text->data, fontSize, spacing);
 	Vector2* _r = (Vector2*)cyth_alloc(1, sizeof(Vector2));
 	*_r = _v;
@@ -1759,18 +1759,18 @@ static Rectangle* cythGetGlyphAtlasRec(Font* font, int codepoint) {
 	*_r = _v;
 	return _r;
 }
-static Array* cythLoadUTF8(const int * codepoints, int length) {
+static CyArray* cythLoadUTF8(const int * codepoints, int length) {
 	char * _v = LoadUTF8(codepoints, length);
-	Array* _r = (Array*)cyth_alloc(1, sizeof(Array));
+	CyArray* _r = (CyArray*)cyth_alloc(1, sizeof(CyArray));
 	_r->size = (int)strlen(_v);
 	_r->capacity = _r->capacity;
 	_r->data = (void*)_v;
 	return _r;
 }
-static void cythUnloadUTF8(Array* text) {
+static void cythUnloadUTF8(CyArray* text) {
 	UnloadUTF8((char*)text->data);
 }
-static int * cythLoadCodepoints(String* text, int * count) {
+static int * cythLoadCodepoints(CyString* text, int * count) {
 	int * _v = LoadCodepoints(text->data, count);
 	int * _r = (int *)_v;
 	return _r;
@@ -1778,132 +1778,132 @@ static int * cythLoadCodepoints(String* text, int * count) {
 static void cythUnloadCodepoints(int * codepoints) {
 	UnloadCodepoints(codepoints);
 }
-static int cythGetCodepointCount(String* text) {
+static int cythGetCodepointCount(CyString* text) {
 	int _v = GetCodepointCount(text->data);
 	int _r = (int)_v;
 	return _r;
 }
-static int cythGetCodepoint(String* text, int * codepointSize) {
+static int cythGetCodepoint(CyString* text, int * codepointSize) {
 	int _v = GetCodepoint(text->data, codepointSize);
 	int _r = (int)_v;
 	return _r;
 }
-static int cythGetCodepointNext(String* text, int * codepointSize) {
+static int cythGetCodepointNext(CyString* text, int * codepointSize) {
 	int _v = GetCodepointNext(text->data, codepointSize);
 	int _r = (int)_v;
 	return _r;
 }
-static int cythGetCodepointPrevious(String* text, int * codepointSize) {
+static int cythGetCodepointPrevious(CyString* text, int * codepointSize) {
 	int _v = GetCodepointPrevious(text->data, codepointSize);
 	int _r = (int)_v;
 	return _r;
 }
-static String* cythCodepointToUTF8(int codepoint, int * utf8Size) {
+static CyString* cythCodepointToUTF8(int codepoint, int * utf8Size) {
 	const char * _v = CodepointToUTF8(codepoint, utf8Size);
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static int cythTextCopy(Array* dst, String* src) {
+static int cythTextCopy(CyArray* dst, CyString* src) {
 	int _v = TextCopy((char*)dst->data, src->data);
 	int _r = (int)_v;
 	return _r;
 }
-static bool cythTextIsEqual(String* text1, String* text2) {
+static bool cythTextIsEqual(CyString* text1, CyString* text2) {
 	bool _v = TextIsEqual(text1->data, text2->data);
 	bool _r = (bool)_v;
 	return _r;
 }
-static unsigned int cythTextLength(String* text) {
+static unsigned int cythTextLength(CyString* text) {
 	unsigned int _v = TextLength(text->data);
 	unsigned int _r = (unsigned int)_v;
 	return _r;
 }
-static String* cythTextSubtext(String* text, int position, int length) {
+static CyString* cythTextSubtext(CyString* text, int position, int length) {
 	const char * _v = TextSubtext(text->data, position, length);
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static Array* cythTextReplace(String* text, String* replace, String* by) {
+static CyArray* cythTextReplace(CyString* text, CyString* replace, CyString* by) {
 	char * _v = TextReplace(text->data, replace->data, by->data);
-	Array* _r = (Array*)cyth_alloc(1, sizeof(Array));
+	CyArray* _r = (CyArray*)cyth_alloc(1, sizeof(CyArray));
 	_r->size = (int)strlen(_v);
 	_r->capacity = _r->capacity;
 	_r->data = (void*)_v;
 	return _r;
 }
-static Array* cythTextInsert(String* text, String* insert, int position) {
+static CyArray* cythTextInsert(CyString* text, CyString* insert, int position) {
 	char * _v = TextInsert(text->data, insert->data, position);
-	Array* _r = (Array*)cyth_alloc(1, sizeof(Array));
+	CyArray* _r = (CyArray*)cyth_alloc(1, sizeof(CyArray));
 	_r->size = (int)strlen(_v);
 	_r->capacity = _r->capacity;
 	_r->data = (void*)_v;
 	return _r;
 }
-static String* cythTextJoin(const char ** textList, int count, String* delimiter) {
+static CyString* cythTextJoin(const char ** textList, int count, CyString* delimiter) {
 	const char * _v = TextJoin(textList, count, delimiter->data);
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static const char ** cythTextSplit(String* text, char* delimiter, int * count) {
+static const char ** cythTextSplit(CyString* text, char* delimiter, int * count) {
 	const char ** _v = TextSplit(text->data, *delimiter, count);
 	const char ** _r = (const char **)_v;
 	return _r;
 }
-static void cythTextAppend(Array* text, String* append, int * position) {
+static void cythTextAppend(CyArray* text, CyString* append, int * position) {
 	TextAppend((char*)text->data, append->data, position);
 }
-static int cythTextFindIndex(String* text, String* find) {
+static int cythTextFindIndex(CyString* text, CyString* find) {
 	int _v = TextFindIndex(text->data, find->data);
 	int _r = (int)_v;
 	return _r;
 }
-static String* cythTextToUpper(String* text) {
+static CyString* cythTextToUpper(CyString* text) {
 	const char * _v = TextToUpper(text->data);
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static String* cythTextToLower(String* text) {
+static CyString* cythTextToLower(CyString* text) {
 	const char * _v = TextToLower(text->data);
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static String* cythTextToPascal(String* text) {
+static CyString* cythTextToPascal(CyString* text) {
 	const char * _v = TextToPascal(text->data);
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static String* cythTextToSnake(String* text) {
+static CyString* cythTextToSnake(CyString* text) {
 	const char * _v = TextToSnake(text->data);
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static String* cythTextToCamel(String* text) {
+static CyString* cythTextToCamel(CyString* text) {
 	const char * _v = TextToCamel(text->data);
-	String* _r = (String*)cyth_alloc(1, sizeof(String) + strlen(_v));
+	CyString* _r = (CyString*)cyth_alloc(1, sizeof(CyString) + strlen(_v));
 	_r->size = (int)strlen(_v);
 	memcpy(_r->data, _v, _r->size);
 	return _r;
 }
-static int cythTextToInteger(String* text) {
+static int cythTextToInteger(CyString* text) {
 	int _v = TextToInteger(text->data);
 	int _r = (int)_v;
 	return _r;
 }
-static float cythTextToFloat(String* text) {
+static float cythTextToFloat(CyString* text) {
 	float _v = TextToFloat(text->data);
 	float _r = (float)_v;
 	return _r;
@@ -1971,7 +1971,7 @@ static void cythDrawRay(Ray* ray, Color* color) {
 static void cythDrawGrid(int slices, float spacing) {
 	DrawGrid(slices, spacing);
 }
-static Model* cythLoadModel(String* fileName) {
+static Model* cythLoadModel(CyString* fileName) {
 	Model _v = LoadModel(fileName->data);
 	Model* _r = (Model*)cyth_alloc(1, sizeof(Model));
 	*_r = _v;
@@ -2051,12 +2051,12 @@ static BoundingBox* cythGetMeshBoundingBox(Mesh* mesh) {
 static void cythGenMeshTangents(Mesh * mesh) {
 	GenMeshTangents(mesh);
 }
-static bool cythExportMesh(Mesh* mesh, String* fileName) {
+static bool cythExportMesh(Mesh* mesh, CyString* fileName) {
 	bool _v = ExportMesh(*mesh, fileName->data);
 	bool _r = (bool)_v;
 	return _r;
 }
-static bool cythExportMeshAsCode(Mesh* mesh, String* fileName) {
+static bool cythExportMeshAsCode(Mesh* mesh, CyString* fileName) {
 	bool _v = ExportMeshAsCode(*mesh, fileName->data);
 	bool _r = (bool)_v;
 	return _r;
@@ -2127,7 +2127,7 @@ static Mesh* cythGenMeshCubicmap(Image* cubicmap, Vector3* cubeSize) {
 	*_r = _v;
 	return _r;
 }
-static Material * cythLoadMaterials(String* fileName, int * materialCount) {
+static Material * cythLoadMaterials(CyString* fileName, int * materialCount) {
 	Material * _v = LoadMaterials(fileName->data, materialCount);
 	Material * _r = (Material *)_v;
 	return _r;
@@ -2152,7 +2152,7 @@ static void cythSetMaterialTexture(Material * material, int mapType, Texture2D* 
 static void cythSetModelMeshMaterial(Model * model, int meshId, int materialId) {
 	SetModelMeshMaterial(model, meshId, materialId);
 }
-static ModelAnimation * cythLoadModelAnimations(String* fileName, int * animCount) {
+static ModelAnimation * cythLoadModelAnimations(CyString* fileName, int * animCount) {
 	ModelAnimation * _v = LoadModelAnimations(fileName->data, animCount);
 	ModelAnimation * _r = (ModelAnimation *)_v;
 	return _r;
@@ -2238,13 +2238,13 @@ static float cythGetMasterVolume() {
 	float _r = (float)_v;
 	return _r;
 }
-static Wave* cythLoadWave(String* fileName) {
+static Wave* cythLoadWave(CyString* fileName) {
 	Wave _v = LoadWave(fileName->data);
 	Wave* _r = (Wave*)cyth_alloc(1, sizeof(Wave));
 	*_r = _v;
 	return _r;
 }
-static Wave* cythLoadWaveFromMemory(String* fileType, const unsigned char * fileData, int dataSize) {
+static Wave* cythLoadWaveFromMemory(CyString* fileType, const unsigned char * fileData, int dataSize) {
 	Wave _v = LoadWaveFromMemory(fileType->data, fileData, dataSize);
 	Wave* _r = (Wave*)cyth_alloc(1, sizeof(Wave));
 	*_r = _v;
@@ -2255,7 +2255,7 @@ static bool cythIsWaveValid(Wave* wave) {
 	bool _r = (bool)_v;
 	return _r;
 }
-static Sound* cythLoadSound(String* fileName) {
+static Sound* cythLoadSound(CyString* fileName) {
 	Sound _v = LoadSound(fileName->data);
 	Sound* _r = (Sound*)cyth_alloc(1, sizeof(Sound));
 	*_r = _v;
@@ -2290,12 +2290,12 @@ static void cythUnloadSound(Sound* sound) {
 static void cythUnloadSoundAlias(Sound* alias) {
 	UnloadSoundAlias(*alias);
 }
-static bool cythExportWave(Wave* wave, String* fileName) {
+static bool cythExportWave(Wave* wave, CyString* fileName) {
 	bool _v = ExportWave(*wave, fileName->data);
 	bool _r = (bool)_v;
 	return _r;
 }
-static bool cythExportWaveAsCode(Wave* wave, String* fileName) {
+static bool cythExportWaveAsCode(Wave* wave, CyString* fileName) {
 	bool _v = ExportWaveAsCode(*wave, fileName->data);
 	bool _r = (bool)_v;
 	return _r;
@@ -2346,13 +2346,13 @@ static float * cythLoadWaveSamples(Wave* wave) {
 static void cythUnloadWaveSamples(float * samples) {
 	UnloadWaveSamples(samples);
 }
-static Music* cythLoadMusicStream(String* fileName) {
+static Music* cythLoadMusicStream(CyString* fileName) {
 	Music _v = LoadMusicStream(fileName->data);
 	Music* _r = (Music*)cyth_alloc(1, sizeof(Music));
 	*_r = _v;
 	return _r;
 }
-static Music* cythLoadMusicStreamFromMemory(String* fileType, const unsigned char * data, int dataSize) {
+static Music* cythLoadMusicStreamFromMemory(CyString* fileType, const unsigned char * data, int dataSize) {
 	Music _v = LoadMusicStreamFromMemory(fileType->data, data, dataSize);
 	Music* _r = (Music*)cyth_alloc(1, sizeof(Music));
 	*_r = _v;
@@ -2474,1174 +2474,589 @@ static void cythAttachAudioMixedProcessor(AudioCallback* processor) {
 static void cythDetachAudioMixedProcessor(AudioCallback* processor) {
 	DetachAudioMixedProcessor(*processor);
 }
-#define cyth_set_raylib_functions(_ctx) do { \
-  cyth_set_function((_ctx), "raylib.initWindow.void(int, int, string)", (uintptr_t)cythInitWindow); \
-  cyth_set_function((_ctx), "raylib.closeWindow.void()", (uintptr_t)cythCloseWindow); \
-  cyth_set_function((_ctx), "raylib.windowShouldClose.bool()", (uintptr_t)cythWindowShouldClose); \
-  cyth_set_function((_ctx), "raylib.isWindowReady.bool()", (uintptr_t)cythIsWindowReady); \
-  cyth_set_function((_ctx), "raylib.isWindowFullscreen.bool()", (uintptr_t)cythIsWindowFullscreen); \
-  cyth_set_function((_ctx), "raylib.isWindowHidden.bool()", (uintptr_t)cythIsWindowHidden); \
-  cyth_set_function((_ctx), "raylib.isWindowMinimized.bool()", (uintptr_t)cythIsWindowMinimized); \
-  cyth_set_function((_ctx), "raylib.isWindowMaximized.bool()", (uintptr_t)cythIsWindowMaximized); \
-  cyth_set_function((_ctx), "raylib.isWindowFocused.bool()", (uintptr_t)cythIsWindowFocused); \
-  cyth_set_function((_ctx), "raylib.isWindowResized.bool()", (uintptr_t)cythIsWindowResized); \
-  cyth_set_function((_ctx), "raylib.isWindowState.bool(int)", (uintptr_t)cythIsWindowState); \
-  cyth_set_function((_ctx), "raylib.setWindowState.void(int)", (uintptr_t)cythSetWindowState); \
-  cyth_set_function((_ctx), "raylib.clearWindowState.void(int)", (uintptr_t)cythClearWindowState); \
-  cyth_set_function((_ctx), "raylib.toggleFullscreen.void()", (uintptr_t)cythToggleFullscreen); \
-  cyth_set_function((_ctx), "raylib.toggleBorderlessWindowed.void()", (uintptr_t)cythToggleBorderlessWindowed); \
-  cyth_set_function((_ctx), "raylib.maximizeWindow.void()", (uintptr_t)cythMaximizeWindow); \
-  cyth_set_function((_ctx), "raylib.minimizeWindow.void()", (uintptr_t)cythMinimizeWindow); \
-  cyth_set_function((_ctx), "raylib.restoreWindow.void()", (uintptr_t)cythRestoreWindow); \
-  cyth_set_function((_ctx), "raylib.setWindowIcon.void(Image)", (uintptr_t)cythSetWindowIcon); \
-  cyth_set_function((_ctx), "raylib.setWindowIcons.void(Image, int)", (uintptr_t)cythSetWindowIcons); \
-  cyth_set_function((_ctx), "raylib.setWindowTitle.void(string)", (uintptr_t)cythSetWindowTitle); \
-  cyth_set_function((_ctx), "raylib.setWindowPosition.void(int, int)", (uintptr_t)cythSetWindowPosition); \
-  cyth_set_function((_ctx), "raylib.setWindowMonitor.void(int)", (uintptr_t)cythSetWindowMonitor); \
-  cyth_set_function((_ctx), "raylib.setWindowMinSize.void(int, int)", (uintptr_t)cythSetWindowMinSize); \
-  cyth_set_function((_ctx), "raylib.setWindowMaxSize.void(int, int)", (uintptr_t)cythSetWindowMaxSize); \
-  cyth_set_function((_ctx), "raylib.setWindowSize.void(int, int)", (uintptr_t)cythSetWindowSize); \
-  cyth_set_function((_ctx), "raylib.setWindowOpacity.void(float)", (uintptr_t)cythSetWindowOpacity); \
-  cyth_set_function((_ctx), "raylib.setWindowFocused.void()", (uintptr_t)cythSetWindowFocused); \
-  cyth_set_function((_ctx), "raylib.getWindowHandle.any()", (uintptr_t)cythGetWindowHandle); \
-  cyth_set_function((_ctx), "raylib.getScreenWidth.int()", (uintptr_t)cythGetScreenWidth); \
-  cyth_set_function((_ctx), "raylib.getScreenHeight.int()", (uintptr_t)cythGetScreenHeight); \
-  cyth_set_function((_ctx), "raylib.getRenderWidth.int()", (uintptr_t)cythGetRenderWidth); \
-  cyth_set_function((_ctx), "raylib.getRenderHeight.int()", (uintptr_t)cythGetRenderHeight); \
-  cyth_set_function((_ctx), "raylib.getMonitorCount.int()", (uintptr_t)cythGetMonitorCount); \
-  cyth_set_function((_ctx), "raylib.getCurrentMonitor.int()", (uintptr_t)cythGetCurrentMonitor); \
-  cyth_set_function((_ctx), "raylib.getMonitorPosition.Vector2(int)", (uintptr_t)cythGetMonitorPosition); \
-  cyth_set_function((_ctx), "raylib.getMonitorWidth.int(int)", (uintptr_t)cythGetMonitorWidth); \
-  cyth_set_function((_ctx), "raylib.getMonitorHeight.int(int)", (uintptr_t)cythGetMonitorHeight); \
-  cyth_set_function((_ctx), "raylib.getMonitorPhysicalWidth.int(int)", (uintptr_t)cythGetMonitorPhysicalWidth); \
-  cyth_set_function((_ctx), "raylib.getMonitorPhysicalHeight.int(int)", (uintptr_t)cythGetMonitorPhysicalHeight); \
-  cyth_set_function((_ctx), "raylib.getMonitorRefreshRate.int(int)", (uintptr_t)cythGetMonitorRefreshRate); \
-  cyth_set_function((_ctx), "raylib.getWindowPosition.Vector2()", (uintptr_t)cythGetWindowPosition); \
-  cyth_set_function((_ctx), "raylib.getWindowScaleDPI.Vector2()", (uintptr_t)cythGetWindowScaleDPI); \
-  cyth_set_function((_ctx), "raylib.getMonitorName.string(int)", (uintptr_t)cythGetMonitorName); \
-  cyth_set_function((_ctx), "raylib.setClipboardText.void(string)", (uintptr_t)cythSetClipboardText); \
-  cyth_set_function((_ctx), "raylib.getClipboardText.string()", (uintptr_t)cythGetClipboardText); \
-  cyth_set_function((_ctx), "raylib.getClipboardImage.Image()", (uintptr_t)cythGetClipboardImage); \
-  cyth_set_function((_ctx), "raylib.enableEventWaiting.void()", (uintptr_t)cythEnableEventWaiting); \
-  cyth_set_function((_ctx), "raylib.disableEventWaiting.void()", (uintptr_t)cythDisableEventWaiting); \
-  cyth_set_function((_ctx), "raylib.showCursor.void()", (uintptr_t)cythShowCursor); \
-  cyth_set_function((_ctx), "raylib.hideCursor.void()", (uintptr_t)cythHideCursor); \
-  cyth_set_function((_ctx), "raylib.isCursorHidden.bool()", (uintptr_t)cythIsCursorHidden); \
-  cyth_set_function((_ctx), "raylib.enableCursor.void()", (uintptr_t)cythEnableCursor); \
-  cyth_set_function((_ctx), "raylib.disableCursor.void()", (uintptr_t)cythDisableCursor); \
-  cyth_set_function((_ctx), "raylib.isCursorOnScreen.bool()", (uintptr_t)cythIsCursorOnScreen); \
-  cyth_set_function((_ctx), "raylib.clearBackground.void(Color)", (uintptr_t)cythClearBackground); \
-  cyth_set_function((_ctx), "raylib.beginDrawing.void()", (uintptr_t)cythBeginDrawing); \
-  cyth_set_function((_ctx), "raylib.endDrawing.void()", (uintptr_t)cythEndDrawing); \
-  cyth_set_function((_ctx), "raylib.beginMode2D.void(Camera2D)", (uintptr_t)cythBeginMode2D); \
-  cyth_set_function((_ctx), "raylib.endMode2D.void()", (uintptr_t)cythEndMode2D); \
-  cyth_set_function((_ctx), "raylib.beginMode3D.void(Camera3D)", (uintptr_t)cythBeginMode3D); \
-  cyth_set_function((_ctx), "raylib.endMode3D.void()", (uintptr_t)cythEndMode3D); \
-  cyth_set_function((_ctx), "raylib.beginTextureMode.void(RenderTexture2D)", (uintptr_t)cythBeginTextureMode); \
-  cyth_set_function((_ctx), "raylib.endTextureMode.void()", (uintptr_t)cythEndTextureMode); \
-  cyth_set_function((_ctx), "raylib.beginShaderMode.void(Shader)", (uintptr_t)cythBeginShaderMode); \
-  cyth_set_function((_ctx), "raylib.endShaderMode.void()", (uintptr_t)cythEndShaderMode); \
-  cyth_set_function((_ctx), "raylib.beginBlendMode.void(int)", (uintptr_t)cythBeginBlendMode); \
-  cyth_set_function((_ctx), "raylib.endBlendMode.void()", (uintptr_t)cythEndBlendMode); \
-  cyth_set_function((_ctx), "raylib.beginScissorMode.void(int, int, int, int)", (uintptr_t)cythBeginScissorMode); \
-  cyth_set_function((_ctx), "raylib.endScissorMode.void()", (uintptr_t)cythEndScissorMode); \
-  cyth_set_function((_ctx), "raylib.beginVrStereoMode.void(VrStereoConfig)", (uintptr_t)cythBeginVrStereoMode); \
-  cyth_set_function((_ctx), "raylib.endVrStereoMode.void()", (uintptr_t)cythEndVrStereoMode); \
-  cyth_set_function((_ctx), "raylib.loadVrStereoConfig.VrStereoConfig(VrDeviceInfo)", (uintptr_t)cythLoadVrStereoConfig); \
-  cyth_set_function((_ctx), "raylib.unloadVrStereoConfig.void(VrStereoConfig)", (uintptr_t)cythUnloadVrStereoConfig); \
-  cyth_set_function((_ctx), "raylib.loadShader.Shader(string, string)", (uintptr_t)cythLoadShader); \
-  cyth_set_function((_ctx), "raylib.loadShaderFromMemory.Shader(string, string)", (uintptr_t)cythLoadShaderFromMemory); \
-  cyth_set_function((_ctx), "raylib.isShaderValid.bool(Shader)", (uintptr_t)cythIsShaderValid); \
-  cyth_set_function((_ctx), "raylib.getShaderLocation.int(Shader, string)", (uintptr_t)cythGetShaderLocation); \
-  cyth_set_function((_ctx), "raylib.getShaderLocationAttrib.int(Shader, string)", (uintptr_t)cythGetShaderLocationAttrib); \
-  cyth_set_function((_ctx), "raylib.setShaderValue.void(Shader, int, any, int)", (uintptr_t)cythSetShaderValue); \
-  cyth_set_function((_ctx), "raylib.setShaderValueV.void(Shader, int, any, int, int)", (uintptr_t)cythSetShaderValueV); \
-  cyth_set_function((_ctx), "raylib.setShaderValueMatrix.void(Shader, int, Matrix)", (uintptr_t)cythSetShaderValueMatrix); \
-  cyth_set_function((_ctx), "raylib.setShaderValueTexture.void(Shader, int, Texture2D)", (uintptr_t)cythSetShaderValueTexture); \
-  cyth_set_function((_ctx), "raylib.unloadShader.void(Shader)", (uintptr_t)cythUnloadShader); \
-  cyth_set_function((_ctx), "raylib.getScreenToWorldRay.Ray(Vector2, Camera)", (uintptr_t)cythGetScreenToWorldRay); \
-  cyth_set_function((_ctx), "raylib.getScreenToWorldRayEx.Ray(Vector2, Camera, int, int)", (uintptr_t)cythGetScreenToWorldRayEx); \
-  cyth_set_function((_ctx), "raylib.getWorldToScreen.Vector2(Vector3, Camera)", (uintptr_t)cythGetWorldToScreen); \
-  cyth_set_function((_ctx), "raylib.getWorldToScreenEx.Vector2(Vector3, Camera, int, int)", (uintptr_t)cythGetWorldToScreenEx); \
-  cyth_set_function((_ctx), "raylib.getWorldToScreen2D.Vector2(Vector2, Camera2D)", (uintptr_t)cythGetWorldToScreen2D); \
-  cyth_set_function((_ctx), "raylib.getScreenToWorld2D.Vector2(Vector2, Camera2D)", (uintptr_t)cythGetScreenToWorld2D); \
-  cyth_set_function((_ctx), "raylib.getCameraMatrix.Matrix(Camera)", (uintptr_t)cythGetCameraMatrix); \
-  cyth_set_function((_ctx), "raylib.getCameraMatrix2D.Matrix(Camera2D)", (uintptr_t)cythGetCameraMatrix2D); \
-  cyth_set_function((_ctx), "raylib.setTargetFPS.void(int)", (uintptr_t)cythSetTargetFPS); \
-  cyth_set_function((_ctx), "raylib.getFrameTime.float()", (uintptr_t)cythGetFrameTime); \
-  cyth_set_function((_ctx), "raylib.getTime.float()", (uintptr_t)cythGetTime); \
-  cyth_set_function((_ctx), "raylib.getFPS.int()", (uintptr_t)cythGetFPS); \
-  cyth_set_function((_ctx), "raylib.swapScreenBuffer.void()", (uintptr_t)cythSwapScreenBuffer); \
-  cyth_set_function((_ctx), "raylib.pollInputEvents.void()", (uintptr_t)cythPollInputEvents); \
-  cyth_set_function((_ctx), "raylib.waitTime.void(float)", (uintptr_t)cythWaitTime); \
-  cyth_set_function((_ctx), "raylib.setRandomSeed.void(int)", (uintptr_t)cythSetRandomSeed); \
-  cyth_set_function((_ctx), "raylib.getRandomValue.int(int, int)", (uintptr_t)cythGetRandomValue); \
-  cyth_set_function((_ctx), "raylib.loadRandomSequence.any(int, int, int)", (uintptr_t)cythLoadRandomSequence); \
-  cyth_set_function((_ctx), "raylib.unloadRandomSequence.void(any)", (uintptr_t)cythUnloadRandomSequence); \
-  cyth_set_function((_ctx), "raylib.takeScreenshot.void(string)", (uintptr_t)cythTakeScreenshot); \
-  cyth_set_function((_ctx), "raylib.setConfigFlags.void(int)", (uintptr_t)cythSetConfigFlags); \
-  cyth_set_function((_ctx), "raylib.openURL.void(string)", (uintptr_t)cythOpenURL); \
-  cyth_set_function((_ctx), "raylib.setTraceLogLevel.void(int)", (uintptr_t)cythSetTraceLogLevel); \
-  cyth_set_function((_ctx), "raylib.memAlloc.any(int)", (uintptr_t)cythMemAlloc); \
-  cyth_set_function((_ctx), "raylib.memRealloc.any(any, int)", (uintptr_t)cythMemRealloc); \
-  cyth_set_function((_ctx), "raylib.memFree.void(any)", (uintptr_t)cythMemFree); \
-  cyth_set_function((_ctx), "raylib.setTraceLogCallback.void(TraceLogCallback)", (uintptr_t)cythSetTraceLogCallback); \
-  cyth_set_function((_ctx), "raylib.setLoadFileDataCallback.void(LoadFileDataCallback)", (uintptr_t)cythSetLoadFileDataCallback); \
-  cyth_set_function((_ctx), "raylib.setSaveFileDataCallback.void(SaveFileDataCallback)", (uintptr_t)cythSetSaveFileDataCallback); \
-  cyth_set_function((_ctx), "raylib.setLoadFileTextCallback.void(LoadFileTextCallback)", (uintptr_t)cythSetLoadFileTextCallback); \
-  cyth_set_function((_ctx), "raylib.setSaveFileTextCallback.void(SaveFileTextCallback)", (uintptr_t)cythSetSaveFileTextCallback); \
-  cyth_set_function((_ctx), "raylib.loadFileData.any(string, any)", (uintptr_t)cythLoadFileData); \
-  cyth_set_function((_ctx), "raylib.unloadFileData.void(any)", (uintptr_t)cythUnloadFileData); \
-  cyth_set_function((_ctx), "raylib.saveFileData.bool(string, any, int)", (uintptr_t)cythSaveFileData); \
-  cyth_set_function((_ctx), "raylib.exportDataAsCode.bool(any, int, string)", (uintptr_t)cythExportDataAsCode); \
-  cyth_set_function((_ctx), "raylib.loadFileText.char[](string)", (uintptr_t)cythLoadFileText); \
-  cyth_set_function((_ctx), "raylib.unloadFileText.void(char[])", (uintptr_t)cythUnloadFileText); \
-  cyth_set_function((_ctx), "raylib.saveFileText.bool(string, char[])", (uintptr_t)cythSaveFileText); \
-  cyth_set_function((_ctx), "raylib.fileExists.bool(string)", (uintptr_t)cythFileExists); \
-  cyth_set_function((_ctx), "raylib.directoryExists.bool(string)", (uintptr_t)cythDirectoryExists); \
-  cyth_set_function((_ctx), "raylib.isFileExtension.bool(string, string)", (uintptr_t)cythIsFileExtension); \
-  cyth_set_function((_ctx), "raylib.getFileLength.int(string)", (uintptr_t)cythGetFileLength); \
-  cyth_set_function((_ctx), "raylib.getFileExtension.string(string)", (uintptr_t)cythGetFileExtension); \
-  cyth_set_function((_ctx), "raylib.getFileName.string(string)", (uintptr_t)cythGetFileName); \
-  cyth_set_function((_ctx), "raylib.getFileNameWithoutExt.string(string)", (uintptr_t)cythGetFileNameWithoutExt); \
-  cyth_set_function((_ctx), "raylib.getDirectoryPath.string(string)", (uintptr_t)cythGetDirectoryPath); \
-  cyth_set_function((_ctx), "raylib.getPrevDirectoryPath.string(string)", (uintptr_t)cythGetPrevDirectoryPath); \
-  cyth_set_function((_ctx), "raylib.getWorkingDirectory.string()", (uintptr_t)cythGetWorkingDirectory); \
-  cyth_set_function((_ctx), "raylib.getApplicationDirectory.string()", (uintptr_t)cythGetApplicationDirectory); \
-  cyth_set_function((_ctx), "raylib.makeDirectory.int(string)", (uintptr_t)cythMakeDirectory); \
-  cyth_set_function((_ctx), "raylib.changeDirectory.bool(string)", (uintptr_t)cythChangeDirectory); \
-  cyth_set_function((_ctx), "raylib.isPathFile.bool(string)", (uintptr_t)cythIsPathFile); \
-  cyth_set_function((_ctx), "raylib.isFileNameValid.bool(string)", (uintptr_t)cythIsFileNameValid); \
-  cyth_set_function((_ctx), "raylib.loadDirectoryFiles.FilePathList(string)", (uintptr_t)cythLoadDirectoryFiles); \
-  cyth_set_function((_ctx), "raylib.loadDirectoryFilesEx.FilePathList(string, string, bool)", (uintptr_t)cythLoadDirectoryFilesEx); \
-  cyth_set_function((_ctx), "raylib.unloadDirectoryFiles.void(FilePathList)", (uintptr_t)cythUnloadDirectoryFiles); \
-  cyth_set_function((_ctx), "raylib.isFileDropped.bool()", (uintptr_t)cythIsFileDropped); \
-  cyth_set_function((_ctx), "raylib.loadDroppedFiles.FilePathList()", (uintptr_t)cythLoadDroppedFiles); \
-  cyth_set_function((_ctx), "raylib.unloadDroppedFiles.void(FilePathList)", (uintptr_t)cythUnloadDroppedFiles); \
-  cyth_set_function((_ctx), "raylib.getFileModTime.int(string)", (uintptr_t)cythGetFileModTime); \
-  cyth_set_function((_ctx), "raylib.compressData.any(any, int, any)", (uintptr_t)cythCompressData); \
-  cyth_set_function((_ctx), "raylib.decompressData.any(any, int, any)", (uintptr_t)cythDecompressData); \
-  cyth_set_function((_ctx), "raylib.encodeDataBase64.char[](any, int, any)", (uintptr_t)cythEncodeDataBase64); \
-  cyth_set_function((_ctx), "raylib.decodeDataBase64.any(any, any)", (uintptr_t)cythDecodeDataBase64); \
-  cyth_set_function((_ctx), "raylib.computeCRC32.int(any, int)", (uintptr_t)cythComputeCRC32); \
-  cyth_set_function((_ctx), "raylib.computeMD5.any(any, int)", (uintptr_t)cythComputeMD5); \
-  cyth_set_function((_ctx), "raylib.computeSHA1.any(any, int)", (uintptr_t)cythComputeSHA1); \
-  cyth_set_function((_ctx), "raylib.loadAutomationEventList.AutomationEventList(string)", (uintptr_t)cythLoadAutomationEventList); \
-  cyth_set_function((_ctx), "raylib.unloadAutomationEventList.void(AutomationEventList)", (uintptr_t)cythUnloadAutomationEventList); \
-  cyth_set_function((_ctx), "raylib.exportAutomationEventList.bool(AutomationEventList, string)", (uintptr_t)cythExportAutomationEventList); \
-  cyth_set_function((_ctx), "raylib.setAutomationEventList.void(any)", (uintptr_t)cythSetAutomationEventList); \
-  cyth_set_function((_ctx), "raylib.setAutomationEventBaseFrame.void(int)", (uintptr_t)cythSetAutomationEventBaseFrame); \
-  cyth_set_function((_ctx), "raylib.startAutomationEventRecording.void()", (uintptr_t)cythStartAutomationEventRecording); \
-  cyth_set_function((_ctx), "raylib.stopAutomationEventRecording.void()", (uintptr_t)cythStopAutomationEventRecording); \
-  cyth_set_function((_ctx), "raylib.playAutomationEvent.void(AutomationEvent)", (uintptr_t)cythPlayAutomationEvent); \
-  cyth_set_function((_ctx), "raylib.isKeyPressed.bool(int)", (uintptr_t)cythIsKeyPressed); \
-  cyth_set_function((_ctx), "raylib.isKeyPressedRepeat.bool(int)", (uintptr_t)cythIsKeyPressedRepeat); \
-  cyth_set_function((_ctx), "raylib.isKeyDown.bool(int)", (uintptr_t)cythIsKeyDown); \
-  cyth_set_function((_ctx), "raylib.isKeyReleased.bool(int)", (uintptr_t)cythIsKeyReleased); \
-  cyth_set_function((_ctx), "raylib.isKeyUp.bool(int)", (uintptr_t)cythIsKeyUp); \
-  cyth_set_function((_ctx), "raylib.getKeyPressed.int()", (uintptr_t)cythGetKeyPressed); \
-  cyth_set_function((_ctx), "raylib.getCharPressed.int()", (uintptr_t)cythGetCharPressed); \
-  cyth_set_function((_ctx), "raylib.setExitKey.void(int)", (uintptr_t)cythSetExitKey); \
-  cyth_set_function((_ctx), "raylib.isGamepadAvailable.bool(int)", (uintptr_t)cythIsGamepadAvailable); \
-  cyth_set_function((_ctx), "raylib.getGamepadName.string(int)", (uintptr_t)cythGetGamepadName); \
-  cyth_set_function((_ctx), "raylib.isGamepadButtonPressed.bool(int, int)", (uintptr_t)cythIsGamepadButtonPressed); \
-  cyth_set_function((_ctx), "raylib.isGamepadButtonDown.bool(int, int)", (uintptr_t)cythIsGamepadButtonDown); \
-  cyth_set_function((_ctx), "raylib.isGamepadButtonReleased.bool(int, int)", (uintptr_t)cythIsGamepadButtonReleased); \
-  cyth_set_function((_ctx), "raylib.isGamepadButtonUp.bool(int, int)", (uintptr_t)cythIsGamepadButtonUp); \
-  cyth_set_function((_ctx), "raylib.getGamepadButtonPressed.int()", (uintptr_t)cythGetGamepadButtonPressed); \
-  cyth_set_function((_ctx), "raylib.getGamepadAxisCount.int(int)", (uintptr_t)cythGetGamepadAxisCount); \
-  cyth_set_function((_ctx), "raylib.getGamepadAxisMovement.float(int, int)", (uintptr_t)cythGetGamepadAxisMovement); \
-  cyth_set_function((_ctx), "raylib.setGamepadMappings.int(string)", (uintptr_t)cythSetGamepadMappings); \
-  cyth_set_function((_ctx), "raylib.setGamepadVibration.void(int, float, float, float)", (uintptr_t)cythSetGamepadVibration); \
-  cyth_set_function((_ctx), "raylib.isMouseButtonPressed.bool(int)", (uintptr_t)cythIsMouseButtonPressed); \
-  cyth_set_function((_ctx), "raylib.isMouseButtonDown.bool(int)", (uintptr_t)cythIsMouseButtonDown); \
-  cyth_set_function((_ctx), "raylib.isMouseButtonReleased.bool(int)", (uintptr_t)cythIsMouseButtonReleased); \
-  cyth_set_function((_ctx), "raylib.isMouseButtonUp.bool(int)", (uintptr_t)cythIsMouseButtonUp); \
-  cyth_set_function((_ctx), "raylib.getMouseX.int()", (uintptr_t)cythGetMouseX); \
-  cyth_set_function((_ctx), "raylib.getMouseY.int()", (uintptr_t)cythGetMouseY); \
-  cyth_set_function((_ctx), "raylib.getMousePosition.Vector2()", (uintptr_t)cythGetMousePosition); \
-  cyth_set_function((_ctx), "raylib.getMouseDelta.Vector2()", (uintptr_t)cythGetMouseDelta); \
-  cyth_set_function((_ctx), "raylib.setMousePosition.void(int, int)", (uintptr_t)cythSetMousePosition); \
-  cyth_set_function((_ctx), "raylib.setMouseOffset.void(int, int)", (uintptr_t)cythSetMouseOffset); \
-  cyth_set_function((_ctx), "raylib.setMouseScale.void(float, float)", (uintptr_t)cythSetMouseScale); \
-  cyth_set_function((_ctx), "raylib.getMouseWheelMove.float()", (uintptr_t)cythGetMouseWheelMove); \
-  cyth_set_function((_ctx), "raylib.getMouseWheelMoveV.Vector2()", (uintptr_t)cythGetMouseWheelMoveV); \
-  cyth_set_function((_ctx), "raylib.setMouseCursor.void(int)", (uintptr_t)cythSetMouseCursor); \
-  cyth_set_function((_ctx), "raylib.getTouchX.int()", (uintptr_t)cythGetTouchX); \
-  cyth_set_function((_ctx), "raylib.getTouchY.int()", (uintptr_t)cythGetTouchY); \
-  cyth_set_function((_ctx), "raylib.getTouchPosition.Vector2(int)", (uintptr_t)cythGetTouchPosition); \
-  cyth_set_function((_ctx), "raylib.getTouchPointId.int(int)", (uintptr_t)cythGetTouchPointId); \
-  cyth_set_function((_ctx), "raylib.getTouchPointCount.int()", (uintptr_t)cythGetTouchPointCount); \
-  cyth_set_function((_ctx), "raylib.setGesturesEnabled.void(int)", (uintptr_t)cythSetGesturesEnabled); \
-  cyth_set_function((_ctx), "raylib.isGestureDetected.bool(int)", (uintptr_t)cythIsGestureDetected); \
-  cyth_set_function((_ctx), "raylib.getGestureDetected.int()", (uintptr_t)cythGetGestureDetected); \
-  cyth_set_function((_ctx), "raylib.getGestureHoldDuration.float()", (uintptr_t)cythGetGestureHoldDuration); \
-  cyth_set_function((_ctx), "raylib.getGestureDragVector.Vector2()", (uintptr_t)cythGetGestureDragVector); \
-  cyth_set_function((_ctx), "raylib.getGestureDragAngle.float()", (uintptr_t)cythGetGestureDragAngle); \
-  cyth_set_function((_ctx), "raylib.getGesturePinchVector.Vector2()", (uintptr_t)cythGetGesturePinchVector); \
-  cyth_set_function((_ctx), "raylib.getGesturePinchAngle.float()", (uintptr_t)cythGetGesturePinchAngle); \
-  cyth_set_function((_ctx), "raylib.updateCamera.void(any, int)", (uintptr_t)cythUpdateCamera); \
-  cyth_set_function((_ctx), "raylib.updateCameraPro.void(any, Vector3, Vector3, float)", (uintptr_t)cythUpdateCameraPro); \
-  cyth_set_function((_ctx), "raylib.setShapesTexture.void(Texture2D, Rectangle)", (uintptr_t)cythSetShapesTexture); \
-  cyth_set_function((_ctx), "raylib.getShapesTexture.Texture2D()", (uintptr_t)cythGetShapesTexture); \
-  cyth_set_function((_ctx), "raylib.getShapesTextureRectangle.Rectangle()", (uintptr_t)cythGetShapesTextureRectangle); \
-  cyth_set_function((_ctx), "raylib.drawPixel.void(int, int, Color)", (uintptr_t)cythDrawPixel); \
-  cyth_set_function((_ctx), "raylib.drawPixelV.void(Vector2, Color)", (uintptr_t)cythDrawPixelV); \
-  cyth_set_function((_ctx), "raylib.drawLine.void(int, int, int, int, Color)", (uintptr_t)cythDrawLine); \
-  cyth_set_function((_ctx), "raylib.drawLineV.void(Vector2, Vector2, Color)", (uintptr_t)cythDrawLineV); \
-  cyth_set_function((_ctx), "raylib.drawLineEx.void(Vector2, Vector2, float, Color)", (uintptr_t)cythDrawLineEx); \
-  cyth_set_function((_ctx), "raylib.drawLineStrip.void(any, int, Color)", (uintptr_t)cythDrawLineStrip); \
-  cyth_set_function((_ctx), "raylib.drawLineBezier.void(Vector2, Vector2, float, Color)", (uintptr_t)cythDrawLineBezier); \
-  cyth_set_function((_ctx), "raylib.drawCircle.void(int, int, float, Color)", (uintptr_t)cythDrawCircle); \
-  cyth_set_function((_ctx), "raylib.drawCircleSector.void(Vector2, float, float, float, int, Color)", (uintptr_t)cythDrawCircleSector); \
-  cyth_set_function((_ctx), "raylib.drawCircleSectorLines.void(Vector2, float, float, float, int, Color)", (uintptr_t)cythDrawCircleSectorLines); \
-  cyth_set_function((_ctx), "raylib.drawCircleGradient.void(int, int, float, Color, Color)", (uintptr_t)cythDrawCircleGradient); \
-  cyth_set_function((_ctx), "raylib.drawCircleV.void(Vector2, float, Color)", (uintptr_t)cythDrawCircleV); \
-  cyth_set_function((_ctx), "raylib.drawCircleLines.void(int, int, float, Color)", (uintptr_t)cythDrawCircleLines); \
-  cyth_set_function((_ctx), "raylib.drawCircleLinesV.void(Vector2, float, Color)", (uintptr_t)cythDrawCircleLinesV); \
-  cyth_set_function((_ctx), "raylib.drawEllipse.void(int, int, float, float, Color)", (uintptr_t)cythDrawEllipse); \
-  cyth_set_function((_ctx), "raylib.drawEllipseLines.void(int, int, float, float, Color)", (uintptr_t)cythDrawEllipseLines); \
-  cyth_set_function((_ctx), "raylib.drawRing.void(Vector2, float, float, float, float, int, Color)", (uintptr_t)cythDrawRing); \
-  cyth_set_function((_ctx), "raylib.drawRingLines.void(Vector2, float, float, float, float, int, Color)", (uintptr_t)cythDrawRingLines); \
-  cyth_set_function((_ctx), "raylib.drawRectangle.void(int, int, int, int, Color)", (uintptr_t)cythDrawRectangle); \
-  cyth_set_function((_ctx), "raylib.drawRectangleV.void(Vector2, Vector2, Color)", (uintptr_t)cythDrawRectangleV); \
-  cyth_set_function((_ctx), "raylib.drawRectangleRec.void(Rectangle, Color)", (uintptr_t)cythDrawRectangleRec); \
-  cyth_set_function((_ctx), "raylib.drawRectanglePro.void(Rectangle, Vector2, float, Color)", (uintptr_t)cythDrawRectanglePro); \
-  cyth_set_function((_ctx), "raylib.drawRectangleGradientV.void(int, int, int, int, Color, Color)", (uintptr_t)cythDrawRectangleGradientV); \
-  cyth_set_function((_ctx), "raylib.drawRectangleGradientH.void(int, int, int, int, Color, Color)", (uintptr_t)cythDrawRectangleGradientH); \
-  cyth_set_function((_ctx), "raylib.drawRectangleGradientEx.void(Rectangle, Color, Color, Color, Color)", (uintptr_t)cythDrawRectangleGradientEx); \
-  cyth_set_function((_ctx), "raylib.drawRectangleLines.void(int, int, int, int, Color)", (uintptr_t)cythDrawRectangleLines); \
-  cyth_set_function((_ctx), "raylib.drawRectangleLinesEx.void(Rectangle, float, Color)", (uintptr_t)cythDrawRectangleLinesEx); \
-  cyth_set_function((_ctx), "raylib.drawRectangleRounded.void(Rectangle, float, int, Color)", (uintptr_t)cythDrawRectangleRounded); \
-  cyth_set_function((_ctx), "raylib.drawRectangleRoundedLines.void(Rectangle, float, int, Color)", (uintptr_t)cythDrawRectangleRoundedLines); \
-  cyth_set_function((_ctx), "raylib.drawRectangleRoundedLinesEx.void(Rectangle, float, int, float, Color)", (uintptr_t)cythDrawRectangleRoundedLinesEx); \
-  cyth_set_function((_ctx), "raylib.drawTriangle.void(Vector2, Vector2, Vector2, Color)", (uintptr_t)cythDrawTriangle); \
-  cyth_set_function((_ctx), "raylib.drawTriangleLines.void(Vector2, Vector2, Vector2, Color)", (uintptr_t)cythDrawTriangleLines); \
-  cyth_set_function((_ctx), "raylib.drawTriangleFan.void(any, int, Color)", (uintptr_t)cythDrawTriangleFan); \
-  cyth_set_function((_ctx), "raylib.drawTriangleStrip.void(any, int, Color)", (uintptr_t)cythDrawTriangleStrip); \
-  cyth_set_function((_ctx), "raylib.drawPoly.void(Vector2, int, float, float, Color)", (uintptr_t)cythDrawPoly); \
-  cyth_set_function((_ctx), "raylib.drawPolyLines.void(Vector2, int, float, float, Color)", (uintptr_t)cythDrawPolyLines); \
-  cyth_set_function((_ctx), "raylib.drawPolyLinesEx.void(Vector2, int, float, float, float, Color)", (uintptr_t)cythDrawPolyLinesEx); \
-  cyth_set_function((_ctx), "raylib.drawSplineLinear.void(any, int, float, Color)", (uintptr_t)cythDrawSplineLinear); \
-  cyth_set_function((_ctx), "raylib.drawSplineBasis.void(any, int, float, Color)", (uintptr_t)cythDrawSplineBasis); \
-  cyth_set_function((_ctx), "raylib.drawSplineCatmullRom.void(any, int, float, Color)", (uintptr_t)cythDrawSplineCatmullRom); \
-  cyth_set_function((_ctx), "raylib.drawSplineBezierQuadratic.void(any, int, float, Color)", (uintptr_t)cythDrawSplineBezierQuadratic); \
-  cyth_set_function((_ctx), "raylib.drawSplineBezierCubic.void(any, int, float, Color)", (uintptr_t)cythDrawSplineBezierCubic); \
-  cyth_set_function((_ctx), "raylib.drawSplineSegmentLinear.void(Vector2, Vector2, float, Color)", (uintptr_t)cythDrawSplineSegmentLinear); \
-  cyth_set_function((_ctx), "raylib.drawSplineSegmentBasis.void(Vector2, Vector2, Vector2, Vector2, float, Color)", (uintptr_t)cythDrawSplineSegmentBasis); \
-  cyth_set_function((_ctx), "raylib.drawSplineSegmentCatmullRom.void(Vector2, Vector2, Vector2, Vector2, float, Color)", (uintptr_t)cythDrawSplineSegmentCatmullRom); \
-  cyth_set_function((_ctx), "raylib.drawSplineSegmentBezierQuadratic.void(Vector2, Vector2, Vector2, float, Color)", (uintptr_t)cythDrawSplineSegmentBezierQuadratic); \
-  cyth_set_function((_ctx), "raylib.drawSplineSegmentBezierCubic.void(Vector2, Vector2, Vector2, Vector2, float, Color)", (uintptr_t)cythDrawSplineSegmentBezierCubic); \
-  cyth_set_function((_ctx), "raylib.getSplinePointLinear.Vector2(Vector2, Vector2, float)", (uintptr_t)cythGetSplinePointLinear); \
-  cyth_set_function((_ctx), "raylib.getSplinePointBasis.Vector2(Vector2, Vector2, Vector2, Vector2, float)", (uintptr_t)cythGetSplinePointBasis); \
-  cyth_set_function((_ctx), "raylib.getSplinePointCatmullRom.Vector2(Vector2, Vector2, Vector2, Vector2, float)", (uintptr_t)cythGetSplinePointCatmullRom); \
-  cyth_set_function((_ctx), "raylib.getSplinePointBezierQuad.Vector2(Vector2, Vector2, Vector2, float)", (uintptr_t)cythGetSplinePointBezierQuad); \
-  cyth_set_function((_ctx), "raylib.getSplinePointBezierCubic.Vector2(Vector2, Vector2, Vector2, Vector2, float)", (uintptr_t)cythGetSplinePointBezierCubic); \
-  cyth_set_function((_ctx), "raylib.checkCollisionRecs.bool(Rectangle, Rectangle)", (uintptr_t)cythCheckCollisionRecs); \
-  cyth_set_function((_ctx), "raylib.checkCollisionCircles.bool(Vector2, float, Vector2, float)", (uintptr_t)cythCheckCollisionCircles); \
-  cyth_set_function((_ctx), "raylib.checkCollisionCircleRec.bool(Vector2, float, Rectangle)", (uintptr_t)cythCheckCollisionCircleRec); \
-  cyth_set_function((_ctx), "raylib.checkCollisionCircleLine.bool(Vector2, float, Vector2, Vector2)", (uintptr_t)cythCheckCollisionCircleLine); \
-  cyth_set_function((_ctx), "raylib.checkCollisionPointRec.bool(Vector2, Rectangle)", (uintptr_t)cythCheckCollisionPointRec); \
-  cyth_set_function((_ctx), "raylib.checkCollisionPointCircle.bool(Vector2, Vector2, float)", (uintptr_t)cythCheckCollisionPointCircle); \
-  cyth_set_function((_ctx), "raylib.checkCollisionPointTriangle.bool(Vector2, Vector2, Vector2, Vector2)", (uintptr_t)cythCheckCollisionPointTriangle); \
-  cyth_set_function((_ctx), "raylib.checkCollisionPointLine.bool(Vector2, Vector2, Vector2, int)", (uintptr_t)cythCheckCollisionPointLine); \
-  cyth_set_function((_ctx), "raylib.checkCollisionPointPoly.bool(Vector2, any, int)", (uintptr_t)cythCheckCollisionPointPoly); \
-  cyth_set_function((_ctx), "raylib.checkCollisionLines.bool(Vector2, Vector2, Vector2, Vector2, any)", (uintptr_t)cythCheckCollisionLines); \
-  cyth_set_function((_ctx), "raylib.getCollisionRec.Rectangle(Rectangle, Rectangle)", (uintptr_t)cythGetCollisionRec); \
-  cyth_set_function((_ctx), "raylib.loadImage.Image(string)", (uintptr_t)cythLoadImage); \
-  cyth_set_function((_ctx), "raylib.loadImageRaw.Image(string, int, int, int, int)", (uintptr_t)cythLoadImageRaw); \
-  cyth_set_function((_ctx), "raylib.loadImageAnim.Image(string, any)", (uintptr_t)cythLoadImageAnim); \
-  cyth_set_function((_ctx), "raylib.loadImageAnimFromMemory.Image(string, any, int, any)", (uintptr_t)cythLoadImageAnimFromMemory); \
-  cyth_set_function((_ctx), "raylib.loadImageFromMemory.Image(string, any, int)", (uintptr_t)cythLoadImageFromMemory); \
-  cyth_set_function((_ctx), "raylib.loadImageFromTexture.Image(Texture2D)", (uintptr_t)cythLoadImageFromTexture); \
-  cyth_set_function((_ctx), "raylib.loadImageFromScreen.Image()", (uintptr_t)cythLoadImageFromScreen); \
-  cyth_set_function((_ctx), "raylib.isImageValid.bool(Image)", (uintptr_t)cythIsImageValid); \
-  cyth_set_function((_ctx), "raylib.unloadImage.void(Image)", (uintptr_t)cythUnloadImage); \
-  cyth_set_function((_ctx), "raylib.exportImage.bool(Image, string)", (uintptr_t)cythExportImage); \
-  cyth_set_function((_ctx), "raylib.exportImageToMemory.any(Image, string, any)", (uintptr_t)cythExportImageToMemory); \
-  cyth_set_function((_ctx), "raylib.exportImageAsCode.bool(Image, string)", (uintptr_t)cythExportImageAsCode); \
-  cyth_set_function((_ctx), "raylib.genImageColor.Image(int, int, Color)", (uintptr_t)cythGenImageColor); \
-  cyth_set_function((_ctx), "raylib.genImageGradientLinear.Image(int, int, int, Color, Color)", (uintptr_t)cythGenImageGradientLinear); \
-  cyth_set_function((_ctx), "raylib.genImageGradientRadial.Image(int, int, float, Color, Color)", (uintptr_t)cythGenImageGradientRadial); \
-  cyth_set_function((_ctx), "raylib.genImageGradientSquare.Image(int, int, float, Color, Color)", (uintptr_t)cythGenImageGradientSquare); \
-  cyth_set_function((_ctx), "raylib.genImageChecked.Image(int, int, int, int, Color, Color)", (uintptr_t)cythGenImageChecked); \
-  cyth_set_function((_ctx), "raylib.genImageWhiteNoise.Image(int, int, float)", (uintptr_t)cythGenImageWhiteNoise); \
-  cyth_set_function((_ctx), "raylib.genImagePerlinNoise.Image(int, int, int, int, float)", (uintptr_t)cythGenImagePerlinNoise); \
-  cyth_set_function((_ctx), "raylib.genImageCellular.Image(int, int, int)", (uintptr_t)cythGenImageCellular); \
-  cyth_set_function((_ctx), "raylib.genImageText.Image(int, int, string)", (uintptr_t)cythGenImageText); \
-  cyth_set_function((_ctx), "raylib.imageCopy.Image(Image)", (uintptr_t)cythImageCopy); \
-  cyth_set_function((_ctx), "raylib.imageFromImage.Image(Image, Rectangle)", (uintptr_t)cythImageFromImage); \
-  cyth_set_function((_ctx), "raylib.imageFromChannel.Image(Image, int)", (uintptr_t)cythImageFromChannel); \
-  cyth_set_function((_ctx), "raylib.imageText.Image(string, int, Color)", (uintptr_t)cythImageText); \
-  cyth_set_function((_ctx), "raylib.imageTextEx.Image(Font, string, float, float, Color)", (uintptr_t)cythImageTextEx); \
-  cyth_set_function((_ctx), "raylib.imageFormat.void(Image, int)", (uintptr_t)cythImageFormat); \
-  cyth_set_function((_ctx), "raylib.imageToPOT.void(Image, Color)", (uintptr_t)cythImageToPOT); \
-  cyth_set_function((_ctx), "raylib.imageCrop.void(Image, Rectangle)", (uintptr_t)cythImageCrop); \
-  cyth_set_function((_ctx), "raylib.imageAlphaCrop.void(Image, float)", (uintptr_t)cythImageAlphaCrop); \
-  cyth_set_function((_ctx), "raylib.imageAlphaClear.void(Image, Color, float)", (uintptr_t)cythImageAlphaClear); \
-  cyth_set_function((_ctx), "raylib.imageAlphaMask.void(Image, Image)", (uintptr_t)cythImageAlphaMask); \
-  cyth_set_function((_ctx), "raylib.imageAlphaPremultiply.void(Image)", (uintptr_t)cythImageAlphaPremultiply); \
-  cyth_set_function((_ctx), "raylib.imageBlurGaussian.void(Image, int)", (uintptr_t)cythImageBlurGaussian); \
-  cyth_set_function((_ctx), "raylib.imageKernelConvolution.void(Image, any, int)", (uintptr_t)cythImageKernelConvolution); \
-  cyth_set_function((_ctx), "raylib.imageResize.void(Image, int, int)", (uintptr_t)cythImageResize); \
-  cyth_set_function((_ctx), "raylib.imageResizeNN.void(Image, int, int)", (uintptr_t)cythImageResizeNN); \
-  cyth_set_function((_ctx), "raylib.imageResizeCanvas.void(Image, int, int, int, int, Color)", (uintptr_t)cythImageResizeCanvas); \
-  cyth_set_function((_ctx), "raylib.imageMipmaps.void(Image)", (uintptr_t)cythImageMipmaps); \
-  cyth_set_function((_ctx), "raylib.imageDither.void(Image, int, int, int, int)", (uintptr_t)cythImageDither); \
-  cyth_set_function((_ctx), "raylib.imageFlipVertical.void(Image)", (uintptr_t)cythImageFlipVertical); \
-  cyth_set_function((_ctx), "raylib.imageFlipHorizontal.void(Image)", (uintptr_t)cythImageFlipHorizontal); \
-  cyth_set_function((_ctx), "raylib.imageRotate.void(Image, int)", (uintptr_t)cythImageRotate); \
-  cyth_set_function((_ctx), "raylib.imageRotateCW.void(Image)", (uintptr_t)cythImageRotateCW); \
-  cyth_set_function((_ctx), "raylib.imageRotateCCW.void(Image)", (uintptr_t)cythImageRotateCCW); \
-  cyth_set_function((_ctx), "raylib.imageColorTint.void(Image, Color)", (uintptr_t)cythImageColorTint); \
-  cyth_set_function((_ctx), "raylib.imageColorInvert.void(Image)", (uintptr_t)cythImageColorInvert); \
-  cyth_set_function((_ctx), "raylib.imageColorGrayscale.void(Image)", (uintptr_t)cythImageColorGrayscale); \
-  cyth_set_function((_ctx), "raylib.imageColorContrast.void(Image, float)", (uintptr_t)cythImageColorContrast); \
-  cyth_set_function((_ctx), "raylib.imageColorBrightness.void(Image, int)", (uintptr_t)cythImageColorBrightness); \
-  cyth_set_function((_ctx), "raylib.imageColorReplace.void(Image, Color, Color)", (uintptr_t)cythImageColorReplace); \
-  cyth_set_function((_ctx), "raylib.loadImageColors.Color(Image)", (uintptr_t)cythLoadImageColors); \
-  cyth_set_function((_ctx), "raylib.loadImagePalette.Color(Image, int, any)", (uintptr_t)cythLoadImagePalette); \
-  cyth_set_function((_ctx), "raylib.unloadImageColors.void(Color)", (uintptr_t)cythUnloadImageColors); \
-  cyth_set_function((_ctx), "raylib.unloadImagePalette.void(Color)", (uintptr_t)cythUnloadImagePalette); \
-  cyth_set_function((_ctx), "raylib.getImageAlphaBorder.Rectangle(Image, float)", (uintptr_t)cythGetImageAlphaBorder); \
-  cyth_set_function((_ctx), "raylib.getImageColor.Color(Image, int, int)", (uintptr_t)cythGetImageColor); \
-  cyth_set_function((_ctx), "raylib.imageClearBackground.void(Image, Color)", (uintptr_t)cythImageClearBackground); \
-  cyth_set_function((_ctx), "raylib.imageDrawPixel.void(Image, int, int, Color)", (uintptr_t)cythImageDrawPixel); \
-  cyth_set_function((_ctx), "raylib.imageDrawPixelV.void(Image, Vector2, Color)", (uintptr_t)cythImageDrawPixelV); \
-  cyth_set_function((_ctx), "raylib.imageDrawLine.void(Image, int, int, int, int, Color)", (uintptr_t)cythImageDrawLine); \
-  cyth_set_function((_ctx), "raylib.imageDrawLineV.void(Image, Vector2, Vector2, Color)", (uintptr_t)cythImageDrawLineV); \
-  cyth_set_function((_ctx), "raylib.imageDrawLineEx.void(Image, Vector2, Vector2, int, Color)", (uintptr_t)cythImageDrawLineEx); \
-  cyth_set_function((_ctx), "raylib.imageDrawCircle.void(Image, int, int, int, Color)", (uintptr_t)cythImageDrawCircle); \
-  cyth_set_function((_ctx), "raylib.imageDrawCircleV.void(Image, Vector2, int, Color)", (uintptr_t)cythImageDrawCircleV); \
-  cyth_set_function((_ctx), "raylib.imageDrawCircleLines.void(Image, int, int, int, Color)", (uintptr_t)cythImageDrawCircleLines); \
-  cyth_set_function((_ctx), "raylib.imageDrawCircleLinesV.void(Image, Vector2, int, Color)", (uintptr_t)cythImageDrawCircleLinesV); \
-  cyth_set_function((_ctx), "raylib.imageDrawRectangle.void(Image, int, int, int, int, Color)", (uintptr_t)cythImageDrawRectangle); \
-  cyth_set_function((_ctx), "raylib.imageDrawRectangleV.void(Image, Vector2, Vector2, Color)", (uintptr_t)cythImageDrawRectangleV); \
-  cyth_set_function((_ctx), "raylib.imageDrawRectangleRec.void(Image, Rectangle, Color)", (uintptr_t)cythImageDrawRectangleRec); \
-  cyth_set_function((_ctx), "raylib.imageDrawRectangleLines.void(Image, Rectangle, int, Color)", (uintptr_t)cythImageDrawRectangleLines); \
-  cyth_set_function((_ctx), "raylib.imageDrawTriangle.void(Image, Vector2, Vector2, Vector2, Color)", (uintptr_t)cythImageDrawTriangle); \
-  cyth_set_function((_ctx), "raylib.imageDrawTriangleEx.void(Image, Vector2, Vector2, Vector2, Color, Color, Color)", (uintptr_t)cythImageDrawTriangleEx); \
-  cyth_set_function((_ctx), "raylib.imageDrawTriangleLines.void(Image, Vector2, Vector2, Vector2, Color)", (uintptr_t)cythImageDrawTriangleLines); \
-  cyth_set_function((_ctx), "raylib.imageDrawTriangleFan.void(Image, any, int, Color)", (uintptr_t)cythImageDrawTriangleFan); \
-  cyth_set_function((_ctx), "raylib.imageDrawTriangleStrip.void(Image, any, int, Color)", (uintptr_t)cythImageDrawTriangleStrip); \
-  cyth_set_function((_ctx), "raylib.imageDraw.void(Image, Image, Rectangle, Rectangle, Color)", (uintptr_t)cythImageDraw); \
-  cyth_set_function((_ctx), "raylib.imageDrawText.void(Image, string, int, int, int, Color)", (uintptr_t)cythImageDrawText); \
-  cyth_set_function((_ctx), "raylib.imageDrawTextEx.void(Image, Font, string, Vector2, float, float, Color)", (uintptr_t)cythImageDrawTextEx); \
-  cyth_set_function((_ctx), "raylib.loadTexture.Texture2D(string)", (uintptr_t)cythLoadTexture); \
-  cyth_set_function((_ctx), "raylib.loadTextureFromImage.Texture2D(Image)", (uintptr_t)cythLoadTextureFromImage); \
-  cyth_set_function((_ctx), "raylib.loadTextureCubemap.TextureCubemap(Image, int)", (uintptr_t)cythLoadTextureCubemap); \
-  cyth_set_function((_ctx), "raylib.loadRenderTexture.RenderTexture2D(int, int)", (uintptr_t)cythLoadRenderTexture); \
-  cyth_set_function((_ctx), "raylib.isTextureValid.bool(Texture2D)", (uintptr_t)cythIsTextureValid); \
-  cyth_set_function((_ctx), "raylib.unloadTexture.void(Texture2D)", (uintptr_t)cythUnloadTexture); \
-  cyth_set_function((_ctx), "raylib.isRenderTextureValid.bool(RenderTexture2D)", (uintptr_t)cythIsRenderTextureValid); \
-  cyth_set_function((_ctx), "raylib.unloadRenderTexture.void(RenderTexture2D)", (uintptr_t)cythUnloadRenderTexture); \
-  cyth_set_function((_ctx), "raylib.updateTexture.void(Texture2D, any)", (uintptr_t)cythUpdateTexture); \
-  cyth_set_function((_ctx), "raylib.updateTextureRec.void(Texture2D, Rectangle, any)", (uintptr_t)cythUpdateTextureRec); \
-  cyth_set_function((_ctx), "raylib.genTextureMipmaps.void(any)", (uintptr_t)cythGenTextureMipmaps); \
-  cyth_set_function((_ctx), "raylib.setTextureFilter.void(Texture2D, int)", (uintptr_t)cythSetTextureFilter); \
-  cyth_set_function((_ctx), "raylib.setTextureWrap.void(Texture2D, int)", (uintptr_t)cythSetTextureWrap); \
-  cyth_set_function((_ctx), "raylib.drawTexture.void(Texture2D, int, int, Color)", (uintptr_t)cythDrawTexture); \
-  cyth_set_function((_ctx), "raylib.drawTextureV.void(Texture2D, Vector2, Color)", (uintptr_t)cythDrawTextureV); \
-  cyth_set_function((_ctx), "raylib.drawTextureEx.void(Texture2D, Vector2, float, float, Color)", (uintptr_t)cythDrawTextureEx); \
-  cyth_set_function((_ctx), "raylib.drawTextureRec.void(Texture2D, Rectangle, Vector2, Color)", (uintptr_t)cythDrawTextureRec); \
-  cyth_set_function((_ctx), "raylib.drawTexturePro.void(Texture2D, Rectangle, Rectangle, Vector2, float, Color)", (uintptr_t)cythDrawTexturePro); \
-  cyth_set_function((_ctx), "raylib.drawTextureNPatch.void(Texture2D, NPatchInfo, Rectangle, Vector2, float, Color)", (uintptr_t)cythDrawTextureNPatch); \
-  cyth_set_function((_ctx), "raylib.colorIsEqual.bool(Color, Color)", (uintptr_t)cythColorIsEqual); \
-  cyth_set_function((_ctx), "raylib.fade.Color(Color, float)", (uintptr_t)cythFade); \
-  cyth_set_function((_ctx), "raylib.colorToInt.int(Color)", (uintptr_t)cythColorToInt); \
-  cyth_set_function((_ctx), "raylib.colorNormalize.Vector4(Color)", (uintptr_t)cythColorNormalize); \
-  cyth_set_function((_ctx), "raylib.colorFromNormalized.Color(Vector4)", (uintptr_t)cythColorFromNormalized); \
-  cyth_set_function((_ctx), "raylib.colorToHSV.Vector3(Color)", (uintptr_t)cythColorToHSV); \
-  cyth_set_function((_ctx), "raylib.colorFromHSV.Color(float, float, float)", (uintptr_t)cythColorFromHSV); \
-  cyth_set_function((_ctx), "raylib.colorTint.Color(Color, Color)", (uintptr_t)cythColorTint); \
-  cyth_set_function((_ctx), "raylib.colorBrightness.Color(Color, float)", (uintptr_t)cythColorBrightness); \
-  cyth_set_function((_ctx), "raylib.colorContrast.Color(Color, float)", (uintptr_t)cythColorContrast); \
-  cyth_set_function((_ctx), "raylib.colorAlpha.Color(Color, float)", (uintptr_t)cythColorAlpha); \
-  cyth_set_function((_ctx), "raylib.colorAlphaBlend.Color(Color, Color, Color)", (uintptr_t)cythColorAlphaBlend); \
-  cyth_set_function((_ctx), "raylib.colorLerp.Color(Color, Color, float)", (uintptr_t)cythColorLerp); \
-  cyth_set_function((_ctx), "raylib.getColor.Color(int)", (uintptr_t)cythGetColor); \
-  cyth_set_function((_ctx), "raylib.getPixelColor.Color(any, int)", (uintptr_t)cythGetPixelColor); \
-  cyth_set_function((_ctx), "raylib.setPixelColor.void(any, Color, int)", (uintptr_t)cythSetPixelColor); \
-  cyth_set_function((_ctx), "raylib.getPixelDataSize.int(int, int, int)", (uintptr_t)cythGetPixelDataSize); \
-  cyth_set_function((_ctx), "raylib.getFontDefault.Font()", (uintptr_t)cythGetFontDefault); \
-  cyth_set_function((_ctx), "raylib.loadFont.Font(string)", (uintptr_t)cythLoadFont); \
-  cyth_set_function((_ctx), "raylib.loadFontEx.Font(string, int, any, int)", (uintptr_t)cythLoadFontEx); \
-  cyth_set_function((_ctx), "raylib.loadFontFromImage.Font(Image, Color, int)", (uintptr_t)cythLoadFontFromImage); \
-  cyth_set_function((_ctx), "raylib.loadFontFromMemory.Font(string, any, int, int, any, int)", (uintptr_t)cythLoadFontFromMemory); \
-  cyth_set_function((_ctx), "raylib.isFontValid.bool(Font)", (uintptr_t)cythIsFontValid); \
-  cyth_set_function((_ctx), "raylib.loadFontData.any(any, int, int, any, int, int)", (uintptr_t)cythLoadFontData); \
-  cyth_set_function((_ctx), "raylib.genImageFontAtlas.Image(any, any, int, int, int, int)", (uintptr_t)cythGenImageFontAtlas); \
-  cyth_set_function((_ctx), "raylib.unloadFontData.void(any, int)", (uintptr_t)cythUnloadFontData); \
-  cyth_set_function((_ctx), "raylib.unloadFont.void(Font)", (uintptr_t)cythUnloadFont); \
-  cyth_set_function((_ctx), "raylib.exportFontAsCode.bool(Font, string)", (uintptr_t)cythExportFontAsCode); \
-  cyth_set_function((_ctx), "raylib.drawFPS.void(int, int)", (uintptr_t)cythDrawFPS); \
-  cyth_set_function((_ctx), "raylib.drawText.void(string, int, int, int, Color)", (uintptr_t)cythDrawText); \
-  cyth_set_function((_ctx), "raylib.drawTextEx.void(Font, string, Vector2, float, float, Color)", (uintptr_t)cythDrawTextEx); \
-  cyth_set_function((_ctx), "raylib.drawTextPro.void(Font, string, Vector2, Vector2, float, float, float, Color)", (uintptr_t)cythDrawTextPro); \
-  cyth_set_function((_ctx), "raylib.drawTextCodepoint.void(Font, int, Vector2, float, Color)", (uintptr_t)cythDrawTextCodepoint); \
-  cyth_set_function((_ctx), "raylib.drawTextCodepoints.void(Font, any, int, Vector2, float, float, Color)", (uintptr_t)cythDrawTextCodepoints); \
-  cyth_set_function((_ctx), "raylib.setTextLineSpacing.void(int)", (uintptr_t)cythSetTextLineSpacing); \
-  cyth_set_function((_ctx), "raylib.measureText.int(string, int)", (uintptr_t)cythMeasureText); \
-  cyth_set_function((_ctx), "raylib.measureTextEx.Vector2(Font, string, float, float)", (uintptr_t)cythMeasureTextEx); \
-  cyth_set_function((_ctx), "raylib.getGlyphIndex.int(Font, int)", (uintptr_t)cythGetGlyphIndex); \
-  cyth_set_function((_ctx), "raylib.getGlyphInfo.GlyphInfo(Font, int)", (uintptr_t)cythGetGlyphInfo); \
-  cyth_set_function((_ctx), "raylib.getGlyphAtlasRec.Rectangle(Font, int)", (uintptr_t)cythGetGlyphAtlasRec); \
-  cyth_set_function((_ctx), "raylib.loadUTF8.char[](any, int)", (uintptr_t)cythLoadUTF8); \
-  cyth_set_function((_ctx), "raylib.unloadUTF8.void(char[])", (uintptr_t)cythUnloadUTF8); \
-  cyth_set_function((_ctx), "raylib.loadCodepoints.any(string, any)", (uintptr_t)cythLoadCodepoints); \
-  cyth_set_function((_ctx), "raylib.unloadCodepoints.void(any)", (uintptr_t)cythUnloadCodepoints); \
-  cyth_set_function((_ctx), "raylib.getCodepointCount.int(string)", (uintptr_t)cythGetCodepointCount); \
-  cyth_set_function((_ctx), "raylib.getCodepoint.int(string, any)", (uintptr_t)cythGetCodepoint); \
-  cyth_set_function((_ctx), "raylib.getCodepointNext.int(string, any)", (uintptr_t)cythGetCodepointNext); \
-  cyth_set_function((_ctx), "raylib.getCodepointPrevious.int(string, any)", (uintptr_t)cythGetCodepointPrevious); \
-  cyth_set_function((_ctx), "raylib.codepointToUTF8.string(int, any)", (uintptr_t)cythCodepointToUTF8); \
-  cyth_set_function((_ctx), "raylib.textCopy.int(char[], string)", (uintptr_t)cythTextCopy); \
-  cyth_set_function((_ctx), "raylib.textIsEqual.bool(string, string)", (uintptr_t)cythTextIsEqual); \
-  cyth_set_function((_ctx), "raylib.textLength.int(string)", (uintptr_t)cythTextLength); \
-  cyth_set_function((_ctx), "raylib.textSubtext.string(string, int, int)", (uintptr_t)cythTextSubtext); \
-  cyth_set_function((_ctx), "raylib.textReplace.char[](string, string, string)", (uintptr_t)cythTextReplace); \
-  cyth_set_function((_ctx), "raylib.textInsert.char[](string, string, int)", (uintptr_t)cythTextInsert); \
-  cyth_set_function((_ctx), "raylib.textJoin.string(any, int, string)", (uintptr_t)cythTextJoin); \
-  cyth_set_function((_ctx), "raylib.textSplit.any(string, char, any)", (uintptr_t)cythTextSplit); \
-  cyth_set_function((_ctx), "raylib.textAppend.void(char[], string, any)", (uintptr_t)cythTextAppend); \
-  cyth_set_function((_ctx), "raylib.textFindIndex.int(string, string)", (uintptr_t)cythTextFindIndex); \
-  cyth_set_function((_ctx), "raylib.textToUpper.string(string)", (uintptr_t)cythTextToUpper); \
-  cyth_set_function((_ctx), "raylib.textToLower.string(string)", (uintptr_t)cythTextToLower); \
-  cyth_set_function((_ctx), "raylib.textToPascal.string(string)", (uintptr_t)cythTextToPascal); \
-  cyth_set_function((_ctx), "raylib.textToSnake.string(string)", (uintptr_t)cythTextToSnake); \
-  cyth_set_function((_ctx), "raylib.textToCamel.string(string)", (uintptr_t)cythTextToCamel); \
-  cyth_set_function((_ctx), "raylib.textToInteger.int(string)", (uintptr_t)cythTextToInteger); \
-  cyth_set_function((_ctx), "raylib.textToFloat.float(string)", (uintptr_t)cythTextToFloat); \
-  cyth_set_function((_ctx), "raylib.drawLine3D.void(Vector3, Vector3, Color)", (uintptr_t)cythDrawLine3D); \
-  cyth_set_function((_ctx), "raylib.drawPoint3D.void(Vector3, Color)", (uintptr_t)cythDrawPoint3D); \
-  cyth_set_function((_ctx), "raylib.drawCircle3D.void(Vector3, float, Vector3, float, Color)", (uintptr_t)cythDrawCircle3D); \
-  cyth_set_function((_ctx), "raylib.drawTriangle3D.void(Vector3, Vector3, Vector3, Color)", (uintptr_t)cythDrawTriangle3D); \
-  cyth_set_function((_ctx), "raylib.drawTriangleStrip3D.void(any, int, Color)", (uintptr_t)cythDrawTriangleStrip3D); \
-  cyth_set_function((_ctx), "raylib.drawCube.void(Vector3, float, float, float, Color)", (uintptr_t)cythDrawCube); \
-  cyth_set_function((_ctx), "raylib.drawCubeV.void(Vector3, Vector3, Color)", (uintptr_t)cythDrawCubeV); \
-  cyth_set_function((_ctx), "raylib.drawCubeWires.void(Vector3, float, float, float, Color)", (uintptr_t)cythDrawCubeWires); \
-  cyth_set_function((_ctx), "raylib.drawCubeWiresV.void(Vector3, Vector3, Color)", (uintptr_t)cythDrawCubeWiresV); \
-  cyth_set_function((_ctx), "raylib.drawSphere.void(Vector3, float, Color)", (uintptr_t)cythDrawSphere); \
-  cyth_set_function((_ctx), "raylib.drawSphereEx.void(Vector3, float, int, int, Color)", (uintptr_t)cythDrawSphereEx); \
-  cyth_set_function((_ctx), "raylib.drawSphereWires.void(Vector3, float, int, int, Color)", (uintptr_t)cythDrawSphereWires); \
-  cyth_set_function((_ctx), "raylib.drawCylinder.void(Vector3, float, float, float, int, Color)", (uintptr_t)cythDrawCylinder); \
-  cyth_set_function((_ctx), "raylib.drawCylinderEx.void(Vector3, Vector3, float, float, int, Color)", (uintptr_t)cythDrawCylinderEx); \
-  cyth_set_function((_ctx), "raylib.drawCylinderWires.void(Vector3, float, float, float, int, Color)", (uintptr_t)cythDrawCylinderWires); \
-  cyth_set_function((_ctx), "raylib.drawCylinderWiresEx.void(Vector3, Vector3, float, float, int, Color)", (uintptr_t)cythDrawCylinderWiresEx); \
-  cyth_set_function((_ctx), "raylib.drawCapsule.void(Vector3, Vector3, float, int, int, Color)", (uintptr_t)cythDrawCapsule); \
-  cyth_set_function((_ctx), "raylib.drawCapsuleWires.void(Vector3, Vector3, float, int, int, Color)", (uintptr_t)cythDrawCapsuleWires); \
-  cyth_set_function((_ctx), "raylib.drawPlane.void(Vector3, Vector2, Color)", (uintptr_t)cythDrawPlane); \
-  cyth_set_function((_ctx), "raylib.drawRay.void(Ray, Color)", (uintptr_t)cythDrawRay); \
-  cyth_set_function((_ctx), "raylib.drawGrid.void(int, float)", (uintptr_t)cythDrawGrid); \
-  cyth_set_function((_ctx), "raylib.loadModel.Model(string)", (uintptr_t)cythLoadModel); \
-  cyth_set_function((_ctx), "raylib.loadModelFromMesh.Model(Mesh)", (uintptr_t)cythLoadModelFromMesh); \
-  cyth_set_function((_ctx), "raylib.isModelValid.bool(Model)", (uintptr_t)cythIsModelValid); \
-  cyth_set_function((_ctx), "raylib.unloadModel.void(Model)", (uintptr_t)cythUnloadModel); \
-  cyth_set_function((_ctx), "raylib.getModelBoundingBox.BoundingBox(Model)", (uintptr_t)cythGetModelBoundingBox); \
-  cyth_set_function((_ctx), "raylib.drawModel.void(Model, Vector3, float, Color)", (uintptr_t)cythDrawModel); \
-  cyth_set_function((_ctx), "raylib.drawModelEx.void(Model, Vector3, Vector3, float, Vector3, Color)", (uintptr_t)cythDrawModelEx); \
-  cyth_set_function((_ctx), "raylib.drawModelWires.void(Model, Vector3, float, Color)", (uintptr_t)cythDrawModelWires); \
-  cyth_set_function((_ctx), "raylib.drawModelWiresEx.void(Model, Vector3, Vector3, float, Vector3, Color)", (uintptr_t)cythDrawModelWiresEx); \
-  cyth_set_function((_ctx), "raylib.drawModelPoints.void(Model, Vector3, float, Color)", (uintptr_t)cythDrawModelPoints); \
-  cyth_set_function((_ctx), "raylib.drawModelPointsEx.void(Model, Vector3, Vector3, float, Vector3, Color)", (uintptr_t)cythDrawModelPointsEx); \
-  cyth_set_function((_ctx), "raylib.drawBoundingBox.void(BoundingBox, Color)", (uintptr_t)cythDrawBoundingBox); \
-  cyth_set_function((_ctx), "raylib.drawBillboard.void(Camera, Texture2D, Vector3, float, Color)", (uintptr_t)cythDrawBillboard); \
-  cyth_set_function((_ctx), "raylib.drawBillboardRec.void(Camera, Texture2D, Rectangle, Vector3, Vector2, Color)", (uintptr_t)cythDrawBillboardRec); \
-  cyth_set_function((_ctx), "raylib.drawBillboardPro.void(Camera, Texture2D, Rectangle, Vector3, Vector3, Vector2, Vector2, float, Color)", (uintptr_t)cythDrawBillboardPro); \
-  cyth_set_function((_ctx), "raylib.uploadMesh.void(any, bool)", (uintptr_t)cythUploadMesh); \
-  cyth_set_function((_ctx), "raylib.updateMeshBuffer.void(Mesh, int, any, int, int)", (uintptr_t)cythUpdateMeshBuffer); \
-  cyth_set_function((_ctx), "raylib.unloadMesh.void(Mesh)", (uintptr_t)cythUnloadMesh); \
-  cyth_set_function((_ctx), "raylib.drawMesh.void(Mesh, Material, Matrix)", (uintptr_t)cythDrawMesh); \
-  cyth_set_function((_ctx), "raylib.drawMeshInstanced.void(Mesh, Material, any, int)", (uintptr_t)cythDrawMeshInstanced); \
-  cyth_set_function((_ctx), "raylib.getMeshBoundingBox.BoundingBox(Mesh)", (uintptr_t)cythGetMeshBoundingBox); \
-  cyth_set_function((_ctx), "raylib.genMeshTangents.void(any)", (uintptr_t)cythGenMeshTangents); \
-  cyth_set_function((_ctx), "raylib.exportMesh.bool(Mesh, string)", (uintptr_t)cythExportMesh); \
-  cyth_set_function((_ctx), "raylib.exportMeshAsCode.bool(Mesh, string)", (uintptr_t)cythExportMeshAsCode); \
-  cyth_set_function((_ctx), "raylib.genMeshPoly.Mesh(int, float)", (uintptr_t)cythGenMeshPoly); \
-  cyth_set_function((_ctx), "raylib.genMeshPlane.Mesh(float, float, int, int)", (uintptr_t)cythGenMeshPlane); \
-  cyth_set_function((_ctx), "raylib.genMeshCube.Mesh(float, float, float)", (uintptr_t)cythGenMeshCube); \
-  cyth_set_function((_ctx), "raylib.genMeshSphere.Mesh(float, int, int)", (uintptr_t)cythGenMeshSphere); \
-  cyth_set_function((_ctx), "raylib.genMeshHemiSphere.Mesh(float, int, int)", (uintptr_t)cythGenMeshHemiSphere); \
-  cyth_set_function((_ctx), "raylib.genMeshCylinder.Mesh(float, float, int)", (uintptr_t)cythGenMeshCylinder); \
-  cyth_set_function((_ctx), "raylib.genMeshCone.Mesh(float, float, int)", (uintptr_t)cythGenMeshCone); \
-  cyth_set_function((_ctx), "raylib.genMeshTorus.Mesh(float, float, int, int)", (uintptr_t)cythGenMeshTorus); \
-  cyth_set_function((_ctx), "raylib.genMeshKnot.Mesh(float, float, int, int)", (uintptr_t)cythGenMeshKnot); \
-  cyth_set_function((_ctx), "raylib.genMeshHeightmap.Mesh(Image, Vector3)", (uintptr_t)cythGenMeshHeightmap); \
-  cyth_set_function((_ctx), "raylib.genMeshCubicmap.Mesh(Image, Vector3)", (uintptr_t)cythGenMeshCubicmap); \
-  cyth_set_function((_ctx), "raylib.loadMaterials.any(string, any)", (uintptr_t)cythLoadMaterials); \
-  cyth_set_function((_ctx), "raylib.loadMaterialDefault.Material()", (uintptr_t)cythLoadMaterialDefault); \
-  cyth_set_function((_ctx), "raylib.isMaterialValid.bool(Material)", (uintptr_t)cythIsMaterialValid); \
-  cyth_set_function((_ctx), "raylib.unloadMaterial.void(Material)", (uintptr_t)cythUnloadMaterial); \
-  cyth_set_function((_ctx), "raylib.setMaterialTexture.void(any, int, Texture2D)", (uintptr_t)cythSetMaterialTexture); \
-  cyth_set_function((_ctx), "raylib.setModelMeshMaterial.void(any, int, int)", (uintptr_t)cythSetModelMeshMaterial); \
-  cyth_set_function((_ctx), "raylib.loadModelAnimations.any(string, any)", (uintptr_t)cythLoadModelAnimations); \
-  cyth_set_function((_ctx), "raylib.updateModelAnimation.void(Model, ModelAnimation, int)", (uintptr_t)cythUpdateModelAnimation); \
-  cyth_set_function((_ctx), "raylib.updateModelAnimationBones.void(Model, ModelAnimation, int)", (uintptr_t)cythUpdateModelAnimationBones); \
-  cyth_set_function((_ctx), "raylib.unloadModelAnimation.void(ModelAnimation)", (uintptr_t)cythUnloadModelAnimation); \
-  cyth_set_function((_ctx), "raylib.unloadModelAnimations.void(any, int)", (uintptr_t)cythUnloadModelAnimations); \
-  cyth_set_function((_ctx), "raylib.isModelAnimationValid.bool(Model, ModelAnimation)", (uintptr_t)cythIsModelAnimationValid); \
-  cyth_set_function((_ctx), "raylib.checkCollisionSpheres.bool(Vector3, float, Vector3, float)", (uintptr_t)cythCheckCollisionSpheres); \
-  cyth_set_function((_ctx), "raylib.checkCollisionBoxes.bool(BoundingBox, BoundingBox)", (uintptr_t)cythCheckCollisionBoxes); \
-  cyth_set_function((_ctx), "raylib.checkCollisionBoxSphere.bool(BoundingBox, Vector3, float)", (uintptr_t)cythCheckCollisionBoxSphere); \
-  cyth_set_function((_ctx), "raylib.getRayCollisionSphere.RayCollision(Ray, Vector3, float)", (uintptr_t)cythGetRayCollisionSphere); \
-  cyth_set_function((_ctx), "raylib.getRayCollisionBox.RayCollision(Ray, BoundingBox)", (uintptr_t)cythGetRayCollisionBox); \
-  cyth_set_function((_ctx), "raylib.getRayCollisionMesh.RayCollision(Ray, Mesh, Matrix)", (uintptr_t)cythGetRayCollisionMesh); \
-  cyth_set_function((_ctx), "raylib.getRayCollisionTriangle.RayCollision(Ray, Vector3, Vector3, Vector3)", (uintptr_t)cythGetRayCollisionTriangle); \
-  cyth_set_function((_ctx), "raylib.getRayCollisionQuad.RayCollision(Ray, Vector3, Vector3, Vector3, Vector3)", (uintptr_t)cythGetRayCollisionQuad); \
-  cyth_set_function((_ctx), "raylib.initAudioDevice.void()", (uintptr_t)cythInitAudioDevice); \
-  cyth_set_function((_ctx), "raylib.closeAudioDevice.void()", (uintptr_t)cythCloseAudioDevice); \
-  cyth_set_function((_ctx), "raylib.isAudioDeviceReady.bool()", (uintptr_t)cythIsAudioDeviceReady); \
-  cyth_set_function((_ctx), "raylib.setMasterVolume.void(float)", (uintptr_t)cythSetMasterVolume); \
-  cyth_set_function((_ctx), "raylib.getMasterVolume.float()", (uintptr_t)cythGetMasterVolume); \
-  cyth_set_function((_ctx), "raylib.loadWave.Wave(string)", (uintptr_t)cythLoadWave); \
-  cyth_set_function((_ctx), "raylib.loadWaveFromMemory.Wave(string, any, int)", (uintptr_t)cythLoadWaveFromMemory); \
-  cyth_set_function((_ctx), "raylib.isWaveValid.bool(Wave)", (uintptr_t)cythIsWaveValid); \
-  cyth_set_function((_ctx), "raylib.loadSound.Sound(string)", (uintptr_t)cythLoadSound); \
-  cyth_set_function((_ctx), "raylib.loadSoundFromWave.Sound(Wave)", (uintptr_t)cythLoadSoundFromWave); \
-  cyth_set_function((_ctx), "raylib.loadSoundAlias.Sound(Sound)", (uintptr_t)cythLoadSoundAlias); \
-  cyth_set_function((_ctx), "raylib.isSoundValid.bool(Sound)", (uintptr_t)cythIsSoundValid); \
-  cyth_set_function((_ctx), "raylib.updateSound.void(Sound, any, int)", (uintptr_t)cythUpdateSound); \
-  cyth_set_function((_ctx), "raylib.unloadWave.void(Wave)", (uintptr_t)cythUnloadWave); \
-  cyth_set_function((_ctx), "raylib.unloadSound.void(Sound)", (uintptr_t)cythUnloadSound); \
-  cyth_set_function((_ctx), "raylib.unloadSoundAlias.void(Sound)", (uintptr_t)cythUnloadSoundAlias); \
-  cyth_set_function((_ctx), "raylib.exportWave.bool(Wave, string)", (uintptr_t)cythExportWave); \
-  cyth_set_function((_ctx), "raylib.exportWaveAsCode.bool(Wave, string)", (uintptr_t)cythExportWaveAsCode); \
-  cyth_set_function((_ctx), "raylib.playSound.void(Sound)", (uintptr_t)cythPlaySound); \
-  cyth_set_function((_ctx), "raylib.stopSound.void(Sound)", (uintptr_t)cythStopSound); \
-  cyth_set_function((_ctx), "raylib.pauseSound.void(Sound)", (uintptr_t)cythPauseSound); \
-  cyth_set_function((_ctx), "raylib.resumeSound.void(Sound)", (uintptr_t)cythResumeSound); \
-  cyth_set_function((_ctx), "raylib.isSoundPlaying.bool(Sound)", (uintptr_t)cythIsSoundPlaying); \
-  cyth_set_function((_ctx), "raylib.setSoundVolume.void(Sound, float)", (uintptr_t)cythSetSoundVolume); \
-  cyth_set_function((_ctx), "raylib.setSoundPitch.void(Sound, float)", (uintptr_t)cythSetSoundPitch); \
-  cyth_set_function((_ctx), "raylib.setSoundPan.void(Sound, float)", (uintptr_t)cythSetSoundPan); \
-  cyth_set_function((_ctx), "raylib.waveCopy.Wave(Wave)", (uintptr_t)cythWaveCopy); \
-  cyth_set_function((_ctx), "raylib.waveCrop.void(any, int, int)", (uintptr_t)cythWaveCrop); \
-  cyth_set_function((_ctx), "raylib.waveFormat.void(any, int, int, int)", (uintptr_t)cythWaveFormat); \
-  cyth_set_function((_ctx), "raylib.loadWaveSamples.any(Wave)", (uintptr_t)cythLoadWaveSamples); \
-  cyth_set_function((_ctx), "raylib.unloadWaveSamples.void(any)", (uintptr_t)cythUnloadWaveSamples); \
-  cyth_set_function((_ctx), "raylib.loadMusicStream.Music(string)", (uintptr_t)cythLoadMusicStream); \
-  cyth_set_function((_ctx), "raylib.loadMusicStreamFromMemory.Music(string, any, int)", (uintptr_t)cythLoadMusicStreamFromMemory); \
-  cyth_set_function((_ctx), "raylib.isMusicValid.bool(Music)", (uintptr_t)cythIsMusicValid); \
-  cyth_set_function((_ctx), "raylib.unloadMusicStream.void(Music)", (uintptr_t)cythUnloadMusicStream); \
-  cyth_set_function((_ctx), "raylib.playMusicStream.void(Music)", (uintptr_t)cythPlayMusicStream); \
-  cyth_set_function((_ctx), "raylib.isMusicStreamPlaying.bool(Music)", (uintptr_t)cythIsMusicStreamPlaying); \
-  cyth_set_function((_ctx), "raylib.updateMusicStream.void(Music)", (uintptr_t)cythUpdateMusicStream); \
-  cyth_set_function((_ctx), "raylib.stopMusicStream.void(Music)", (uintptr_t)cythStopMusicStream); \
-  cyth_set_function((_ctx), "raylib.pauseMusicStream.void(Music)", (uintptr_t)cythPauseMusicStream); \
-  cyth_set_function((_ctx), "raylib.resumeMusicStream.void(Music)", (uintptr_t)cythResumeMusicStream); \
-  cyth_set_function((_ctx), "raylib.seekMusicStream.void(Music, float)", (uintptr_t)cythSeekMusicStream); \
-  cyth_set_function((_ctx), "raylib.setMusicVolume.void(Music, float)", (uintptr_t)cythSetMusicVolume); \
-  cyth_set_function((_ctx), "raylib.setMusicPitch.void(Music, float)", (uintptr_t)cythSetMusicPitch); \
-  cyth_set_function((_ctx), "raylib.setMusicPan.void(Music, float)", (uintptr_t)cythSetMusicPan); \
-  cyth_set_function((_ctx), "raylib.getMusicTimeLength.float(Music)", (uintptr_t)cythGetMusicTimeLength); \
-  cyth_set_function((_ctx), "raylib.getMusicTimePlayed.float(Music)", (uintptr_t)cythGetMusicTimePlayed); \
-  cyth_set_function((_ctx), "raylib.loadAudioStream.AudioStream(int, int, int)", (uintptr_t)cythLoadAudioStream); \
-  cyth_set_function((_ctx), "raylib.isAudioStreamValid.bool(AudioStream)", (uintptr_t)cythIsAudioStreamValid); \
-  cyth_set_function((_ctx), "raylib.unloadAudioStream.void(AudioStream)", (uintptr_t)cythUnloadAudioStream); \
-  cyth_set_function((_ctx), "raylib.updateAudioStream.void(AudioStream, any, int)", (uintptr_t)cythUpdateAudioStream); \
-  cyth_set_function((_ctx), "raylib.isAudioStreamProcessed.bool(AudioStream)", (uintptr_t)cythIsAudioStreamProcessed); \
-  cyth_set_function((_ctx), "raylib.playAudioStream.void(AudioStream)", (uintptr_t)cythPlayAudioStream); \
-  cyth_set_function((_ctx), "raylib.pauseAudioStream.void(AudioStream)", (uintptr_t)cythPauseAudioStream); \
-  cyth_set_function((_ctx), "raylib.resumeAudioStream.void(AudioStream)", (uintptr_t)cythResumeAudioStream); \
-  cyth_set_function((_ctx), "raylib.isAudioStreamPlaying.bool(AudioStream)", (uintptr_t)cythIsAudioStreamPlaying); \
-  cyth_set_function((_ctx), "raylib.stopAudioStream.void(AudioStream)", (uintptr_t)cythStopAudioStream); \
-  cyth_set_function((_ctx), "raylib.setAudioStreamVolume.void(AudioStream, float)", (uintptr_t)cythSetAudioStreamVolume); \
-  cyth_set_function((_ctx), "raylib.setAudioStreamPitch.void(AudioStream, float)", (uintptr_t)cythSetAudioStreamPitch); \
-  cyth_set_function((_ctx), "raylib.setAudioStreamPan.void(AudioStream, float)", (uintptr_t)cythSetAudioStreamPan); \
-  cyth_set_function((_ctx), "raylib.setAudioStreamBufferSizeDefault.void(int)", (uintptr_t)cythSetAudioStreamBufferSizeDefault); \
-  cyth_set_function((_ctx), "raylib.setAudioStreamCallback.void(AudioStream, AudioCallback)", (uintptr_t)cythSetAudioStreamCallback); \
-  cyth_set_function((_ctx), "raylib.attachAudioStreamProcessor.void(AudioStream, AudioCallback)", (uintptr_t)cythAttachAudioStreamProcessor); \
-  cyth_set_function((_ctx), "raylib.detachAudioStreamProcessor.void(AudioStream, AudioCallback)", (uintptr_t)cythDetachAudioStreamProcessor); \
-  cyth_set_function((_ctx), "raylib.attachAudioMixedProcessor.void(AudioCallback)", (uintptr_t)cythAttachAudioMixedProcessor); \
-  cyth_set_function((_ctx), "raylib.detachAudioMixedProcessor.void(AudioCallback)", (uintptr_t)cythDetachAudioMixedProcessor); \
+#define cyth_load_raylib_functions(_ctx) do { \
+  cyth_load_function((_ctx), "void initWindow(int width, int height, string title)", (uintptr_t)cythInitWindow); \
+  cyth_load_function((_ctx), "void closeWindow()", (uintptr_t)cythCloseWindow); \
+  cyth_load_function((_ctx), "bool windowShouldClose()", (uintptr_t)cythWindowShouldClose); \
+  cyth_load_function((_ctx), "bool isWindowReady()", (uintptr_t)cythIsWindowReady); \
+  cyth_load_function((_ctx), "bool isWindowFullscreen()", (uintptr_t)cythIsWindowFullscreen); \
+  cyth_load_function((_ctx), "bool isWindowHidden()", (uintptr_t)cythIsWindowHidden); \
+  cyth_load_function((_ctx), "bool isWindowMinimized()", (uintptr_t)cythIsWindowMinimized); \
+  cyth_load_function((_ctx), "bool isWindowMaximized()", (uintptr_t)cythIsWindowMaximized); \
+  cyth_load_function((_ctx), "bool isWindowFocused()", (uintptr_t)cythIsWindowFocused); \
+  cyth_load_function((_ctx), "bool isWindowResized()", (uintptr_t)cythIsWindowResized); \
+  cyth_load_function((_ctx), "bool isWindowState(int flag)", (uintptr_t)cythIsWindowState); \
+  cyth_load_function((_ctx), "void setWindowState(int flags)", (uintptr_t)cythSetWindowState); \
+  cyth_load_function((_ctx), "void clearWindowState(int flags)", (uintptr_t)cythClearWindowState); \
+  cyth_load_function((_ctx), "void toggleFullscreen()", (uintptr_t)cythToggleFullscreen); \
+  cyth_load_function((_ctx), "void toggleBorderlessWindowed()", (uintptr_t)cythToggleBorderlessWindowed); \
+  cyth_load_function((_ctx), "void maximizeWindow()", (uintptr_t)cythMaximizeWindow); \
+  cyth_load_function((_ctx), "void minimizeWindow()", (uintptr_t)cythMinimizeWindow); \
+  cyth_load_function((_ctx), "void restoreWindow()", (uintptr_t)cythRestoreWindow); \
+  cyth_load_function((_ctx), "void setWindowIcon(Image image)", (uintptr_t)cythSetWindowIcon); \
+  cyth_load_function((_ctx), "void setWindowIcons(Image images, int count)", (uintptr_t)cythSetWindowIcons); \
+  cyth_load_function((_ctx), "void setWindowTitle(string title)", (uintptr_t)cythSetWindowTitle); \
+  cyth_load_function((_ctx), "void setWindowPosition(int x, int y)", (uintptr_t)cythSetWindowPosition); \
+  cyth_load_function((_ctx), "void setWindowMonitor(int monitor)", (uintptr_t)cythSetWindowMonitor); \
+  cyth_load_function((_ctx), "void setWindowMinSize(int width, int height)", (uintptr_t)cythSetWindowMinSize); \
+  cyth_load_function((_ctx), "void setWindowMaxSize(int width, int height)", (uintptr_t)cythSetWindowMaxSize); \
+  cyth_load_function((_ctx), "void setWindowSize(int width, int height)", (uintptr_t)cythSetWindowSize); \
+  cyth_load_function((_ctx), "void setWindowOpacity(float opacity)", (uintptr_t)cythSetWindowOpacity); \
+  cyth_load_function((_ctx), "void setWindowFocused()", (uintptr_t)cythSetWindowFocused); \
+  cyth_load_function((_ctx), "any getWindowHandle()", (uintptr_t)cythGetWindowHandle); \
+  cyth_load_function((_ctx), "int getScreenWidth()", (uintptr_t)cythGetScreenWidth); \
+  cyth_load_function((_ctx), "int getScreenHeight()", (uintptr_t)cythGetScreenHeight); \
+  cyth_load_function((_ctx), "int getRenderWidth()", (uintptr_t)cythGetRenderWidth); \
+  cyth_load_function((_ctx), "int getRenderHeight()", (uintptr_t)cythGetRenderHeight); \
+  cyth_load_function((_ctx), "int getMonitorCount()", (uintptr_t)cythGetMonitorCount); \
+  cyth_load_function((_ctx), "int getCurrentMonitor()", (uintptr_t)cythGetCurrentMonitor); \
+  cyth_load_function((_ctx), "Vector2 getMonitorPosition(int monitor)", (uintptr_t)cythGetMonitorPosition); \
+  cyth_load_function((_ctx), "int getMonitorWidth(int monitor)", (uintptr_t)cythGetMonitorWidth); \
+  cyth_load_function((_ctx), "int getMonitorHeight(int monitor)", (uintptr_t)cythGetMonitorHeight); \
+  cyth_load_function((_ctx), "int getMonitorPhysicalWidth(int monitor)", (uintptr_t)cythGetMonitorPhysicalWidth); \
+  cyth_load_function((_ctx), "int getMonitorPhysicalHeight(int monitor)", (uintptr_t)cythGetMonitorPhysicalHeight); \
+  cyth_load_function((_ctx), "int getMonitorRefreshRate(int monitor)", (uintptr_t)cythGetMonitorRefreshRate); \
+  cyth_load_function((_ctx), "Vector2 getWindowPosition()", (uintptr_t)cythGetWindowPosition); \
+  cyth_load_function((_ctx), "Vector2 getWindowScaleDPI()", (uintptr_t)cythGetWindowScaleDPI); \
+  cyth_load_function((_ctx), "string getMonitorName(int monitor)", (uintptr_t)cythGetMonitorName); \
+  cyth_load_function((_ctx), "void setClipboardText(string text)", (uintptr_t)cythSetClipboardText); \
+  cyth_load_function((_ctx), "string getClipboardText()", (uintptr_t)cythGetClipboardText); \
+  cyth_load_function((_ctx), "Image getClipboardImage()", (uintptr_t)cythGetClipboardImage); \
+  cyth_load_function((_ctx), "void enableEventWaiting()", (uintptr_t)cythEnableEventWaiting); \
+  cyth_load_function((_ctx), "void disableEventWaiting()", (uintptr_t)cythDisableEventWaiting); \
+  cyth_load_function((_ctx), "void showCursor()", (uintptr_t)cythShowCursor); \
+  cyth_load_function((_ctx), "void hideCursor()", (uintptr_t)cythHideCursor); \
+  cyth_load_function((_ctx), "bool isCursorHidden()", (uintptr_t)cythIsCursorHidden); \
+  cyth_load_function((_ctx), "void enableCursor()", (uintptr_t)cythEnableCursor); \
+  cyth_load_function((_ctx), "void disableCursor()", (uintptr_t)cythDisableCursor); \
+  cyth_load_function((_ctx), "bool isCursorOnScreen()", (uintptr_t)cythIsCursorOnScreen); \
+  cyth_load_function((_ctx), "void clearBackground(Color color)", (uintptr_t)cythClearBackground); \
+  cyth_load_function((_ctx), "void beginDrawing()", (uintptr_t)cythBeginDrawing); \
+  cyth_load_function((_ctx), "void endDrawing()", (uintptr_t)cythEndDrawing); \
+  cyth_load_function((_ctx), "void beginMode2D(Camera2D camera)", (uintptr_t)cythBeginMode2D); \
+  cyth_load_function((_ctx), "void endMode2D()", (uintptr_t)cythEndMode2D); \
+  cyth_load_function((_ctx), "void beginMode3D(Camera3D camera)", (uintptr_t)cythBeginMode3D); \
+  cyth_load_function((_ctx), "void endMode3D()", (uintptr_t)cythEndMode3D); \
+  cyth_load_function((_ctx), "void beginTextureMode(RenderTexture2D target)", (uintptr_t)cythBeginTextureMode); \
+  cyth_load_function((_ctx), "void endTextureMode()", (uintptr_t)cythEndTextureMode); \
+  cyth_load_function((_ctx), "void beginShaderMode(Shader shader)", (uintptr_t)cythBeginShaderMode); \
+  cyth_load_function((_ctx), "void endShaderMode()", (uintptr_t)cythEndShaderMode); \
+  cyth_load_function((_ctx), "void beginBlendMode(int mode)", (uintptr_t)cythBeginBlendMode); \
+  cyth_load_function((_ctx), "void endBlendMode()", (uintptr_t)cythEndBlendMode); \
+  cyth_load_function((_ctx), "void beginScissorMode(int x, int y, int width, int height)", (uintptr_t)cythBeginScissorMode); \
+  cyth_load_function((_ctx), "void endScissorMode()", (uintptr_t)cythEndScissorMode); \
+  cyth_load_function((_ctx), "void beginVrStereoMode(VrStereoConfig config)", (uintptr_t)cythBeginVrStereoMode); \
+  cyth_load_function((_ctx), "void endVrStereoMode()", (uintptr_t)cythEndVrStereoMode); \
+  cyth_load_function((_ctx), "VrStereoConfig loadVrStereoConfig(VrDeviceInfo device)", (uintptr_t)cythLoadVrStereoConfig); \
+  cyth_load_function((_ctx), "void unloadVrStereoConfig(VrStereoConfig config)", (uintptr_t)cythUnloadVrStereoConfig); \
+  cyth_load_function((_ctx), "Shader loadShader(string vsFileName, string fsFileName)", (uintptr_t)cythLoadShader); \
+  cyth_load_function((_ctx), "Shader loadShaderFromMemory(string vsCode, string fsCode)", (uintptr_t)cythLoadShaderFromMemory); \
+  cyth_load_function((_ctx), "bool isShaderValid(Shader shader)", (uintptr_t)cythIsShaderValid); \
+  cyth_load_function((_ctx), "int getShaderLocation(Shader shader, string uniformName)", (uintptr_t)cythGetShaderLocation); \
+  cyth_load_function((_ctx), "int getShaderLocationAttrib(Shader shader, string attribName)", (uintptr_t)cythGetShaderLocationAttrib); \
+  cyth_load_function((_ctx), "void setShaderValue(Shader shader, int locIndex, any value, int uniformType)", (uintptr_t)cythSetShaderValue); \
+  cyth_load_function((_ctx), "void setShaderValueV(Shader shader, int locIndex, any value, int uniformType, int count)", (uintptr_t)cythSetShaderValueV); \
+  cyth_load_function((_ctx), "void setShaderValueMatrix(Shader shader, int locIndex, Matrix mat)", (uintptr_t)cythSetShaderValueMatrix); \
+  cyth_load_function((_ctx), "void setShaderValueTexture(Shader shader, int locIndex, Texture2D texture)", (uintptr_t)cythSetShaderValueTexture); \
+  cyth_load_function((_ctx), "void unloadShader(Shader shader)", (uintptr_t)cythUnloadShader); \
+  cyth_load_function((_ctx), "Ray getScreenToWorldRay(Vector2 position, Camera camera)", (uintptr_t)cythGetScreenToWorldRay); \
+  cyth_load_function((_ctx), "Ray getScreenToWorldRayEx(Vector2 position, Camera camera, int width, int height)", (uintptr_t)cythGetScreenToWorldRayEx); \
+  cyth_load_function((_ctx), "Vector2 getWorldToScreen(Vector3 position, Camera camera)", (uintptr_t)cythGetWorldToScreen); \
+  cyth_load_function((_ctx), "Vector2 getWorldToScreenEx(Vector3 position, Camera camera, int width, int height)", (uintptr_t)cythGetWorldToScreenEx); \
+  cyth_load_function((_ctx), "Vector2 getWorldToScreen2D(Vector2 position, Camera2D camera)", (uintptr_t)cythGetWorldToScreen2D); \
+  cyth_load_function((_ctx), "Vector2 getScreenToWorld2D(Vector2 position, Camera2D camera)", (uintptr_t)cythGetScreenToWorld2D); \
+  cyth_load_function((_ctx), "Matrix getCameraMatrix(Camera camera)", (uintptr_t)cythGetCameraMatrix); \
+  cyth_load_function((_ctx), "Matrix getCameraMatrix2D(Camera2D camera)", (uintptr_t)cythGetCameraMatrix2D); \
+  cyth_load_function((_ctx), "void setTargetFPS(int fps)", (uintptr_t)cythSetTargetFPS); \
+  cyth_load_function((_ctx), "float getFrameTime()", (uintptr_t)cythGetFrameTime); \
+  cyth_load_function((_ctx), "float getTime()", (uintptr_t)cythGetTime); \
+  cyth_load_function((_ctx), "int getFPS()", (uintptr_t)cythGetFPS); \
+  cyth_load_function((_ctx), "void swapScreenBuffer()", (uintptr_t)cythSwapScreenBuffer); \
+  cyth_load_function((_ctx), "void pollInputEvents()", (uintptr_t)cythPollInputEvents); \
+  cyth_load_function((_ctx), "void waitTime(float seconds)", (uintptr_t)cythWaitTime); \
+  cyth_load_function((_ctx), "void setRandomSeed(int seed)", (uintptr_t)cythSetRandomSeed); \
+  cyth_load_function((_ctx), "int getRandomValue(int min, int max)", (uintptr_t)cythGetRandomValue); \
+  cyth_load_function((_ctx), "any loadRandomSequence(int count, int min, int max)", (uintptr_t)cythLoadRandomSequence); \
+  cyth_load_function((_ctx), "void unloadRandomSequence(any sequence)", (uintptr_t)cythUnloadRandomSequence); \
+  cyth_load_function((_ctx), "void takeScreenshot(string fileName)", (uintptr_t)cythTakeScreenshot); \
+  cyth_load_function((_ctx), "void setConfigFlags(int flags)", (uintptr_t)cythSetConfigFlags); \
+  cyth_load_function((_ctx), "void openURL(string url)", (uintptr_t)cythOpenURL); \
+  cyth_load_function((_ctx), "void setTraceLogLevel(int logLevel)", (uintptr_t)cythSetTraceLogLevel); \
+  cyth_load_function((_ctx), "any memAlloc(int size)", (uintptr_t)cythMemAlloc); \
+  cyth_load_function((_ctx), "any memRealloc(any ptr, int size)", (uintptr_t)cythMemRealloc); \
+  cyth_load_function((_ctx), "void memFree(any ptr)", (uintptr_t)cythMemFree); \
+  cyth_load_function((_ctx), "void setTraceLogCallback(TraceLogCallback callback)", (uintptr_t)cythSetTraceLogCallback); \
+  cyth_load_function((_ctx), "void setLoadFileDataCallback(LoadFileDataCallback callback)", (uintptr_t)cythSetLoadFileDataCallback); \
+  cyth_load_function((_ctx), "void setSaveFileDataCallback(SaveFileDataCallback callback)", (uintptr_t)cythSetSaveFileDataCallback); \
+  cyth_load_function((_ctx), "void setLoadFileTextCallback(LoadFileTextCallback callback)", (uintptr_t)cythSetLoadFileTextCallback); \
+  cyth_load_function((_ctx), "void setSaveFileTextCallback(SaveFileTextCallback callback)", (uintptr_t)cythSetSaveFileTextCallback); \
+  cyth_load_function((_ctx), "any loadFileData(string fileName, any dataSize)", (uintptr_t)cythLoadFileData); \
+  cyth_load_function((_ctx), "void unloadFileData(any data)", (uintptr_t)cythUnloadFileData); \
+  cyth_load_function((_ctx), "bool saveFileData(string fileName, any data, int dataSize)", (uintptr_t)cythSaveFileData); \
+  cyth_load_function((_ctx), "bool exportDataAsCode(any data, int dataSize, string fileName)", (uintptr_t)cythExportDataAsCode); \
+  cyth_load_function((_ctx), "char[] loadFileText(string fileName)", (uintptr_t)cythLoadFileText); \
+  cyth_load_function((_ctx), "void unloadFileText(char[] text)", (uintptr_t)cythUnloadFileText); \
+  cyth_load_function((_ctx), "bool saveFileText(string fileName, char[] text)", (uintptr_t)cythSaveFileText); \
+  cyth_load_function((_ctx), "bool fileExists(string fileName)", (uintptr_t)cythFileExists); \
+  cyth_load_function((_ctx), "bool directoryExists(string dirPath)", (uintptr_t)cythDirectoryExists); \
+  cyth_load_function((_ctx), "bool isFileExtension(string fileName, string ext)", (uintptr_t)cythIsFileExtension); \
+  cyth_load_function((_ctx), "int getFileLength(string fileName)", (uintptr_t)cythGetFileLength); \
+  cyth_load_function((_ctx), "string getFileExtension(string fileName)", (uintptr_t)cythGetFileExtension); \
+  cyth_load_function((_ctx), "string getFileName(string filePath)", (uintptr_t)cythGetFileName); \
+  cyth_load_function((_ctx), "string getFileNameWithoutExt(string filePath)", (uintptr_t)cythGetFileNameWithoutExt); \
+  cyth_load_function((_ctx), "string getDirectoryPath(string filePath)", (uintptr_t)cythGetDirectoryPath); \
+  cyth_load_function((_ctx), "string getPrevDirectoryPath(string dirPath)", (uintptr_t)cythGetPrevDirectoryPath); \
+  cyth_load_function((_ctx), "string getWorkingDirectory()", (uintptr_t)cythGetWorkingDirectory); \
+  cyth_load_function((_ctx), "string getApplicationDirectory()", (uintptr_t)cythGetApplicationDirectory); \
+  cyth_load_function((_ctx), "int makeDirectory(string dirPath)", (uintptr_t)cythMakeDirectory); \
+  cyth_load_function((_ctx), "bool changeDirectory(string dir)", (uintptr_t)cythChangeDirectory); \
+  cyth_load_function((_ctx), "bool isPathFile(string path)", (uintptr_t)cythIsPathFile); \
+  cyth_load_function((_ctx), "bool isFileNameValid(string fileName)", (uintptr_t)cythIsFileNameValid); \
+  cyth_load_function((_ctx), "FilePathList loadDirectoryFiles(string dirPath)", (uintptr_t)cythLoadDirectoryFiles); \
+  cyth_load_function((_ctx), "FilePathList loadDirectoryFilesEx(string basePath, string filter, bool scanSubdirs)", (uintptr_t)cythLoadDirectoryFilesEx); \
+  cyth_load_function((_ctx), "void unloadDirectoryFiles(FilePathList files)", (uintptr_t)cythUnloadDirectoryFiles); \
+  cyth_load_function((_ctx), "bool isFileDropped()", (uintptr_t)cythIsFileDropped); \
+  cyth_load_function((_ctx), "FilePathList loadDroppedFiles()", (uintptr_t)cythLoadDroppedFiles); \
+  cyth_load_function((_ctx), "void unloadDroppedFiles(FilePathList files)", (uintptr_t)cythUnloadDroppedFiles); \
+  cyth_load_function((_ctx), "int getFileModTime(string fileName)", (uintptr_t)cythGetFileModTime); \
+  cyth_load_function((_ctx), "any compressData(any data, int dataSize, any compDataSize)", (uintptr_t)cythCompressData); \
+  cyth_load_function((_ctx), "any decompressData(any compData, int compDataSize, any dataSize)", (uintptr_t)cythDecompressData); \
+  cyth_load_function((_ctx), "char[] encodeDataBase64(any data, int dataSize, any outputSize)", (uintptr_t)cythEncodeDataBase64); \
+  cyth_load_function((_ctx), "any decodeDataBase64(any data, any outputSize)", (uintptr_t)cythDecodeDataBase64); \
+  cyth_load_function((_ctx), "int computeCRC32(any data, int dataSize)", (uintptr_t)cythComputeCRC32); \
+  cyth_load_function((_ctx), "any computeMD5(any data, int dataSize)", (uintptr_t)cythComputeMD5); \
+  cyth_load_function((_ctx), "any computeSHA1(any data, int dataSize)", (uintptr_t)cythComputeSHA1); \
+  cyth_load_function((_ctx), "AutomationEventList loadAutomationEventList(string fileName)", (uintptr_t)cythLoadAutomationEventList); \
+  cyth_load_function((_ctx), "void unloadAutomationEventList(AutomationEventList list)", (uintptr_t)cythUnloadAutomationEventList); \
+  cyth_load_function((_ctx), "bool exportAutomationEventList(AutomationEventList list, string fileName)", (uintptr_t)cythExportAutomationEventList); \
+  cyth_load_function((_ctx), "void setAutomationEventList(any list)", (uintptr_t)cythSetAutomationEventList); \
+  cyth_load_function((_ctx), "void setAutomationEventBaseFrame(int frame)", (uintptr_t)cythSetAutomationEventBaseFrame); \
+  cyth_load_function((_ctx), "void startAutomationEventRecording()", (uintptr_t)cythStartAutomationEventRecording); \
+  cyth_load_function((_ctx), "void stopAutomationEventRecording()", (uintptr_t)cythStopAutomationEventRecording); \
+  cyth_load_function((_ctx), "void playAutomationEvent(AutomationEvent event)", (uintptr_t)cythPlayAutomationEvent); \
+  cyth_load_function((_ctx), "bool isKeyPressed(int key)", (uintptr_t)cythIsKeyPressed); \
+  cyth_load_function((_ctx), "bool isKeyPressedRepeat(int key)", (uintptr_t)cythIsKeyPressedRepeat); \
+  cyth_load_function((_ctx), "bool isKeyDown(int key)", (uintptr_t)cythIsKeyDown); \
+  cyth_load_function((_ctx), "bool isKeyReleased(int key)", (uintptr_t)cythIsKeyReleased); \
+  cyth_load_function((_ctx), "bool isKeyUp(int key)", (uintptr_t)cythIsKeyUp); \
+  cyth_load_function((_ctx), "int getKeyPressed()", (uintptr_t)cythGetKeyPressed); \
+  cyth_load_function((_ctx), "int getCharPressed()", (uintptr_t)cythGetCharPressed); \
+  cyth_load_function((_ctx), "void setExitKey(int key)", (uintptr_t)cythSetExitKey); \
+  cyth_load_function((_ctx), "bool isGamepadAvailable(int gamepad)", (uintptr_t)cythIsGamepadAvailable); \
+  cyth_load_function((_ctx), "string getGamepadName(int gamepad)", (uintptr_t)cythGetGamepadName); \
+  cyth_load_function((_ctx), "bool isGamepadButtonPressed(int gamepad, int button)", (uintptr_t)cythIsGamepadButtonPressed); \
+  cyth_load_function((_ctx), "bool isGamepadButtonDown(int gamepad, int button)", (uintptr_t)cythIsGamepadButtonDown); \
+  cyth_load_function((_ctx), "bool isGamepadButtonReleased(int gamepad, int button)", (uintptr_t)cythIsGamepadButtonReleased); \
+  cyth_load_function((_ctx), "bool isGamepadButtonUp(int gamepad, int button)", (uintptr_t)cythIsGamepadButtonUp); \
+  cyth_load_function((_ctx), "int getGamepadButtonPressed()", (uintptr_t)cythGetGamepadButtonPressed); \
+  cyth_load_function((_ctx), "int getGamepadAxisCount(int gamepad)", (uintptr_t)cythGetGamepadAxisCount); \
+  cyth_load_function((_ctx), "float getGamepadAxisMovement(int gamepad, int axis)", (uintptr_t)cythGetGamepadAxisMovement); \
+  cyth_load_function((_ctx), "int setGamepadMappings(string mappings)", (uintptr_t)cythSetGamepadMappings); \
+  cyth_load_function((_ctx), "void setGamepadVibration(int gamepad, float leftMotor, float rightMotor, float duration)", (uintptr_t)cythSetGamepadVibration); \
+  cyth_load_function((_ctx), "bool isMouseButtonPressed(int button)", (uintptr_t)cythIsMouseButtonPressed); \
+  cyth_load_function((_ctx), "bool isMouseButtonDown(int button)", (uintptr_t)cythIsMouseButtonDown); \
+  cyth_load_function((_ctx), "bool isMouseButtonReleased(int button)", (uintptr_t)cythIsMouseButtonReleased); \
+  cyth_load_function((_ctx), "bool isMouseButtonUp(int button)", (uintptr_t)cythIsMouseButtonUp); \
+  cyth_load_function((_ctx), "int getMouseX()", (uintptr_t)cythGetMouseX); \
+  cyth_load_function((_ctx), "int getMouseY()", (uintptr_t)cythGetMouseY); \
+  cyth_load_function((_ctx), "Vector2 getMousePosition()", (uintptr_t)cythGetMousePosition); \
+  cyth_load_function((_ctx), "Vector2 getMouseDelta()", (uintptr_t)cythGetMouseDelta); \
+  cyth_load_function((_ctx), "void setMousePosition(int x, int y)", (uintptr_t)cythSetMousePosition); \
+  cyth_load_function((_ctx), "void setMouseOffset(int offsetX, int offsetY)", (uintptr_t)cythSetMouseOffset); \
+  cyth_load_function((_ctx), "void setMouseScale(float scaleX, float scaleY)", (uintptr_t)cythSetMouseScale); \
+  cyth_load_function((_ctx), "float getMouseWheelMove()", (uintptr_t)cythGetMouseWheelMove); \
+  cyth_load_function((_ctx), "Vector2 getMouseWheelMoveV()", (uintptr_t)cythGetMouseWheelMoveV); \
+  cyth_load_function((_ctx), "void setMouseCursor(int cursor)", (uintptr_t)cythSetMouseCursor); \
+  cyth_load_function((_ctx), "int getTouchX()", (uintptr_t)cythGetTouchX); \
+  cyth_load_function((_ctx), "int getTouchY()", (uintptr_t)cythGetTouchY); \
+  cyth_load_function((_ctx), "Vector2 getTouchPosition(int index)", (uintptr_t)cythGetTouchPosition); \
+  cyth_load_function((_ctx), "int getTouchPointId(int index)", (uintptr_t)cythGetTouchPointId); \
+  cyth_load_function((_ctx), "int getTouchPointCount()", (uintptr_t)cythGetTouchPointCount); \
+  cyth_load_function((_ctx), "void setGesturesEnabled(int flags)", (uintptr_t)cythSetGesturesEnabled); \
+  cyth_load_function((_ctx), "bool isGestureDetected(int gesture)", (uintptr_t)cythIsGestureDetected); \
+  cyth_load_function((_ctx), "int getGestureDetected()", (uintptr_t)cythGetGestureDetected); \
+  cyth_load_function((_ctx), "float getGestureHoldDuration()", (uintptr_t)cythGetGestureHoldDuration); \
+  cyth_load_function((_ctx), "Vector2 getGestureDragVector()", (uintptr_t)cythGetGestureDragVector); \
+  cyth_load_function((_ctx), "float getGestureDragAngle()", (uintptr_t)cythGetGestureDragAngle); \
+  cyth_load_function((_ctx), "Vector2 getGesturePinchVector()", (uintptr_t)cythGetGesturePinchVector); \
+  cyth_load_function((_ctx), "float getGesturePinchAngle()", (uintptr_t)cythGetGesturePinchAngle); \
+  cyth_load_function((_ctx), "void updateCamera(any camera, int mode)", (uintptr_t)cythUpdateCamera); \
+  cyth_load_function((_ctx), "void updateCameraPro(any camera, Vector3 movement, Vector3 rotation, float zoom)", (uintptr_t)cythUpdateCameraPro); \
+  cyth_load_function((_ctx), "void setShapesTexture(Texture2D texture, Rectangle source)", (uintptr_t)cythSetShapesTexture); \
+  cyth_load_function((_ctx), "Texture2D getShapesTexture()", (uintptr_t)cythGetShapesTexture); \
+  cyth_load_function((_ctx), "Rectangle getShapesTextureRectangle()", (uintptr_t)cythGetShapesTextureRectangle); \
+  cyth_load_function((_ctx), "void drawPixel(int posX, int posY, Color color)", (uintptr_t)cythDrawPixel); \
+  cyth_load_function((_ctx), "void drawPixelV(Vector2 position, Color color)", (uintptr_t)cythDrawPixelV); \
+  cyth_load_function((_ctx), "void drawLine(int startPosX, int startPosY, int endPosX, int endPosY, Color color)", (uintptr_t)cythDrawLine); \
+  cyth_load_function((_ctx), "void drawLineV(Vector2 startPos, Vector2 endPos, Color color)", (uintptr_t)cythDrawLineV); \
+  cyth_load_function((_ctx), "void drawLineEx(Vector2 startPos, Vector2 endPos, float thick, Color color)", (uintptr_t)cythDrawLineEx); \
+  cyth_load_function((_ctx), "void drawLineStrip(any points, int pointCount, Color color)", (uintptr_t)cythDrawLineStrip); \
+  cyth_load_function((_ctx), "void drawLineBezier(Vector2 startPos, Vector2 endPos, float thick, Color color)", (uintptr_t)cythDrawLineBezier); \
+  cyth_load_function((_ctx), "void drawCircle(int centerX, int centerY, float radius, Color color)", (uintptr_t)cythDrawCircle); \
+  cyth_load_function((_ctx), "void drawCircleSector(Vector2 center, float radius, float startAngle, float endAngle, int segments, Color color)", (uintptr_t)cythDrawCircleSector); \
+  cyth_load_function((_ctx), "void drawCircleSectorLines(Vector2 center, float radius, float startAngle, float endAngle, int segments, Color color)", (uintptr_t)cythDrawCircleSectorLines); \
+  cyth_load_function((_ctx), "void drawCircleGradient(int centerX, int centerY, float radius, Color inner, Color outer)", (uintptr_t)cythDrawCircleGradient); \
+  cyth_load_function((_ctx), "void drawCircleV(Vector2 center, float radius, Color color)", (uintptr_t)cythDrawCircleV); \
+  cyth_load_function((_ctx), "void drawCircleLines(int centerX, int centerY, float radius, Color color)", (uintptr_t)cythDrawCircleLines); \
+  cyth_load_function((_ctx), "void drawCircleLinesV(Vector2 center, float radius, Color color)", (uintptr_t)cythDrawCircleLinesV); \
+  cyth_load_function((_ctx), "void drawEllipse(int centerX, int centerY, float radiusH, float radiusV, Color color)", (uintptr_t)cythDrawEllipse); \
+  cyth_load_function((_ctx), "void drawEllipseLines(int centerX, int centerY, float radiusH, float radiusV, Color color)", (uintptr_t)cythDrawEllipseLines); \
+  cyth_load_function((_ctx), "void drawRing(Vector2 center, float innerRadius, float outerRadius, float startAngle, float endAngle, int segments, Color color)", (uintptr_t)cythDrawRing); \
+  cyth_load_function((_ctx), "void drawRingLines(Vector2 center, float innerRadius, float outerRadius, float startAngle, float endAngle, int segments, Color color)", (uintptr_t)cythDrawRingLines); \
+  cyth_load_function((_ctx), "void drawRectangle(int posX, int posY, int width, int height, Color color)", (uintptr_t)cythDrawRectangle); \
+  cyth_load_function((_ctx), "void drawRectangleV(Vector2 position, Vector2 size, Color color)", (uintptr_t)cythDrawRectangleV); \
+  cyth_load_function((_ctx), "void drawRectangleRec(Rectangle rec, Color color)", (uintptr_t)cythDrawRectangleRec); \
+  cyth_load_function((_ctx), "void drawRectanglePro(Rectangle rec, Vector2 origin, float rotation, Color color)", (uintptr_t)cythDrawRectanglePro); \
+  cyth_load_function((_ctx), "void drawRectangleGradientV(int posX, int posY, int width, int height, Color top, Color bottom)", (uintptr_t)cythDrawRectangleGradientV); \
+  cyth_load_function((_ctx), "void drawRectangleGradientH(int posX, int posY, int width, int height, Color left, Color right)", (uintptr_t)cythDrawRectangleGradientH); \
+  cyth_load_function((_ctx), "void drawRectangleGradientEx(Rectangle rec, Color topLeft, Color bottomLeft, Color topRight, Color bottomRight)", (uintptr_t)cythDrawRectangleGradientEx); \
+  cyth_load_function((_ctx), "void drawRectangleLines(int posX, int posY, int width, int height, Color color)", (uintptr_t)cythDrawRectangleLines); \
+  cyth_load_function((_ctx), "void drawRectangleLinesEx(Rectangle rec, float lineThick, Color color)", (uintptr_t)cythDrawRectangleLinesEx); \
+  cyth_load_function((_ctx), "void drawRectangleRounded(Rectangle rec, float roundness, int segments, Color color)", (uintptr_t)cythDrawRectangleRounded); \
+  cyth_load_function((_ctx), "void drawRectangleRoundedLines(Rectangle rec, float roundness, int segments, Color color)", (uintptr_t)cythDrawRectangleRoundedLines); \
+  cyth_load_function((_ctx), "void drawRectangleRoundedLinesEx(Rectangle rec, float roundness, int segments, float lineThick, Color color)", (uintptr_t)cythDrawRectangleRoundedLinesEx); \
+  cyth_load_function((_ctx), "void drawTriangle(Vector2 v1, Vector2 v2, Vector2 v3, Color color)", (uintptr_t)cythDrawTriangle); \
+  cyth_load_function((_ctx), "void drawTriangleLines(Vector2 v1, Vector2 v2, Vector2 v3, Color color)", (uintptr_t)cythDrawTriangleLines); \
+  cyth_load_function((_ctx), "void drawTriangleFan(any points, int pointCount, Color color)", (uintptr_t)cythDrawTriangleFan); \
+  cyth_load_function((_ctx), "void drawTriangleStrip(any points, int pointCount, Color color)", (uintptr_t)cythDrawTriangleStrip); \
+  cyth_load_function((_ctx), "void drawPoly(Vector2 center, int sides, float radius, float rotation, Color color)", (uintptr_t)cythDrawPoly); \
+  cyth_load_function((_ctx), "void drawPolyLines(Vector2 center, int sides, float radius, float rotation, Color color)", (uintptr_t)cythDrawPolyLines); \
+  cyth_load_function((_ctx), "void drawPolyLinesEx(Vector2 center, int sides, float radius, float rotation, float lineThick, Color color)", (uintptr_t)cythDrawPolyLinesEx); \
+  cyth_load_function((_ctx), "void drawSplineLinear(any points, int pointCount, float thick, Color color)", (uintptr_t)cythDrawSplineLinear); \
+  cyth_load_function((_ctx), "void drawSplineBasis(any points, int pointCount, float thick, Color color)", (uintptr_t)cythDrawSplineBasis); \
+  cyth_load_function((_ctx), "void drawSplineCatmullRom(any points, int pointCount, float thick, Color color)", (uintptr_t)cythDrawSplineCatmullRom); \
+  cyth_load_function((_ctx), "void drawSplineBezierQuadratic(any points, int pointCount, float thick, Color color)", (uintptr_t)cythDrawSplineBezierQuadratic); \
+  cyth_load_function((_ctx), "void drawSplineBezierCubic(any points, int pointCount, float thick, Color color)", (uintptr_t)cythDrawSplineBezierCubic); \
+  cyth_load_function((_ctx), "void drawSplineSegmentLinear(Vector2 p1, Vector2 p2, float thick, Color color)", (uintptr_t)cythDrawSplineSegmentLinear); \
+  cyth_load_function((_ctx), "void drawSplineSegmentBasis(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, float thick, Color color)", (uintptr_t)cythDrawSplineSegmentBasis); \
+  cyth_load_function((_ctx), "void drawSplineSegmentCatmullRom(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, float thick, Color color)", (uintptr_t)cythDrawSplineSegmentCatmullRom); \
+  cyth_load_function((_ctx), "void drawSplineSegmentBezierQuadratic(Vector2 p1, Vector2 c2, Vector2 p3, float thick, Color color)", (uintptr_t)cythDrawSplineSegmentBezierQuadratic); \
+  cyth_load_function((_ctx), "void drawSplineSegmentBezierCubic(Vector2 p1, Vector2 c2, Vector2 c3, Vector2 p4, float thick, Color color)", (uintptr_t)cythDrawSplineSegmentBezierCubic); \
+  cyth_load_function((_ctx), "Vector2 getSplinePointLinear(Vector2 startPos, Vector2 endPos, float t)", (uintptr_t)cythGetSplinePointLinear); \
+  cyth_load_function((_ctx), "Vector2 getSplinePointBasis(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, float t)", (uintptr_t)cythGetSplinePointBasis); \
+  cyth_load_function((_ctx), "Vector2 getSplinePointCatmullRom(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, float t)", (uintptr_t)cythGetSplinePointCatmullRom); \
+  cyth_load_function((_ctx), "Vector2 getSplinePointBezierQuad(Vector2 p1, Vector2 c2, Vector2 p3, float t)", (uintptr_t)cythGetSplinePointBezierQuad); \
+  cyth_load_function((_ctx), "Vector2 getSplinePointBezierCubic(Vector2 p1, Vector2 c2, Vector2 c3, Vector2 p4, float t)", (uintptr_t)cythGetSplinePointBezierCubic); \
+  cyth_load_function((_ctx), "bool checkCollisionRecs(Rectangle rec1, Rectangle rec2)", (uintptr_t)cythCheckCollisionRecs); \
+  cyth_load_function((_ctx), "bool checkCollisionCircles(Vector2 center1, float radius1, Vector2 center2, float radius2)", (uintptr_t)cythCheckCollisionCircles); \
+  cyth_load_function((_ctx), "bool checkCollisionCircleRec(Vector2 center, float radius, Rectangle rec)", (uintptr_t)cythCheckCollisionCircleRec); \
+  cyth_load_function((_ctx), "bool checkCollisionCircleLine(Vector2 center, float radius, Vector2 p1, Vector2 p2)", (uintptr_t)cythCheckCollisionCircleLine); \
+  cyth_load_function((_ctx), "bool checkCollisionPointRec(Vector2 point, Rectangle rec)", (uintptr_t)cythCheckCollisionPointRec); \
+  cyth_load_function((_ctx), "bool checkCollisionPointCircle(Vector2 point, Vector2 center, float radius)", (uintptr_t)cythCheckCollisionPointCircle); \
+  cyth_load_function((_ctx), "bool checkCollisionPointTriangle(Vector2 point, Vector2 p1, Vector2 p2, Vector2 p3)", (uintptr_t)cythCheckCollisionPointTriangle); \
+  cyth_load_function((_ctx), "bool checkCollisionPointLine(Vector2 point, Vector2 p1, Vector2 p2, int threshold)", (uintptr_t)cythCheckCollisionPointLine); \
+  cyth_load_function((_ctx), "bool checkCollisionPointPoly(Vector2 point, any points, int pointCount)", (uintptr_t)cythCheckCollisionPointPoly); \
+  cyth_load_function((_ctx), "bool checkCollisionLines(Vector2 startPos1, Vector2 endPos1, Vector2 startPos2, Vector2 endPos2, any collisionPoint)", (uintptr_t)cythCheckCollisionLines); \
+  cyth_load_function((_ctx), "Rectangle getCollisionRec(Rectangle rec1, Rectangle rec2)", (uintptr_t)cythGetCollisionRec); \
+  cyth_load_function((_ctx), "Image loadImage(string fileName)", (uintptr_t)cythLoadImage); \
+  cyth_load_function((_ctx), "Image loadImageRaw(string fileName, int width, int height, int format, int headerSize)", (uintptr_t)cythLoadImageRaw); \
+  cyth_load_function((_ctx), "Image loadImageAnim(string fileName, any frames)", (uintptr_t)cythLoadImageAnim); \
+  cyth_load_function((_ctx), "Image loadImageAnimFromMemory(string fileType, any fileData, int dataSize, any frames)", (uintptr_t)cythLoadImageAnimFromMemory); \
+  cyth_load_function((_ctx), "Image loadImageFromMemory(string fileType, any fileData, int dataSize)", (uintptr_t)cythLoadImageFromMemory); \
+  cyth_load_function((_ctx), "Image loadImageFromTexture(Texture2D texture)", (uintptr_t)cythLoadImageFromTexture); \
+  cyth_load_function((_ctx), "Image loadImageFromScreen()", (uintptr_t)cythLoadImageFromScreen); \
+  cyth_load_function((_ctx), "bool isImageValid(Image image)", (uintptr_t)cythIsImageValid); \
+  cyth_load_function((_ctx), "void unloadImage(Image image)", (uintptr_t)cythUnloadImage); \
+  cyth_load_function((_ctx), "bool exportImage(Image image, string fileName)", (uintptr_t)cythExportImage); \
+  cyth_load_function((_ctx), "any exportImageToMemory(Image image, string fileType, any fileSize)", (uintptr_t)cythExportImageToMemory); \
+  cyth_load_function((_ctx), "bool exportImageAsCode(Image image, string fileName)", (uintptr_t)cythExportImageAsCode); \
+  cyth_load_function((_ctx), "Image genImageColor(int width, int height, Color color)", (uintptr_t)cythGenImageColor); \
+  cyth_load_function((_ctx), "Image genImageGradientLinear(int width, int height, int direction, Color start, Color end)", (uintptr_t)cythGenImageGradientLinear); \
+  cyth_load_function((_ctx), "Image genImageGradientRadial(int width, int height, float density, Color inner, Color outer)", (uintptr_t)cythGenImageGradientRadial); \
+  cyth_load_function((_ctx), "Image genImageGradientSquare(int width, int height, float density, Color inner, Color outer)", (uintptr_t)cythGenImageGradientSquare); \
+  cyth_load_function((_ctx), "Image genImageChecked(int width, int height, int checksX, int checksY, Color col1, Color col2)", (uintptr_t)cythGenImageChecked); \
+  cyth_load_function((_ctx), "Image genImageWhiteNoise(int width, int height, float factor)", (uintptr_t)cythGenImageWhiteNoise); \
+  cyth_load_function((_ctx), "Image genImagePerlinNoise(int width, int height, int offsetX, int offsetY, float scale)", (uintptr_t)cythGenImagePerlinNoise); \
+  cyth_load_function((_ctx), "Image genImageCellular(int width, int height, int tileSize)", (uintptr_t)cythGenImageCellular); \
+  cyth_load_function((_ctx), "Image genImageText(int width, int height, string text)", (uintptr_t)cythGenImageText); \
+  cyth_load_function((_ctx), "Image imageCopy(Image image)", (uintptr_t)cythImageCopy); \
+  cyth_load_function((_ctx), "Image imageFromImage(Image image, Rectangle rec)", (uintptr_t)cythImageFromImage); \
+  cyth_load_function((_ctx), "Image imageFromChannel(Image image, int selectedChannel)", (uintptr_t)cythImageFromChannel); \
+  cyth_load_function((_ctx), "Image imageText(string text, int fontSize, Color color)", (uintptr_t)cythImageText); \
+  cyth_load_function((_ctx), "Image imageTextEx(Font font, string text, float fontSize, float spacing, Color tint)", (uintptr_t)cythImageTextEx); \
+  cyth_load_function((_ctx), "void imageFormat(Image image, int newFormat)", (uintptr_t)cythImageFormat); \
+  cyth_load_function((_ctx), "void imageToPOT(Image image, Color fill)", (uintptr_t)cythImageToPOT); \
+  cyth_load_function((_ctx), "void imageCrop(Image image, Rectangle crop)", (uintptr_t)cythImageCrop); \
+  cyth_load_function((_ctx), "void imageAlphaCrop(Image image, float threshold)", (uintptr_t)cythImageAlphaCrop); \
+  cyth_load_function((_ctx), "void imageAlphaClear(Image image, Color color, float threshold)", (uintptr_t)cythImageAlphaClear); \
+  cyth_load_function((_ctx), "void imageAlphaMask(Image image, Image alphaMask)", (uintptr_t)cythImageAlphaMask); \
+  cyth_load_function((_ctx), "void imageAlphaPremultiply(Image image)", (uintptr_t)cythImageAlphaPremultiply); \
+  cyth_load_function((_ctx), "void imageBlurGaussian(Image image, int blurSize)", (uintptr_t)cythImageBlurGaussian); \
+  cyth_load_function((_ctx), "void imageKernelConvolution(Image image, any kernel, int kernelSize)", (uintptr_t)cythImageKernelConvolution); \
+  cyth_load_function((_ctx), "void imageResize(Image image, int newWidth, int newHeight)", (uintptr_t)cythImageResize); \
+  cyth_load_function((_ctx), "void imageResizeNN(Image image, int newWidth, int newHeight)", (uintptr_t)cythImageResizeNN); \
+  cyth_load_function((_ctx), "void imageResizeCanvas(Image image, int newWidth, int newHeight, int offsetX, int offsetY, Color fill)", (uintptr_t)cythImageResizeCanvas); \
+  cyth_load_function((_ctx), "void imageMipmaps(Image image)", (uintptr_t)cythImageMipmaps); \
+  cyth_load_function((_ctx), "void imageDither(Image image, int rBpp, int gBpp, int bBpp, int aBpp)", (uintptr_t)cythImageDither); \
+  cyth_load_function((_ctx), "void imageFlipVertical(Image image)", (uintptr_t)cythImageFlipVertical); \
+  cyth_load_function((_ctx), "void imageFlipHorizontal(Image image)", (uintptr_t)cythImageFlipHorizontal); \
+  cyth_load_function((_ctx), "void imageRotate(Image image, int degrees)", (uintptr_t)cythImageRotate); \
+  cyth_load_function((_ctx), "void imageRotateCW(Image image)", (uintptr_t)cythImageRotateCW); \
+  cyth_load_function((_ctx), "void imageRotateCCW(Image image)", (uintptr_t)cythImageRotateCCW); \
+  cyth_load_function((_ctx), "void imageColorTint(Image image, Color color)", (uintptr_t)cythImageColorTint); \
+  cyth_load_function((_ctx), "void imageColorInvert(Image image)", (uintptr_t)cythImageColorInvert); \
+  cyth_load_function((_ctx), "void imageColorGrayscale(Image image)", (uintptr_t)cythImageColorGrayscale); \
+  cyth_load_function((_ctx), "void imageColorContrast(Image image, float contrast)", (uintptr_t)cythImageColorContrast); \
+  cyth_load_function((_ctx), "void imageColorBrightness(Image image, int brightness)", (uintptr_t)cythImageColorBrightness); \
+  cyth_load_function((_ctx), "void imageColorReplace(Image image, Color color, Color replace)", (uintptr_t)cythImageColorReplace); \
+  cyth_load_function((_ctx), "Color loadImageColors(Image image)", (uintptr_t)cythLoadImageColors); \
+  cyth_load_function((_ctx), "Color loadImagePalette(Image image, int maxPaletteSize, any colorCount)", (uintptr_t)cythLoadImagePalette); \
+  cyth_load_function((_ctx), "void unloadImageColors(Color colors)", (uintptr_t)cythUnloadImageColors); \
+  cyth_load_function((_ctx), "void unloadImagePalette(Color colors)", (uintptr_t)cythUnloadImagePalette); \
+  cyth_load_function((_ctx), "Rectangle getImageAlphaBorder(Image image, float threshold)", (uintptr_t)cythGetImageAlphaBorder); \
+  cyth_load_function((_ctx), "Color getImageColor(Image image, int x, int y)", (uintptr_t)cythGetImageColor); \
+  cyth_load_function((_ctx), "void imageClearBackground(Image dst, Color color)", (uintptr_t)cythImageClearBackground); \
+  cyth_load_function((_ctx), "void imageDrawPixel(Image dst, int posX, int posY, Color color)", (uintptr_t)cythImageDrawPixel); \
+  cyth_load_function((_ctx), "void imageDrawPixelV(Image dst, Vector2 position, Color color)", (uintptr_t)cythImageDrawPixelV); \
+  cyth_load_function((_ctx), "void imageDrawLine(Image dst, int startPosX, int startPosY, int endPosX, int endPosY, Color color)", (uintptr_t)cythImageDrawLine); \
+  cyth_load_function((_ctx), "void imageDrawLineV(Image dst, Vector2 start, Vector2 end, Color color)", (uintptr_t)cythImageDrawLineV); \
+  cyth_load_function((_ctx), "void imageDrawLineEx(Image dst, Vector2 start, Vector2 end, int thick, Color color)", (uintptr_t)cythImageDrawLineEx); \
+  cyth_load_function((_ctx), "void imageDrawCircle(Image dst, int centerX, int centerY, int radius, Color color)", (uintptr_t)cythImageDrawCircle); \
+  cyth_load_function((_ctx), "void imageDrawCircleV(Image dst, Vector2 center, int radius, Color color)", (uintptr_t)cythImageDrawCircleV); \
+  cyth_load_function((_ctx), "void imageDrawCircleLines(Image dst, int centerX, int centerY, int radius, Color color)", (uintptr_t)cythImageDrawCircleLines); \
+  cyth_load_function((_ctx), "void imageDrawCircleLinesV(Image dst, Vector2 center, int radius, Color color)", (uintptr_t)cythImageDrawCircleLinesV); \
+  cyth_load_function((_ctx), "void imageDrawRectangle(Image dst, int posX, int posY, int width, int height, Color color)", (uintptr_t)cythImageDrawRectangle); \
+  cyth_load_function((_ctx), "void imageDrawRectangleV(Image dst, Vector2 position, Vector2 size, Color color)", (uintptr_t)cythImageDrawRectangleV); \
+  cyth_load_function((_ctx), "void imageDrawRectangleRec(Image dst, Rectangle rec, Color color)", (uintptr_t)cythImageDrawRectangleRec); \
+  cyth_load_function((_ctx), "void imageDrawRectangleLines(Image dst, Rectangle rec, int thick, Color color)", (uintptr_t)cythImageDrawRectangleLines); \
+  cyth_load_function((_ctx), "void imageDrawTriangle(Image dst, Vector2 v1, Vector2 v2, Vector2 v3, Color color)", (uintptr_t)cythImageDrawTriangle); \
+  cyth_load_function((_ctx), "void imageDrawTriangleEx(Image dst, Vector2 v1, Vector2 v2, Vector2 v3, Color c1, Color c2, Color c3)", (uintptr_t)cythImageDrawTriangleEx); \
+  cyth_load_function((_ctx), "void imageDrawTriangleLines(Image dst, Vector2 v1, Vector2 v2, Vector2 v3, Color color)", (uintptr_t)cythImageDrawTriangleLines); \
+  cyth_load_function((_ctx), "void imageDrawTriangleFan(Image dst, any points, int pointCount, Color color)", (uintptr_t)cythImageDrawTriangleFan); \
+  cyth_load_function((_ctx), "void imageDrawTriangleStrip(Image dst, any points, int pointCount, Color color)", (uintptr_t)cythImageDrawTriangleStrip); \
+  cyth_load_function((_ctx), "void imageDraw(Image dst, Image src, Rectangle srcRec, Rectangle dstRec, Color tint)", (uintptr_t)cythImageDraw); \
+  cyth_load_function((_ctx), "void imageDrawText(Image dst, string text, int posX, int posY, int fontSize, Color color)", (uintptr_t)cythImageDrawText); \
+  cyth_load_function((_ctx), "void imageDrawTextEx(Image dst, Font font, string text, Vector2 position, float fontSize, float spacing, Color tint)", (uintptr_t)cythImageDrawTextEx); \
+  cyth_load_function((_ctx), "Texture2D loadTexture(string fileName)", (uintptr_t)cythLoadTexture); \
+  cyth_load_function((_ctx), "Texture2D loadTextureFromImage(Image image)", (uintptr_t)cythLoadTextureFromImage); \
+  cyth_load_function((_ctx), "TextureCubemap loadTextureCubemap(Image image, int layout)", (uintptr_t)cythLoadTextureCubemap); \
+  cyth_load_function((_ctx), "RenderTexture2D loadRenderTexture(int width, int height)", (uintptr_t)cythLoadRenderTexture); \
+  cyth_load_function((_ctx), "bool isTextureValid(Texture2D texture)", (uintptr_t)cythIsTextureValid); \
+  cyth_load_function((_ctx), "void unloadTexture(Texture2D texture)", (uintptr_t)cythUnloadTexture); \
+  cyth_load_function((_ctx), "bool isRenderTextureValid(RenderTexture2D target)", (uintptr_t)cythIsRenderTextureValid); \
+  cyth_load_function((_ctx), "void unloadRenderTexture(RenderTexture2D target)", (uintptr_t)cythUnloadRenderTexture); \
+  cyth_load_function((_ctx), "void updateTexture(Texture2D texture, any pixels)", (uintptr_t)cythUpdateTexture); \
+  cyth_load_function((_ctx), "void updateTextureRec(Texture2D texture, Rectangle rec, any pixels)", (uintptr_t)cythUpdateTextureRec); \
+  cyth_load_function((_ctx), "void genTextureMipmaps(any texture)", (uintptr_t)cythGenTextureMipmaps); \
+  cyth_load_function((_ctx), "void setTextureFilter(Texture2D texture, int filter)", (uintptr_t)cythSetTextureFilter); \
+  cyth_load_function((_ctx), "void setTextureWrap(Texture2D texture, int wrap)", (uintptr_t)cythSetTextureWrap); \
+  cyth_load_function((_ctx), "void drawTexture(Texture2D texture, int posX, int posY, Color tint)", (uintptr_t)cythDrawTexture); \
+  cyth_load_function((_ctx), "void drawTextureV(Texture2D texture, Vector2 position, Color tint)", (uintptr_t)cythDrawTextureV); \
+  cyth_load_function((_ctx), "void drawTextureEx(Texture2D texture, Vector2 position, float rotation, float scale, Color tint)", (uintptr_t)cythDrawTextureEx); \
+  cyth_load_function((_ctx), "void drawTextureRec(Texture2D texture, Rectangle source, Vector2 position, Color tint)", (uintptr_t)cythDrawTextureRec); \
+  cyth_load_function((_ctx), "void drawTexturePro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation, Color tint)", (uintptr_t)cythDrawTexturePro); \
+  cyth_load_function((_ctx), "void drawTextureNPatch(Texture2D texture, NPatchInfo nPatchInfo, Rectangle dest, Vector2 origin, float rotation, Color tint)", (uintptr_t)cythDrawTextureNPatch); \
+  cyth_load_function((_ctx), "bool colorIsEqual(Color col1, Color col2)", (uintptr_t)cythColorIsEqual); \
+  cyth_load_function((_ctx), "Color fade(Color color, float alpha)", (uintptr_t)cythFade); \
+  cyth_load_function((_ctx), "int colorToInt(Color color)", (uintptr_t)cythColorToInt); \
+  cyth_load_function((_ctx), "Vector4 colorNormalize(Color color)", (uintptr_t)cythColorNormalize); \
+  cyth_load_function((_ctx), "Color colorFromNormalized(Vector4 normalized)", (uintptr_t)cythColorFromNormalized); \
+  cyth_load_function((_ctx), "Vector3 colorToHSV(Color color)", (uintptr_t)cythColorToHSV); \
+  cyth_load_function((_ctx), "Color colorFromHSV(float hue, float saturation, float value)", (uintptr_t)cythColorFromHSV); \
+  cyth_load_function((_ctx), "Color colorTint(Color color, Color tint)", (uintptr_t)cythColorTint); \
+  cyth_load_function((_ctx), "Color colorBrightness(Color color, float factor)", (uintptr_t)cythColorBrightness); \
+  cyth_load_function((_ctx), "Color colorContrast(Color color, float contrast)", (uintptr_t)cythColorContrast); \
+  cyth_load_function((_ctx), "Color colorAlpha(Color color, float alpha)", (uintptr_t)cythColorAlpha); \
+  cyth_load_function((_ctx), "Color colorAlphaBlend(Color dst, Color src, Color tint)", (uintptr_t)cythColorAlphaBlend); \
+  cyth_load_function((_ctx), "Color colorLerp(Color color1, Color color2, float factor)", (uintptr_t)cythColorLerp); \
+  cyth_load_function((_ctx), "Color getColor(int hexValue)", (uintptr_t)cythGetColor); \
+  cyth_load_function((_ctx), "Color getPixelColor(any srcPtr, int format)", (uintptr_t)cythGetPixelColor); \
+  cyth_load_function((_ctx), "void setPixelColor(any dstPtr, Color color, int format)", (uintptr_t)cythSetPixelColor); \
+  cyth_load_function((_ctx), "int getPixelDataSize(int width, int height, int format)", (uintptr_t)cythGetPixelDataSize); \
+  cyth_load_function((_ctx), "Font getFontDefault()", (uintptr_t)cythGetFontDefault); \
+  cyth_load_function((_ctx), "Font loadFont(string fileName)", (uintptr_t)cythLoadFont); \
+  cyth_load_function((_ctx), "Font loadFontEx(string fileName, int fontSize, any codepoints, int codepointCount)", (uintptr_t)cythLoadFontEx); \
+  cyth_load_function((_ctx), "Font loadFontFromImage(Image image, Color key, int firstChar)", (uintptr_t)cythLoadFontFromImage); \
+  cyth_load_function((_ctx), "Font loadFontFromMemory(string fileType, any fileData, int dataSize, int fontSize, any codepoints, int codepointCount)", (uintptr_t)cythLoadFontFromMemory); \
+  cyth_load_function((_ctx), "bool isFontValid(Font font)", (uintptr_t)cythIsFontValid); \
+  cyth_load_function((_ctx), "any loadFontData(any fileData, int dataSize, int fontSize, any codepoints, int codepointCount, int type)", (uintptr_t)cythLoadFontData); \
+  cyth_load_function((_ctx), "Image genImageFontAtlas(any glyphs, any glyphRecs, int glyphCount, int fontSize, int padding, int packMethod)", (uintptr_t)cythGenImageFontAtlas); \
+  cyth_load_function((_ctx), "void unloadFontData(any glyphs, int glyphCount)", (uintptr_t)cythUnloadFontData); \
+  cyth_load_function((_ctx), "void unloadFont(Font font)", (uintptr_t)cythUnloadFont); \
+  cyth_load_function((_ctx), "bool exportFontAsCode(Font font, string fileName)", (uintptr_t)cythExportFontAsCode); \
+  cyth_load_function((_ctx), "void drawFPS(int posX, int posY)", (uintptr_t)cythDrawFPS); \
+  cyth_load_function((_ctx), "void drawText(string text, int posX, int posY, int fontSize, Color color)", (uintptr_t)cythDrawText); \
+  cyth_load_function((_ctx), "void drawTextEx(Font font, string text, Vector2 position, float fontSize, float spacing, Color tint)", (uintptr_t)cythDrawTextEx); \
+  cyth_load_function((_ctx), "void drawTextPro(Font font, string text, Vector2 position, Vector2 origin, float rotation, float fontSize, float spacing, Color tint)", (uintptr_t)cythDrawTextPro); \
+  cyth_load_function((_ctx), "void drawTextCodepoint(Font font, int codepoint, Vector2 position, float fontSize, Color tint)", (uintptr_t)cythDrawTextCodepoint); \
+  cyth_load_function((_ctx), "void drawTextCodepoints(Font font, any codepoints, int codepointCount, Vector2 position, float fontSize, float spacing, Color tint)", (uintptr_t)cythDrawTextCodepoints); \
+  cyth_load_function((_ctx), "void setTextLineSpacing(int spacing)", (uintptr_t)cythSetTextLineSpacing); \
+  cyth_load_function((_ctx), "int measureText(string text, int fontSize)", (uintptr_t)cythMeasureText); \
+  cyth_load_function((_ctx), "Vector2 measureTextEx(Font font, string text, float fontSize, float spacing)", (uintptr_t)cythMeasureTextEx); \
+  cyth_load_function((_ctx), "int getGlyphIndex(Font font, int codepoint)", (uintptr_t)cythGetGlyphIndex); \
+  cyth_load_function((_ctx), "GlyphInfo getGlyphInfo(Font font, int codepoint)", (uintptr_t)cythGetGlyphInfo); \
+  cyth_load_function((_ctx), "Rectangle getGlyphAtlasRec(Font font, int codepoint)", (uintptr_t)cythGetGlyphAtlasRec); \
+  cyth_load_function((_ctx), "char[] loadUTF8(any codepoints, int length)", (uintptr_t)cythLoadUTF8); \
+  cyth_load_function((_ctx), "void unloadUTF8(char[] text)", (uintptr_t)cythUnloadUTF8); \
+  cyth_load_function((_ctx), "any loadCodepoints(string text, any count)", (uintptr_t)cythLoadCodepoints); \
+  cyth_load_function((_ctx), "void unloadCodepoints(any codepoints)", (uintptr_t)cythUnloadCodepoints); \
+  cyth_load_function((_ctx), "int getCodepointCount(string text)", (uintptr_t)cythGetCodepointCount); \
+  cyth_load_function((_ctx), "int getCodepoint(string text, any codepointSize)", (uintptr_t)cythGetCodepoint); \
+  cyth_load_function((_ctx), "int getCodepointNext(string text, any codepointSize)", (uintptr_t)cythGetCodepointNext); \
+  cyth_load_function((_ctx), "int getCodepointPrevious(string text, any codepointSize)", (uintptr_t)cythGetCodepointPrevious); \
+  cyth_load_function((_ctx), "string codepointToUTF8(int codepoint, any utf8Size)", (uintptr_t)cythCodepointToUTF8); \
+  cyth_load_function((_ctx), "int textCopy(char[] dst, string src)", (uintptr_t)cythTextCopy); \
+  cyth_load_function((_ctx), "bool textIsEqual(string text1, string text2)", (uintptr_t)cythTextIsEqual); \
+  cyth_load_function((_ctx), "int textLength(string text)", (uintptr_t)cythTextLength); \
+  cyth_load_function((_ctx), "string textSubtext(string text, int position, int length)", (uintptr_t)cythTextSubtext); \
+  cyth_load_function((_ctx), "char[] textReplace(string text, string replace, string by)", (uintptr_t)cythTextReplace); \
+  cyth_load_function((_ctx), "char[] textInsert(string text, string insert, int position)", (uintptr_t)cythTextInsert); \
+  cyth_load_function((_ctx), "string textJoin(any textList, int count, string delimiter)", (uintptr_t)cythTextJoin); \
+  cyth_load_function((_ctx), "any textSplit(string text, char delimiter, any count)", (uintptr_t)cythTextSplit); \
+  cyth_load_function((_ctx), "void textAppend(char[] text, string append, any position)", (uintptr_t)cythTextAppend); \
+  cyth_load_function((_ctx), "int textFindIndex(string text, string find)", (uintptr_t)cythTextFindIndex); \
+  cyth_load_function((_ctx), "string textToUpper(string text)", (uintptr_t)cythTextToUpper); \
+  cyth_load_function((_ctx), "string textToLower(string text)", (uintptr_t)cythTextToLower); \
+  cyth_load_function((_ctx), "string textToPascal(string text)", (uintptr_t)cythTextToPascal); \
+  cyth_load_function((_ctx), "string textToSnake(string text)", (uintptr_t)cythTextToSnake); \
+  cyth_load_function((_ctx), "string textToCamel(string text)", (uintptr_t)cythTextToCamel); \
+  cyth_load_function((_ctx), "int textToInteger(string text)", (uintptr_t)cythTextToInteger); \
+  cyth_load_function((_ctx), "float textToFloat(string text)", (uintptr_t)cythTextToFloat); \
+  cyth_load_function((_ctx), "void drawLine3D(Vector3 startPos, Vector3 endPos, Color color)", (uintptr_t)cythDrawLine3D); \
+  cyth_load_function((_ctx), "void drawPoint3D(Vector3 position, Color color)", (uintptr_t)cythDrawPoint3D); \
+  cyth_load_function((_ctx), "void drawCircle3D(Vector3 center, float radius, Vector3 rotationAxis, float rotationAngle, Color color)", (uintptr_t)cythDrawCircle3D); \
+  cyth_load_function((_ctx), "void drawTriangle3D(Vector3 v1, Vector3 v2, Vector3 v3, Color color)", (uintptr_t)cythDrawTriangle3D); \
+  cyth_load_function((_ctx), "void drawTriangleStrip3D(any points, int pointCount, Color color)", (uintptr_t)cythDrawTriangleStrip3D); \
+  cyth_load_function((_ctx), "void drawCube(Vector3 position, float width, float height, float length, Color color)", (uintptr_t)cythDrawCube); \
+  cyth_load_function((_ctx), "void drawCubeV(Vector3 position, Vector3 size, Color color)", (uintptr_t)cythDrawCubeV); \
+  cyth_load_function((_ctx), "void drawCubeWires(Vector3 position, float width, float height, float length, Color color)", (uintptr_t)cythDrawCubeWires); \
+  cyth_load_function((_ctx), "void drawCubeWiresV(Vector3 position, Vector3 size, Color color)", (uintptr_t)cythDrawCubeWiresV); \
+  cyth_load_function((_ctx), "void drawSphere(Vector3 centerPos, float radius, Color color)", (uintptr_t)cythDrawSphere); \
+  cyth_load_function((_ctx), "void drawSphereEx(Vector3 centerPos, float radius, int rings, int slices, Color color)", (uintptr_t)cythDrawSphereEx); \
+  cyth_load_function((_ctx), "void drawSphereWires(Vector3 centerPos, float radius, int rings, int slices, Color color)", (uintptr_t)cythDrawSphereWires); \
+  cyth_load_function((_ctx), "void drawCylinder(Vector3 position, float radiusTop, float radiusBottom, float height, int slices, Color color)", (uintptr_t)cythDrawCylinder); \
+  cyth_load_function((_ctx), "void drawCylinderEx(Vector3 startPos, Vector3 endPos, float startRadius, float endRadius, int sides, Color color)", (uintptr_t)cythDrawCylinderEx); \
+  cyth_load_function((_ctx), "void drawCylinderWires(Vector3 position, float radiusTop, float radiusBottom, float height, int slices, Color color)", (uintptr_t)cythDrawCylinderWires); \
+  cyth_load_function((_ctx), "void drawCylinderWiresEx(Vector3 startPos, Vector3 endPos, float startRadius, float endRadius, int sides, Color color)", (uintptr_t)cythDrawCylinderWiresEx); \
+  cyth_load_function((_ctx), "void drawCapsule(Vector3 startPos, Vector3 endPos, float radius, int slices, int rings, Color color)", (uintptr_t)cythDrawCapsule); \
+  cyth_load_function((_ctx), "void drawCapsuleWires(Vector3 startPos, Vector3 endPos, float radius, int slices, int rings, Color color)", (uintptr_t)cythDrawCapsuleWires); \
+  cyth_load_function((_ctx), "void drawPlane(Vector3 centerPos, Vector2 size, Color color)", (uintptr_t)cythDrawPlane); \
+  cyth_load_function((_ctx), "void drawRay(Ray ray, Color color)", (uintptr_t)cythDrawRay); \
+  cyth_load_function((_ctx), "void drawGrid(int slices, float spacing)", (uintptr_t)cythDrawGrid); \
+  cyth_load_function((_ctx), "Model loadModel(string fileName)", (uintptr_t)cythLoadModel); \
+  cyth_load_function((_ctx), "Model loadModelFromMesh(Mesh mesh)", (uintptr_t)cythLoadModelFromMesh); \
+  cyth_load_function((_ctx), "bool isModelValid(Model model)", (uintptr_t)cythIsModelValid); \
+  cyth_load_function((_ctx), "void unloadModel(Model model)", (uintptr_t)cythUnloadModel); \
+  cyth_load_function((_ctx), "BoundingBox getModelBoundingBox(Model model)", (uintptr_t)cythGetModelBoundingBox); \
+  cyth_load_function((_ctx), "void drawModel(Model model, Vector3 position, float scale, Color tint)", (uintptr_t)cythDrawModel); \
+  cyth_load_function((_ctx), "void drawModelEx(Model model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color tint)", (uintptr_t)cythDrawModelEx); \
+  cyth_load_function((_ctx), "void drawModelWires(Model model, Vector3 position, float scale, Color tint)", (uintptr_t)cythDrawModelWires); \
+  cyth_load_function((_ctx), "void drawModelWiresEx(Model model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color tint)", (uintptr_t)cythDrawModelWiresEx); \
+  cyth_load_function((_ctx), "void drawModelPoints(Model model, Vector3 position, float scale, Color tint)", (uintptr_t)cythDrawModelPoints); \
+  cyth_load_function((_ctx), "void drawModelPointsEx(Model model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color tint)", (uintptr_t)cythDrawModelPointsEx); \
+  cyth_load_function((_ctx), "void drawBoundingBox(BoundingBox box, Color color)", (uintptr_t)cythDrawBoundingBox); \
+  cyth_load_function((_ctx), "void drawBillboard(Camera camera, Texture2D texture, Vector3 position, float scale, Color tint)", (uintptr_t)cythDrawBillboard); \
+  cyth_load_function((_ctx), "void drawBillboardRec(Camera camera, Texture2D texture, Rectangle source, Vector3 position, Vector2 size, Color tint)", (uintptr_t)cythDrawBillboardRec); \
+  cyth_load_function((_ctx), "void drawBillboardPro(Camera camera, Texture2D texture, Rectangle source, Vector3 position, Vector3 up, Vector2 size, Vector2 origin, float rotation, Color tint)", (uintptr_t)cythDrawBillboardPro); \
+  cyth_load_function((_ctx), "void uploadMesh(any mesh, bool dynamic)", (uintptr_t)cythUploadMesh); \
+  cyth_load_function((_ctx), "void updateMeshBuffer(Mesh mesh, int index, any data, int dataSize, int offset)", (uintptr_t)cythUpdateMeshBuffer); \
+  cyth_load_function((_ctx), "void unloadMesh(Mesh mesh)", (uintptr_t)cythUnloadMesh); \
+  cyth_load_function((_ctx), "void drawMesh(Mesh mesh, Material material, Matrix transform)", (uintptr_t)cythDrawMesh); \
+  cyth_load_function((_ctx), "void drawMeshInstanced(Mesh mesh, Material material, any transforms, int instances)", (uintptr_t)cythDrawMeshInstanced); \
+  cyth_load_function((_ctx), "BoundingBox getMeshBoundingBox(Mesh mesh)", (uintptr_t)cythGetMeshBoundingBox); \
+  cyth_load_function((_ctx), "void genMeshTangents(any mesh)", (uintptr_t)cythGenMeshTangents); \
+  cyth_load_function((_ctx), "bool exportMesh(Mesh mesh, string fileName)", (uintptr_t)cythExportMesh); \
+  cyth_load_function((_ctx), "bool exportMeshAsCode(Mesh mesh, string fileName)", (uintptr_t)cythExportMeshAsCode); \
+  cyth_load_function((_ctx), "Mesh genMeshPoly(int sides, float radius)", (uintptr_t)cythGenMeshPoly); \
+  cyth_load_function((_ctx), "Mesh genMeshPlane(float width, float length, int resX, int resZ)", (uintptr_t)cythGenMeshPlane); \
+  cyth_load_function((_ctx), "Mesh genMeshCube(float width, float height, float length)", (uintptr_t)cythGenMeshCube); \
+  cyth_load_function((_ctx), "Mesh genMeshSphere(float radius, int rings, int slices)", (uintptr_t)cythGenMeshSphere); \
+  cyth_load_function((_ctx), "Mesh genMeshHemiSphere(float radius, int rings, int slices)", (uintptr_t)cythGenMeshHemiSphere); \
+  cyth_load_function((_ctx), "Mesh genMeshCylinder(float radius, float height, int slices)", (uintptr_t)cythGenMeshCylinder); \
+  cyth_load_function((_ctx), "Mesh genMeshCone(float radius, float height, int slices)", (uintptr_t)cythGenMeshCone); \
+  cyth_load_function((_ctx), "Mesh genMeshTorus(float radius, float size, int radSeg, int sides)", (uintptr_t)cythGenMeshTorus); \
+  cyth_load_function((_ctx), "Mesh genMeshKnot(float radius, float size, int radSeg, int sides)", (uintptr_t)cythGenMeshKnot); \
+  cyth_load_function((_ctx), "Mesh genMeshHeightmap(Image heightmap, Vector3 size)", (uintptr_t)cythGenMeshHeightmap); \
+  cyth_load_function((_ctx), "Mesh genMeshCubicmap(Image cubicmap, Vector3 cubeSize)", (uintptr_t)cythGenMeshCubicmap); \
+  cyth_load_function((_ctx), "any loadMaterials(string fileName, any materialCount)", (uintptr_t)cythLoadMaterials); \
+  cyth_load_function((_ctx), "Material loadMaterialDefault()", (uintptr_t)cythLoadMaterialDefault); \
+  cyth_load_function((_ctx), "bool isMaterialValid(Material material)", (uintptr_t)cythIsMaterialValid); \
+  cyth_load_function((_ctx), "void unloadMaterial(Material material)", (uintptr_t)cythUnloadMaterial); \
+  cyth_load_function((_ctx), "void setMaterialTexture(any material, int mapType, Texture2D texture)", (uintptr_t)cythSetMaterialTexture); \
+  cyth_load_function((_ctx), "void setModelMeshMaterial(any model, int meshId, int materialId)", (uintptr_t)cythSetModelMeshMaterial); \
+  cyth_load_function((_ctx), "any loadModelAnimations(string fileName, any animCount)", (uintptr_t)cythLoadModelAnimations); \
+  cyth_load_function((_ctx), "void updateModelAnimation(Model model, ModelAnimation anim, int frame)", (uintptr_t)cythUpdateModelAnimation); \
+  cyth_load_function((_ctx), "void updateModelAnimationBones(Model model, ModelAnimation anim, int frame)", (uintptr_t)cythUpdateModelAnimationBones); \
+  cyth_load_function((_ctx), "void unloadModelAnimation(ModelAnimation anim)", (uintptr_t)cythUnloadModelAnimation); \
+  cyth_load_function((_ctx), "void unloadModelAnimations(any animations, int animCount)", (uintptr_t)cythUnloadModelAnimations); \
+  cyth_load_function((_ctx), "bool isModelAnimationValid(Model model, ModelAnimation anim)", (uintptr_t)cythIsModelAnimationValid); \
+  cyth_load_function((_ctx), "bool checkCollisionSpheres(Vector3 center1, float radius1, Vector3 center2, float radius2)", (uintptr_t)cythCheckCollisionSpheres); \
+  cyth_load_function((_ctx), "bool checkCollisionBoxes(BoundingBox box1, BoundingBox box2)", (uintptr_t)cythCheckCollisionBoxes); \
+  cyth_load_function((_ctx), "bool checkCollisionBoxSphere(BoundingBox box, Vector3 center, float radius)", (uintptr_t)cythCheckCollisionBoxSphere); \
+  cyth_load_function((_ctx), "RayCollision getRayCollisionSphere(Ray ray, Vector3 center, float radius)", (uintptr_t)cythGetRayCollisionSphere); \
+  cyth_load_function((_ctx), "RayCollision getRayCollisionBox(Ray ray, BoundingBox box)", (uintptr_t)cythGetRayCollisionBox); \
+  cyth_load_function((_ctx), "RayCollision getRayCollisionMesh(Ray ray, Mesh mesh, Matrix transform)", (uintptr_t)cythGetRayCollisionMesh); \
+  cyth_load_function((_ctx), "RayCollision getRayCollisionTriangle(Ray ray, Vector3 p1, Vector3 p2, Vector3 p3)", (uintptr_t)cythGetRayCollisionTriangle); \
+  cyth_load_function((_ctx), "RayCollision getRayCollisionQuad(Ray ray, Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)", (uintptr_t)cythGetRayCollisionQuad); \
+  cyth_load_function((_ctx), "void initAudioDevice()", (uintptr_t)cythInitAudioDevice); \
+  cyth_load_function((_ctx), "void closeAudioDevice()", (uintptr_t)cythCloseAudioDevice); \
+  cyth_load_function((_ctx), "bool isAudioDeviceReady()", (uintptr_t)cythIsAudioDeviceReady); \
+  cyth_load_function((_ctx), "void setMasterVolume(float volume)", (uintptr_t)cythSetMasterVolume); \
+  cyth_load_function((_ctx), "float getMasterVolume()", (uintptr_t)cythGetMasterVolume); \
+  cyth_load_function((_ctx), "Wave loadWave(string fileName)", (uintptr_t)cythLoadWave); \
+  cyth_load_function((_ctx), "Wave loadWaveFromMemory(string fileType, any fileData, int dataSize)", (uintptr_t)cythLoadWaveFromMemory); \
+  cyth_load_function((_ctx), "bool isWaveValid(Wave wave)", (uintptr_t)cythIsWaveValid); \
+  cyth_load_function((_ctx), "Sound loadSound(string fileName)", (uintptr_t)cythLoadSound); \
+  cyth_load_function((_ctx), "Sound loadSoundFromWave(Wave wave)", (uintptr_t)cythLoadSoundFromWave); \
+  cyth_load_function((_ctx), "Sound loadSoundAlias(Sound source)", (uintptr_t)cythLoadSoundAlias); \
+  cyth_load_function((_ctx), "bool isSoundValid(Sound sound)", (uintptr_t)cythIsSoundValid); \
+  cyth_load_function((_ctx), "void updateSound(Sound sound, any data, int sampleCount)", (uintptr_t)cythUpdateSound); \
+  cyth_load_function((_ctx), "void unloadWave(Wave wave)", (uintptr_t)cythUnloadWave); \
+  cyth_load_function((_ctx), "void unloadSound(Sound sound)", (uintptr_t)cythUnloadSound); \
+  cyth_load_function((_ctx), "void unloadSoundAlias(Sound alias)", (uintptr_t)cythUnloadSoundAlias); \
+  cyth_load_function((_ctx), "bool exportWave(Wave wave, string fileName)", (uintptr_t)cythExportWave); \
+  cyth_load_function((_ctx), "bool exportWaveAsCode(Wave wave, string fileName)", (uintptr_t)cythExportWaveAsCode); \
+  cyth_load_function((_ctx), "void playSound(Sound sound)", (uintptr_t)cythPlaySound); \
+  cyth_load_function((_ctx), "void stopSound(Sound sound)", (uintptr_t)cythStopSound); \
+  cyth_load_function((_ctx), "void pauseSound(Sound sound)", (uintptr_t)cythPauseSound); \
+  cyth_load_function((_ctx), "void resumeSound(Sound sound)", (uintptr_t)cythResumeSound); \
+  cyth_load_function((_ctx), "bool isSoundPlaying(Sound sound)", (uintptr_t)cythIsSoundPlaying); \
+  cyth_load_function((_ctx), "void setSoundVolume(Sound sound, float volume)", (uintptr_t)cythSetSoundVolume); \
+  cyth_load_function((_ctx), "void setSoundPitch(Sound sound, float pitch)", (uintptr_t)cythSetSoundPitch); \
+  cyth_load_function((_ctx), "void setSoundPan(Sound sound, float pan)", (uintptr_t)cythSetSoundPan); \
+  cyth_load_function((_ctx), "Wave waveCopy(Wave wave)", (uintptr_t)cythWaveCopy); \
+  cyth_load_function((_ctx), "void waveCrop(any wave, int initFrame, int finalFrame)", (uintptr_t)cythWaveCrop); \
+  cyth_load_function((_ctx), "void waveFormat(any wave, int sampleRate, int sampleSize, int channels)", (uintptr_t)cythWaveFormat); \
+  cyth_load_function((_ctx), "any loadWaveSamples(Wave wave)", (uintptr_t)cythLoadWaveSamples); \
+  cyth_load_function((_ctx), "void unloadWaveSamples(any samples)", (uintptr_t)cythUnloadWaveSamples); \
+  cyth_load_function((_ctx), "Music loadMusicStream(string fileName)", (uintptr_t)cythLoadMusicStream); \
+  cyth_load_function((_ctx), "Music loadMusicStreamFromMemory(string fileType, any data, int dataSize)", (uintptr_t)cythLoadMusicStreamFromMemory); \
+  cyth_load_function((_ctx), "bool isMusicValid(Music music)", (uintptr_t)cythIsMusicValid); \
+  cyth_load_function((_ctx), "void unloadMusicStream(Music music)", (uintptr_t)cythUnloadMusicStream); \
+  cyth_load_function((_ctx), "void playMusicStream(Music music)", (uintptr_t)cythPlayMusicStream); \
+  cyth_load_function((_ctx), "bool isMusicStreamPlaying(Music music)", (uintptr_t)cythIsMusicStreamPlaying); \
+  cyth_load_function((_ctx), "void updateMusicStream(Music music)", (uintptr_t)cythUpdateMusicStream); \
+  cyth_load_function((_ctx), "void stopMusicStream(Music music)", (uintptr_t)cythStopMusicStream); \
+  cyth_load_function((_ctx), "void pauseMusicStream(Music music)", (uintptr_t)cythPauseMusicStream); \
+  cyth_load_function((_ctx), "void resumeMusicStream(Music music)", (uintptr_t)cythResumeMusicStream); \
+  cyth_load_function((_ctx), "void seekMusicStream(Music music, float position)", (uintptr_t)cythSeekMusicStream); \
+  cyth_load_function((_ctx), "void setMusicVolume(Music music, float volume)", (uintptr_t)cythSetMusicVolume); \
+  cyth_load_function((_ctx), "void setMusicPitch(Music music, float pitch)", (uintptr_t)cythSetMusicPitch); \
+  cyth_load_function((_ctx), "void setMusicPan(Music music, float pan)", (uintptr_t)cythSetMusicPan); \
+  cyth_load_function((_ctx), "float getMusicTimeLength(Music music)", (uintptr_t)cythGetMusicTimeLength); \
+  cyth_load_function((_ctx), "float getMusicTimePlayed(Music music)", (uintptr_t)cythGetMusicTimePlayed); \
+  cyth_load_function((_ctx), "AudioStream loadAudioStream(int sampleRate, int sampleSize, int channels)", (uintptr_t)cythLoadAudioStream); \
+  cyth_load_function((_ctx), "bool isAudioStreamValid(AudioStream stream)", (uintptr_t)cythIsAudioStreamValid); \
+  cyth_load_function((_ctx), "void unloadAudioStream(AudioStream stream)", (uintptr_t)cythUnloadAudioStream); \
+  cyth_load_function((_ctx), "void updateAudioStream(AudioStream stream, any data, int frameCount)", (uintptr_t)cythUpdateAudioStream); \
+  cyth_load_function((_ctx), "bool isAudioStreamProcessed(AudioStream stream)", (uintptr_t)cythIsAudioStreamProcessed); \
+  cyth_load_function((_ctx), "void playAudioStream(AudioStream stream)", (uintptr_t)cythPlayAudioStream); \
+  cyth_load_function((_ctx), "void pauseAudioStream(AudioStream stream)", (uintptr_t)cythPauseAudioStream); \
+  cyth_load_function((_ctx), "void resumeAudioStream(AudioStream stream)", (uintptr_t)cythResumeAudioStream); \
+  cyth_load_function((_ctx), "bool isAudioStreamPlaying(AudioStream stream)", (uintptr_t)cythIsAudioStreamPlaying); \
+  cyth_load_function((_ctx), "void stopAudioStream(AudioStream stream)", (uintptr_t)cythStopAudioStream); \
+  cyth_load_function((_ctx), "void setAudioStreamVolume(AudioStream stream, float volume)", (uintptr_t)cythSetAudioStreamVolume); \
+  cyth_load_function((_ctx), "void setAudioStreamPitch(AudioStream stream, float pitch)", (uintptr_t)cythSetAudioStreamPitch); \
+  cyth_load_function((_ctx), "void setAudioStreamPan(AudioStream stream, float pan)", (uintptr_t)cythSetAudioStreamPan); \
+  cyth_load_function((_ctx), "void setAudioStreamBufferSizeDefault(int size)", (uintptr_t)cythSetAudioStreamBufferSizeDefault); \
+  cyth_load_function((_ctx), "void setAudioStreamCallback(AudioStream stream, AudioCallback callback)", (uintptr_t)cythSetAudioStreamCallback); \
+  cyth_load_function((_ctx), "void attachAudioStreamProcessor(AudioStream stream, AudioCallback processor)", (uintptr_t)cythAttachAudioStreamProcessor); \
+  cyth_load_function((_ctx), "void detachAudioStreamProcessor(AudioStream stream, AudioCallback processor)", (uintptr_t)cythDetachAudioStreamProcessor); \
+  cyth_load_function((_ctx), "void attachAudioMixedProcessor(AudioCallback processor)", (uintptr_t)cythAttachAudioMixedProcessor); \
+  cyth_load_function((_ctx), "void detachAudioMixedProcessor(AudioCallback processor)", (uintptr_t)cythDetachAudioMixedProcessor); \
+  cyth_load_string(vm, RAYLIB_BUILTINS);\
 } while (0)
-static const char* PREFIX = "import \"raylib\"\n"
-"  void initWindow(int width, int height, string title)\n"
-"  void closeWindow()\n"
-"  bool windowShouldClose()\n"
-"  bool isWindowReady()\n"
-"  bool isWindowFullscreen()\n"
-"  bool isWindowHidden()\n"
-"  bool isWindowMinimized()\n"
-"  bool isWindowMaximized()\n"
-"  bool isWindowFocused()\n"
-"  bool isWindowResized()\n"
-"  bool isWindowState(int flag)\n"
-"  void setWindowState(int flags)\n"
-"  void clearWindowState(int flags)\n"
-"  void toggleFullscreen()\n"
-"  void toggleBorderlessWindowed()\n"
-"  void maximizeWindow()\n"
-"  void minimizeWindow()\n"
-"  void restoreWindow()\n"
-"  void setWindowIcon(Image image)\n"
-"  void setWindowIcons(Image images, int count)\n"
-"  void setWindowTitle(string title)\n"
-"  void setWindowPosition(int x, int y)\n"
-"  void setWindowMonitor(int monitor)\n"
-"  void setWindowMinSize(int width, int height)\n"
-"  void setWindowMaxSize(int width, int height)\n"
-"  void setWindowSize(int width, int height)\n"
-"  void setWindowOpacity(float opacity)\n"
-"  void setWindowFocused()\n"
-"  any getWindowHandle()\n"
-"  int getScreenWidth()\n"
-"  int getScreenHeight()\n"
-"  int getRenderWidth()\n"
-"  int getRenderHeight()\n"
-"  int getMonitorCount()\n"
-"  int getCurrentMonitor()\n"
-"  Vector2 getMonitorPosition(int monitor)\n"
-"  int getMonitorWidth(int monitor)\n"
-"  int getMonitorHeight(int monitor)\n"
-"  int getMonitorPhysicalWidth(int monitor)\n"
-"  int getMonitorPhysicalHeight(int monitor)\n"
-"  int getMonitorRefreshRate(int monitor)\n"
-"  Vector2 getWindowPosition()\n"
-"  Vector2 getWindowScaleDPI()\n"
-"  string getMonitorName(int monitor)\n"
-"  void setClipboardText(string text)\n"
-"  string getClipboardText()\n"
-"  Image getClipboardImage()\n"
-"  void enableEventWaiting()\n"
-"  void disableEventWaiting()\n"
-"  void showCursor()\n"
-"  void hideCursor()\n"
-"  bool isCursorHidden()\n"
-"  void enableCursor()\n"
-"  void disableCursor()\n"
-"  bool isCursorOnScreen()\n"
-"  void clearBackground(Color color)\n"
-"  void beginDrawing()\n"
-"  void endDrawing()\n"
-"  void beginMode2D(Camera2D camera)\n"
-"  void endMode2D()\n"
-"  void beginMode3D(Camera3D camera)\n"
-"  void endMode3D()\n"
-"  void beginTextureMode(RenderTexture2D target)\n"
-"  void endTextureMode()\n"
-"  void beginShaderMode(Shader shader)\n"
-"  void endShaderMode()\n"
-"  void beginBlendMode(int mode)\n"
-"  void endBlendMode()\n"
-"  void beginScissorMode(int x, int y, int width, int height)\n"
-"  void endScissorMode()\n"
-"  void beginVrStereoMode(VrStereoConfig config)\n"
-"  void endVrStereoMode()\n"
-"  VrStereoConfig loadVrStereoConfig(VrDeviceInfo device)\n"
-"  void unloadVrStereoConfig(VrStereoConfig config)\n"
-"  Shader loadShader(string vsFileName, string fsFileName)\n"
-"  Shader loadShaderFromMemory(string vsCode, string fsCode)\n"
-"  bool isShaderValid(Shader shader)\n"
-"  int getShaderLocation(Shader shader, string uniformName)\n"
-"  int getShaderLocationAttrib(Shader shader, string attribName)\n"
-"  void setShaderValue(Shader shader, int locIndex, any value, int uniformType)\n"
-"  void setShaderValueV(Shader shader, int locIndex, any value, int uniformType, int count)\n"
-"  void setShaderValueMatrix(Shader shader, int locIndex, Matrix mat)\n"
-"  void setShaderValueTexture(Shader shader, int locIndex, Texture2D texture)\n"
-"  void unloadShader(Shader shader)\n"
-"  Ray getScreenToWorldRay(Vector2 position, Camera camera)\n"
-"  Ray getScreenToWorldRayEx(Vector2 position, Camera camera, int width, int height)\n"
-"  Vector2 getWorldToScreen(Vector3 position, Camera camera)\n"
-"  Vector2 getWorldToScreenEx(Vector3 position, Camera camera, int width, int height)\n"
-"  Vector2 getWorldToScreen2D(Vector2 position, Camera2D camera)\n"
-"  Vector2 getScreenToWorld2D(Vector2 position, Camera2D camera)\n"
-"  Matrix getCameraMatrix(Camera camera)\n"
-"  Matrix getCameraMatrix2D(Camera2D camera)\n"
-"  void setTargetFPS(int fps)\n"
-"  float getFrameTime()\n"
-"  float getTime()\n"
-"  int getFPS()\n"
-"  void swapScreenBuffer()\n"
-"  void pollInputEvents()\n"
-"  void waitTime(float seconds)\n"
-"  void setRandomSeed(int seed)\n"
-"  int getRandomValue(int min, int max)\n"
-"  any loadRandomSequence(int count, int min, int max)\n"
-"  void unloadRandomSequence(any sequence)\n"
-"  void takeScreenshot(string fileName)\n"
-"  void setConfigFlags(int flags)\n"
-"  void openURL(string url)\n"
-"  void setTraceLogLevel(int logLevel)\n"
-"  any memAlloc(int size)\n"
-"  any memRealloc(any ptr, int size)\n"
-"  void memFree(any ptr)\n"
-"  void setTraceLogCallback(TraceLogCallback callback)\n"
-"  void setLoadFileDataCallback(LoadFileDataCallback callback)\n"
-"  void setSaveFileDataCallback(SaveFileDataCallback callback)\n"
-"  void setLoadFileTextCallback(LoadFileTextCallback callback)\n"
-"  void setSaveFileTextCallback(SaveFileTextCallback callback)\n"
-"  any loadFileData(string fileName, any dataSize)\n"
-"  void unloadFileData(any data)\n"
-"  bool saveFileData(string fileName, any data, int dataSize)\n"
-"  bool exportDataAsCode(any data, int dataSize, string fileName)\n"
-"  char[] loadFileText(string fileName)\n"
-"  void unloadFileText(char[] text)\n"
-"  bool saveFileText(string fileName, char[] text)\n"
-"  bool fileExists(string fileName)\n"
-"  bool directoryExists(string dirPath)\n"
-"  bool isFileExtension(string fileName, string ext)\n"
-"  int getFileLength(string fileName)\n"
-"  string getFileExtension(string fileName)\n"
-"  string getFileName(string filePath)\n"
-"  string getFileNameWithoutExt(string filePath)\n"
-"  string getDirectoryPath(string filePath)\n"
-"  string getPrevDirectoryPath(string dirPath)\n"
-"  string getWorkingDirectory()\n"
-"  string getApplicationDirectory()\n"
-"  int makeDirectory(string dirPath)\n"
-"  bool changeDirectory(string dir)\n"
-"  bool isPathFile(string path)\n"
-"  bool isFileNameValid(string fileName)\n"
-"  FilePathList loadDirectoryFiles(string dirPath)\n"
-"  FilePathList loadDirectoryFilesEx(string basePath, string filter, bool scanSubdirs)\n"
-"  void unloadDirectoryFiles(FilePathList files)\n"
-"  bool isFileDropped()\n"
-"  FilePathList loadDroppedFiles()\n"
-"  void unloadDroppedFiles(FilePathList files)\n"
-"  int getFileModTime(string fileName)\n"
-"  any compressData(any data, int dataSize, any compDataSize)\n"
-"  any decompressData(any compData, int compDataSize, any dataSize)\n"
-"  char[] encodeDataBase64(any data, int dataSize, any outputSize)\n"
-"  any decodeDataBase64(any data, any outputSize)\n"
-"  int computeCRC32(any data, int dataSize)\n"
-"  any computeMD5(any data, int dataSize)\n"
-"  any computeSHA1(any data, int dataSize)\n"
-"  AutomationEventList loadAutomationEventList(string fileName)\n"
-"  void unloadAutomationEventList(AutomationEventList list)\n"
-"  bool exportAutomationEventList(AutomationEventList list, string fileName)\n"
-"  void setAutomationEventList(any list)\n"
-"  void setAutomationEventBaseFrame(int frame)\n"
-"  void startAutomationEventRecording()\n"
-"  void stopAutomationEventRecording()\n"
-"  void playAutomationEvent(AutomationEvent event)\n"
-"  bool isKeyPressed(int key)\n"
-"  bool isKeyPressedRepeat(int key)\n"
-"  bool isKeyDown(int key)\n"
-"  bool isKeyReleased(int key)\n"
-"  bool isKeyUp(int key)\n"
-"  int getKeyPressed()\n"
-"  int getCharPressed()\n"
-"  void setExitKey(int key)\n"
-"  bool isGamepadAvailable(int gamepad)\n"
-"  string getGamepadName(int gamepad)\n"
-"  bool isGamepadButtonPressed(int gamepad, int button)\n"
-"  bool isGamepadButtonDown(int gamepad, int button)\n"
-"  bool isGamepadButtonReleased(int gamepad, int button)\n"
-"  bool isGamepadButtonUp(int gamepad, int button)\n"
-"  int getGamepadButtonPressed()\n"
-"  int getGamepadAxisCount(int gamepad)\n"
-"  float getGamepadAxisMovement(int gamepad, int axis)\n"
-"  int setGamepadMappings(string mappings)\n"
-"  void setGamepadVibration(int gamepad, float leftMotor, float rightMotor, float duration)\n"
-"  bool isMouseButtonPressed(int button)\n"
-"  bool isMouseButtonDown(int button)\n"
-"  bool isMouseButtonReleased(int button)\n"
-"  bool isMouseButtonUp(int button)\n"
-"  int getMouseX()\n"
-"  int getMouseY()\n"
-"  Vector2 getMousePosition()\n"
-"  Vector2 getMouseDelta()\n"
-"  void setMousePosition(int x, int y)\n"
-"  void setMouseOffset(int offsetX, int offsetY)\n"
-"  void setMouseScale(float scaleX, float scaleY)\n"
-"  float getMouseWheelMove()\n"
-"  Vector2 getMouseWheelMoveV()\n"
-"  void setMouseCursor(int cursor)\n"
-"  int getTouchX()\n"
-"  int getTouchY()\n"
-"  Vector2 getTouchPosition(int index)\n"
-"  int getTouchPointId(int index)\n"
-"  int getTouchPointCount()\n"
-"  void setGesturesEnabled(int flags)\n"
-"  bool isGestureDetected(int gesture)\n"
-"  int getGestureDetected()\n"
-"  float getGestureHoldDuration()\n"
-"  Vector2 getGestureDragVector()\n"
-"  float getGestureDragAngle()\n"
-"  Vector2 getGesturePinchVector()\n"
-"  float getGesturePinchAngle()\n"
-"  void updateCamera(any camera, int mode)\n"
-"  void updateCameraPro(any camera, Vector3 movement, Vector3 rotation, float zoom)\n"
-"  void setShapesTexture(Texture2D texture, Rectangle source)\n"
-"  Texture2D getShapesTexture()\n"
-"  Rectangle getShapesTextureRectangle()\n"
-"  void drawPixel(int posX, int posY, Color color)\n"
-"  void drawPixelV(Vector2 position, Color color)\n"
-"  void drawLine(int startPosX, int startPosY, int endPosX, int endPosY, Color color)\n"
-"  void drawLineV(Vector2 startPos, Vector2 endPos, Color color)\n"
-"  void drawLineEx(Vector2 startPos, Vector2 endPos, float thick, Color color)\n"
-"  void drawLineStrip(any points, int pointCount, Color color)\n"
-"  void drawLineBezier(Vector2 startPos, Vector2 endPos, float thick, Color color)\n"
-"  void drawCircle(int centerX, int centerY, float radius, Color color)\n"
-"  void drawCircleSector(Vector2 center, float radius, float startAngle, float endAngle, int segments, Color color)\n"
-"  void drawCircleSectorLines(Vector2 center, float radius, float startAngle, float endAngle, int segments, Color color)\n"
-"  void drawCircleGradient(int centerX, int centerY, float radius, Color inner, Color outer)\n"
-"  void drawCircleV(Vector2 center, float radius, Color color)\n"
-"  void drawCircleLines(int centerX, int centerY, float radius, Color color)\n"
-"  void drawCircleLinesV(Vector2 center, float radius, Color color)\n"
-"  void drawEllipse(int centerX, int centerY, float radiusH, float radiusV, Color color)\n"
-"  void drawEllipseLines(int centerX, int centerY, float radiusH, float radiusV, Color color)\n"
-"  void drawRing(Vector2 center, float innerRadius, float outerRadius, float startAngle, float endAngle, int segments, Color color)\n"
-"  void drawRingLines(Vector2 center, float innerRadius, float outerRadius, float startAngle, float endAngle, int segments, Color color)\n"
-"  void drawRectangle(int posX, int posY, int width, int height, Color color)\n"
-"  void drawRectangleV(Vector2 position, Vector2 size, Color color)\n"
-"  void drawRectangleRec(Rectangle rec, Color color)\n"
-"  void drawRectanglePro(Rectangle rec, Vector2 origin, float rotation, Color color)\n"
-"  void drawRectangleGradientV(int posX, int posY, int width, int height, Color top, Color bottom)\n"
-"  void drawRectangleGradientH(int posX, int posY, int width, int height, Color left, Color right)\n"
-"  void drawRectangleGradientEx(Rectangle rec, Color topLeft, Color bottomLeft, Color topRight, Color bottomRight)\n"
-"  void drawRectangleLines(int posX, int posY, int width, int height, Color color)\n"
-"  void drawRectangleLinesEx(Rectangle rec, float lineThick, Color color)\n"
-"  void drawRectangleRounded(Rectangle rec, float roundness, int segments, Color color)\n"
-"  void drawRectangleRoundedLines(Rectangle rec, float roundness, int segments, Color color)\n"
-"  void drawRectangleRoundedLinesEx(Rectangle rec, float roundness, int segments, float lineThick, Color color)\n"
-"  void drawTriangle(Vector2 v1, Vector2 v2, Vector2 v3, Color color)\n"
-"  void drawTriangleLines(Vector2 v1, Vector2 v2, Vector2 v3, Color color)\n"
-"  void drawTriangleFan(any points, int pointCount, Color color)\n"
-"  void drawTriangleStrip(any points, int pointCount, Color color)\n"
-"  void drawPoly(Vector2 center, int sides, float radius, float rotation, Color color)\n"
-"  void drawPolyLines(Vector2 center, int sides, float radius, float rotation, Color color)\n"
-"  void drawPolyLinesEx(Vector2 center, int sides, float radius, float rotation, float lineThick, Color color)\n"
-"  void drawSplineLinear(any points, int pointCount, float thick, Color color)\n"
-"  void drawSplineBasis(any points, int pointCount, float thick, Color color)\n"
-"  void drawSplineCatmullRom(any points, int pointCount, float thick, Color color)\n"
-"  void drawSplineBezierQuadratic(any points, int pointCount, float thick, Color color)\n"
-"  void drawSplineBezierCubic(any points, int pointCount, float thick, Color color)\n"
-"  void drawSplineSegmentLinear(Vector2 p1, Vector2 p2, float thick, Color color)\n"
-"  void drawSplineSegmentBasis(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, float thick, Color color)\n"
-"  void drawSplineSegmentCatmullRom(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, float thick, Color color)\n"
-"  void drawSplineSegmentBezierQuadratic(Vector2 p1, Vector2 c2, Vector2 p3, float thick, Color color)\n"
-"  void drawSplineSegmentBezierCubic(Vector2 p1, Vector2 c2, Vector2 c3, Vector2 p4, float thick, Color color)\n"
-"  Vector2 getSplinePointLinear(Vector2 startPos, Vector2 endPos, float t)\n"
-"  Vector2 getSplinePointBasis(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, float t)\n"
-"  Vector2 getSplinePointCatmullRom(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, float t)\n"
-"  Vector2 getSplinePointBezierQuad(Vector2 p1, Vector2 c2, Vector2 p3, float t)\n"
-"  Vector2 getSplinePointBezierCubic(Vector2 p1, Vector2 c2, Vector2 c3, Vector2 p4, float t)\n"
-"  bool checkCollisionRecs(Rectangle rec1, Rectangle rec2)\n"
-"  bool checkCollisionCircles(Vector2 center1, float radius1, Vector2 center2, float radius2)\n"
-"  bool checkCollisionCircleRec(Vector2 center, float radius, Rectangle rec)\n"
-"  bool checkCollisionCircleLine(Vector2 center, float radius, Vector2 p1, Vector2 p2)\n"
-"  bool checkCollisionPointRec(Vector2 point, Rectangle rec)\n"
-"  bool checkCollisionPointCircle(Vector2 point, Vector2 center, float radius)\n"
-"  bool checkCollisionPointTriangle(Vector2 point, Vector2 p1, Vector2 p2, Vector2 p3)\n"
-"  bool checkCollisionPointLine(Vector2 point, Vector2 p1, Vector2 p2, int threshold)\n"
-"  bool checkCollisionPointPoly(Vector2 point, any points, int pointCount)\n"
-"  bool checkCollisionLines(Vector2 startPos1, Vector2 endPos1, Vector2 startPos2, Vector2 endPos2, any collisionPoint)\n"
-"  Rectangle getCollisionRec(Rectangle rec1, Rectangle rec2)\n"
-"  Image loadImage(string fileName)\n"
-"  Image loadImageRaw(string fileName, int width, int height, int format, int headerSize)\n"
-"  Image loadImageAnim(string fileName, any frames)\n"
-"  Image loadImageAnimFromMemory(string fileType, any fileData, int dataSize, any frames)\n"
-"  Image loadImageFromMemory(string fileType, any fileData, int dataSize)\n"
-"  Image loadImageFromTexture(Texture2D texture)\n"
-"  Image loadImageFromScreen()\n"
-"  bool isImageValid(Image image)\n"
-"  void unloadImage(Image image)\n"
-"  bool exportImage(Image image, string fileName)\n"
-"  any exportImageToMemory(Image image, string fileType, any fileSize)\n"
-"  bool exportImageAsCode(Image image, string fileName)\n"
-"  Image genImageColor(int width, int height, Color color)\n"
-"  Image genImageGradientLinear(int width, int height, int direction, Color start, Color end)\n"
-"  Image genImageGradientRadial(int width, int height, float density, Color inner, Color outer)\n"
-"  Image genImageGradientSquare(int width, int height, float density, Color inner, Color outer)\n"
-"  Image genImageChecked(int width, int height, int checksX, int checksY, Color col1, Color col2)\n"
-"  Image genImageWhiteNoise(int width, int height, float factor)\n"
-"  Image genImagePerlinNoise(int width, int height, int offsetX, int offsetY, float scale)\n"
-"  Image genImageCellular(int width, int height, int tileSize)\n"
-"  Image genImageText(int width, int height, string text)\n"
-"  Image imageCopy(Image image)\n"
-"  Image imageFromImage(Image image, Rectangle rec)\n"
-"  Image imageFromChannel(Image image, int selectedChannel)\n"
-"  Image imageText(string text, int fontSize, Color color)\n"
-"  Image imageTextEx(Font font, string text, float fontSize, float spacing, Color tint)\n"
-"  void imageFormat(Image image, int newFormat)\n"
-"  void imageToPOT(Image image, Color fill)\n"
-"  void imageCrop(Image image, Rectangle crop)\n"
-"  void imageAlphaCrop(Image image, float threshold)\n"
-"  void imageAlphaClear(Image image, Color color, float threshold)\n"
-"  void imageAlphaMask(Image image, Image alphaMask)\n"
-"  void imageAlphaPremultiply(Image image)\n"
-"  void imageBlurGaussian(Image image, int blurSize)\n"
-"  void imageKernelConvolution(Image image, any kernel, int kernelSize)\n"
-"  void imageResize(Image image, int newWidth, int newHeight)\n"
-"  void imageResizeNN(Image image, int newWidth, int newHeight)\n"
-"  void imageResizeCanvas(Image image, int newWidth, int newHeight, int offsetX, int offsetY, Color fill)\n"
-"  void imageMipmaps(Image image)\n"
-"  void imageDither(Image image, int rBpp, int gBpp, int bBpp, int aBpp)\n"
-"  void imageFlipVertical(Image image)\n"
-"  void imageFlipHorizontal(Image image)\n"
-"  void imageRotate(Image image, int degrees)\n"
-"  void imageRotateCW(Image image)\n"
-"  void imageRotateCCW(Image image)\n"
-"  void imageColorTint(Image image, Color color)\n"
-"  void imageColorInvert(Image image)\n"
-"  void imageColorGrayscale(Image image)\n"
-"  void imageColorContrast(Image image, float contrast)\n"
-"  void imageColorBrightness(Image image, int brightness)\n"
-"  void imageColorReplace(Image image, Color color, Color replace)\n"
-"  Color loadImageColors(Image image)\n"
-"  Color loadImagePalette(Image image, int maxPaletteSize, any colorCount)\n"
-"  void unloadImageColors(Color colors)\n"
-"  void unloadImagePalette(Color colors)\n"
-"  Rectangle getImageAlphaBorder(Image image, float threshold)\n"
-"  Color getImageColor(Image image, int x, int y)\n"
-"  void imageClearBackground(Image dst, Color color)\n"
-"  void imageDrawPixel(Image dst, int posX, int posY, Color color)\n"
-"  void imageDrawPixelV(Image dst, Vector2 position, Color color)\n"
-"  void imageDrawLine(Image dst, int startPosX, int startPosY, int endPosX, int endPosY, Color color)\n"
-"  void imageDrawLineV(Image dst, Vector2 start, Vector2 end, Color color)\n"
-"  void imageDrawLineEx(Image dst, Vector2 start, Vector2 end, int thick, Color color)\n"
-"  void imageDrawCircle(Image dst, int centerX, int centerY, int radius, Color color)\n"
-"  void imageDrawCircleV(Image dst, Vector2 center, int radius, Color color)\n"
-"  void imageDrawCircleLines(Image dst, int centerX, int centerY, int radius, Color color)\n"
-"  void imageDrawCircleLinesV(Image dst, Vector2 center, int radius, Color color)\n"
-"  void imageDrawRectangle(Image dst, int posX, int posY, int width, int height, Color color)\n"
-"  void imageDrawRectangleV(Image dst, Vector2 position, Vector2 size, Color color)\n"
-"  void imageDrawRectangleRec(Image dst, Rectangle rec, Color color)\n"
-"  void imageDrawRectangleLines(Image dst, Rectangle rec, int thick, Color color)\n"
-"  void imageDrawTriangle(Image dst, Vector2 v1, Vector2 v2, Vector2 v3, Color color)\n"
-"  void imageDrawTriangleEx(Image dst, Vector2 v1, Vector2 v2, Vector2 v3, Color c1, Color c2, Color c3)\n"
-"  void imageDrawTriangleLines(Image dst, Vector2 v1, Vector2 v2, Vector2 v3, Color color)\n"
-"  void imageDrawTriangleFan(Image dst, any points, int pointCount, Color color)\n"
-"  void imageDrawTriangleStrip(Image dst, any points, int pointCount, Color color)\n"
-"  void imageDraw(Image dst, Image src, Rectangle srcRec, Rectangle dstRec, Color tint)\n"
-"  void imageDrawText(Image dst, string text, int posX, int posY, int fontSize, Color color)\n"
-"  void imageDrawTextEx(Image dst, Font font, string text, Vector2 position, float fontSize, float spacing, Color tint)\n"
-"  Texture2D loadTexture(string fileName)\n"
-"  Texture2D loadTextureFromImage(Image image)\n"
-"  TextureCubemap loadTextureCubemap(Image image, int layout)\n"
-"  RenderTexture2D loadRenderTexture(int width, int height)\n"
-"  bool isTextureValid(Texture2D texture)\n"
-"  void unloadTexture(Texture2D texture)\n"
-"  bool isRenderTextureValid(RenderTexture2D target)\n"
-"  void unloadRenderTexture(RenderTexture2D target)\n"
-"  void updateTexture(Texture2D texture, any pixels)\n"
-"  void updateTextureRec(Texture2D texture, Rectangle rec, any pixels)\n"
-"  void genTextureMipmaps(any texture)\n"
-"  void setTextureFilter(Texture2D texture, int filter)\n"
-"  void setTextureWrap(Texture2D texture, int wrap)\n"
-"  void drawTexture(Texture2D texture, int posX, int posY, Color tint)\n"
-"  void drawTextureV(Texture2D texture, Vector2 position, Color tint)\n"
-"  void drawTextureEx(Texture2D texture, Vector2 position, float rotation, float scale, Color tint)\n"
-"  void drawTextureRec(Texture2D texture, Rectangle source, Vector2 position, Color tint)\n"
-"  void drawTexturePro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation, Color tint)\n"
-"  void drawTextureNPatch(Texture2D texture, NPatchInfo nPatchInfo, Rectangle dest, Vector2 origin, float rotation, Color tint)\n"
-"  bool colorIsEqual(Color col1, Color col2)\n"
-"  Color fade(Color color, float alpha)\n"
-"  int colorToInt(Color color)\n"
-"  Vector4 colorNormalize(Color color)\n"
-"  Color colorFromNormalized(Vector4 normalized)\n"
-"  Vector3 colorToHSV(Color color)\n"
-"  Color colorFromHSV(float hue, float saturation, float value)\n"
-"  Color colorTint(Color color, Color tint)\n"
-"  Color colorBrightness(Color color, float factor)\n"
-"  Color colorContrast(Color color, float contrast)\n"
-"  Color colorAlpha(Color color, float alpha)\n"
-"  Color colorAlphaBlend(Color dst, Color src, Color tint)\n"
-"  Color colorLerp(Color color1, Color color2, float factor)\n"
-"  Color getColor(int hexValue)\n"
-"  Color getPixelColor(any srcPtr, int format)\n"
-"  void setPixelColor(any dstPtr, Color color, int format)\n"
-"  int getPixelDataSize(int width, int height, int format)\n"
-"  Font getFontDefault()\n"
-"  Font loadFont(string fileName)\n"
-"  Font loadFontEx(string fileName, int fontSize, any codepoints, int codepointCount)\n"
-"  Font loadFontFromImage(Image image, Color key, int firstChar)\n"
-"  Font loadFontFromMemory(string fileType, any fileData, int dataSize, int fontSize, any codepoints, int codepointCount)\n"
-"  bool isFontValid(Font font)\n"
-"  any loadFontData(any fileData, int dataSize, int fontSize, any codepoints, int codepointCount, int type)\n"
-"  Image genImageFontAtlas(any glyphs, any glyphRecs, int glyphCount, int fontSize, int padding, int packMethod)\n"
-"  void unloadFontData(any glyphs, int glyphCount)\n"
-"  void unloadFont(Font font)\n"
-"  bool exportFontAsCode(Font font, string fileName)\n"
-"  void drawFPS(int posX, int posY)\n"
-"  void drawText(string text, int posX, int posY, int fontSize, Color color)\n"
-"  void drawTextEx(Font font, string text, Vector2 position, float fontSize, float spacing, Color tint)\n"
-"  void drawTextPro(Font font, string text, Vector2 position, Vector2 origin, float rotation, float fontSize, float spacing, Color tint)\n"
-"  void drawTextCodepoint(Font font, int codepoint, Vector2 position, float fontSize, Color tint)\n"
-"  void drawTextCodepoints(Font font, any codepoints, int codepointCount, Vector2 position, float fontSize, float spacing, Color tint)\n"
-"  void setTextLineSpacing(int spacing)\n"
-"  int measureText(string text, int fontSize)\n"
-"  Vector2 measureTextEx(Font font, string text, float fontSize, float spacing)\n"
-"  int getGlyphIndex(Font font, int codepoint)\n"
-"  GlyphInfo getGlyphInfo(Font font, int codepoint)\n"
-"  Rectangle getGlyphAtlasRec(Font font, int codepoint)\n"
-"  char[] loadUTF8(any codepoints, int length)\n"
-"  void unloadUTF8(char[] text)\n"
-"  any loadCodepoints(string text, any count)\n"
-"  void unloadCodepoints(any codepoints)\n"
-"  int getCodepointCount(string text)\n"
-"  int getCodepoint(string text, any codepointSize)\n"
-"  int getCodepointNext(string text, any codepointSize)\n"
-"  int getCodepointPrevious(string text, any codepointSize)\n"
-"  string codepointToUTF8(int codepoint, any utf8Size)\n"
-"  int textCopy(char[] dst, string src)\n"
-"  bool textIsEqual(string text1, string text2)\n"
-"  int textLength(string text)\n"
-"  string textSubtext(string text, int position, int length)\n"
-"  char[] textReplace(string text, string replace, string by)\n"
-"  char[] textInsert(string text, string insert, int position)\n"
-"  string textJoin(any textList, int count, string delimiter)\n"
-"  any textSplit(string text, char delimiter, any count)\n"
-"  void textAppend(char[] text, string append, any position)\n"
-"  int textFindIndex(string text, string find)\n"
-"  string textToUpper(string text)\n"
-"  string textToLower(string text)\n"
-"  string textToPascal(string text)\n"
-"  string textToSnake(string text)\n"
-"  string textToCamel(string text)\n"
-"  int textToInteger(string text)\n"
-"  float textToFloat(string text)\n"
-"  void drawLine3D(Vector3 startPos, Vector3 endPos, Color color)\n"
-"  void drawPoint3D(Vector3 position, Color color)\n"
-"  void drawCircle3D(Vector3 center, float radius, Vector3 rotationAxis, float rotationAngle, Color color)\n"
-"  void drawTriangle3D(Vector3 v1, Vector3 v2, Vector3 v3, Color color)\n"
-"  void drawTriangleStrip3D(any points, int pointCount, Color color)\n"
-"  void drawCube(Vector3 position, float width, float height, float length, Color color)\n"
-"  void drawCubeV(Vector3 position, Vector3 size, Color color)\n"
-"  void drawCubeWires(Vector3 position, float width, float height, float length, Color color)\n"
-"  void drawCubeWiresV(Vector3 position, Vector3 size, Color color)\n"
-"  void drawSphere(Vector3 centerPos, float radius, Color color)\n"
-"  void drawSphereEx(Vector3 centerPos, float radius, int rings, int slices, Color color)\n"
-"  void drawSphereWires(Vector3 centerPos, float radius, int rings, int slices, Color color)\n"
-"  void drawCylinder(Vector3 position, float radiusTop, float radiusBottom, float height, int slices, Color color)\n"
-"  void drawCylinderEx(Vector3 startPos, Vector3 endPos, float startRadius, float endRadius, int sides, Color color)\n"
-"  void drawCylinderWires(Vector3 position, float radiusTop, float radiusBottom, float height, int slices, Color color)\n"
-"  void drawCylinderWiresEx(Vector3 startPos, Vector3 endPos, float startRadius, float endRadius, int sides, Color color)\n"
-"  void drawCapsule(Vector3 startPos, Vector3 endPos, float radius, int slices, int rings, Color color)\n"
-"  void drawCapsuleWires(Vector3 startPos, Vector3 endPos, float radius, int slices, int rings, Color color)\n"
-"  void drawPlane(Vector3 centerPos, Vector2 size, Color color)\n"
-"  void drawRay(Ray ray, Color color)\n"
-"  void drawGrid(int slices, float spacing)\n"
-"  Model loadModel(string fileName)\n"
-"  Model loadModelFromMesh(Mesh mesh)\n"
-"  bool isModelValid(Model model)\n"
-"  void unloadModel(Model model)\n"
-"  BoundingBox getModelBoundingBox(Model model)\n"
-"  void drawModel(Model model, Vector3 position, float scale, Color tint)\n"
-"  void drawModelEx(Model model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color tint)\n"
-"  void drawModelWires(Model model, Vector3 position, float scale, Color tint)\n"
-"  void drawModelWiresEx(Model model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color tint)\n"
-"  void drawModelPoints(Model model, Vector3 position, float scale, Color tint)\n"
-"  void drawModelPointsEx(Model model, Vector3 position, Vector3 rotationAxis, float rotationAngle, Vector3 scale, Color tint)\n"
-"  void drawBoundingBox(BoundingBox box, Color color)\n"
-"  void drawBillboard(Camera camera, Texture2D texture, Vector3 position, float scale, Color tint)\n"
-"  void drawBillboardRec(Camera camera, Texture2D texture, Rectangle source, Vector3 position, Vector2 size, Color tint)\n"
-"  void drawBillboardPro(Camera camera, Texture2D texture, Rectangle source, Vector3 position, Vector3 up, Vector2 size, Vector2 origin, float rotation, Color tint)\n"
-"  void uploadMesh(any mesh, bool dynamic)\n"
-"  void updateMeshBuffer(Mesh mesh, int index, any data, int dataSize, int offset)\n"
-"  void unloadMesh(Mesh mesh)\n"
-"  void drawMesh(Mesh mesh, Material material, Matrix transform)\n"
-"  void drawMeshInstanced(Mesh mesh, Material material, any transforms, int instances)\n"
-"  BoundingBox getMeshBoundingBox(Mesh mesh)\n"
-"  void genMeshTangents(any mesh)\n"
-"  bool exportMesh(Mesh mesh, string fileName)\n"
-"  bool exportMeshAsCode(Mesh mesh, string fileName)\n"
-"  Mesh genMeshPoly(int sides, float radius)\n"
-"  Mesh genMeshPlane(float width, float length, int resX, int resZ)\n"
-"  Mesh genMeshCube(float width, float height, float length)\n"
-"  Mesh genMeshSphere(float radius, int rings, int slices)\n"
-"  Mesh genMeshHemiSphere(float radius, int rings, int slices)\n"
-"  Mesh genMeshCylinder(float radius, float height, int slices)\n"
-"  Mesh genMeshCone(float radius, float height, int slices)\n"
-"  Mesh genMeshTorus(float radius, float size, int radSeg, int sides)\n"
-"  Mesh genMeshKnot(float radius, float size, int radSeg, int sides)\n"
-"  Mesh genMeshHeightmap(Image heightmap, Vector3 size)\n"
-"  Mesh genMeshCubicmap(Image cubicmap, Vector3 cubeSize)\n"
-"  any loadMaterials(string fileName, any materialCount)\n"
-"  Material loadMaterialDefault()\n"
-"  bool isMaterialValid(Material material)\n"
-"  void unloadMaterial(Material material)\n"
-"  void setMaterialTexture(any material, int mapType, Texture2D texture)\n"
-"  void setModelMeshMaterial(any model, int meshId, int materialId)\n"
-"  any loadModelAnimations(string fileName, any animCount)\n"
-"  void updateModelAnimation(Model model, ModelAnimation anim, int frame)\n"
-"  void updateModelAnimationBones(Model model, ModelAnimation anim, int frame)\n"
-"  void unloadModelAnimation(ModelAnimation anim)\n"
-"  void unloadModelAnimations(any animations, int animCount)\n"
-"  bool isModelAnimationValid(Model model, ModelAnimation anim)\n"
-"  bool checkCollisionSpheres(Vector3 center1, float radius1, Vector3 center2, float radius2)\n"
-"  bool checkCollisionBoxes(BoundingBox box1, BoundingBox box2)\n"
-"  bool checkCollisionBoxSphere(BoundingBox box, Vector3 center, float radius)\n"
-"  RayCollision getRayCollisionSphere(Ray ray, Vector3 center, float radius)\n"
-"  RayCollision getRayCollisionBox(Ray ray, BoundingBox box)\n"
-"  RayCollision getRayCollisionMesh(Ray ray, Mesh mesh, Matrix transform)\n"
-"  RayCollision getRayCollisionTriangle(Ray ray, Vector3 p1, Vector3 p2, Vector3 p3)\n"
-"  RayCollision getRayCollisionQuad(Ray ray, Vector3 p1, Vector3 p2, Vector3 p3, Vector3 p4)\n"
-"  void initAudioDevice()\n"
-"  void closeAudioDevice()\n"
-"  bool isAudioDeviceReady()\n"
-"  void setMasterVolume(float volume)\n"
-"  float getMasterVolume()\n"
-"  Wave loadWave(string fileName)\n"
-"  Wave loadWaveFromMemory(string fileType, any fileData, int dataSize)\n"
-"  bool isWaveValid(Wave wave)\n"
-"  Sound loadSound(string fileName)\n"
-"  Sound loadSoundFromWave(Wave wave)\n"
-"  Sound loadSoundAlias(Sound source)\n"
-"  bool isSoundValid(Sound sound)\n"
-"  void updateSound(Sound sound, any data, int sampleCount)\n"
-"  void unloadWave(Wave wave)\n"
-"  void unloadSound(Sound sound)\n"
-"  void unloadSoundAlias(Sound alias)\n"
-"  bool exportWave(Wave wave, string fileName)\n"
-"  bool exportWaveAsCode(Wave wave, string fileName)\n"
-"  void playSound(Sound sound)\n"
-"  void stopSound(Sound sound)\n"
-"  void pauseSound(Sound sound)\n"
-"  void resumeSound(Sound sound)\n"
-"  bool isSoundPlaying(Sound sound)\n"
-"  void setSoundVolume(Sound sound, float volume)\n"
-"  void setSoundPitch(Sound sound, float pitch)\n"
-"  void setSoundPan(Sound sound, float pan)\n"
-"  Wave waveCopy(Wave wave)\n"
-"  void waveCrop(any wave, int initFrame, int finalFrame)\n"
-"  void waveFormat(any wave, int sampleRate, int sampleSize, int channels)\n"
-"  any loadWaveSamples(Wave wave)\n"
-"  void unloadWaveSamples(any samples)\n"
-"  Music loadMusicStream(string fileName)\n"
-"  Music loadMusicStreamFromMemory(string fileType, any data, int dataSize)\n"
-"  bool isMusicValid(Music music)\n"
-"  void unloadMusicStream(Music music)\n"
-"  void playMusicStream(Music music)\n"
-"  bool isMusicStreamPlaying(Music music)\n"
-"  void updateMusicStream(Music music)\n"
-"  void stopMusicStream(Music music)\n"
-"  void pauseMusicStream(Music music)\n"
-"  void resumeMusicStream(Music music)\n"
-"  void seekMusicStream(Music music, float position)\n"
-"  void setMusicVolume(Music music, float volume)\n"
-"  void setMusicPitch(Music music, float pitch)\n"
-"  void setMusicPan(Music music, float pan)\n"
-"  float getMusicTimeLength(Music music)\n"
-"  float getMusicTimePlayed(Music music)\n"
-"  AudioStream loadAudioStream(int sampleRate, int sampleSize, int channels)\n"
-"  bool isAudioStreamValid(AudioStream stream)\n"
-"  void unloadAudioStream(AudioStream stream)\n"
-"  void updateAudioStream(AudioStream stream, any data, int frameCount)\n"
-"  bool isAudioStreamProcessed(AudioStream stream)\n"
-"  void playAudioStream(AudioStream stream)\n"
-"  void pauseAudioStream(AudioStream stream)\n"
-"  void resumeAudioStream(AudioStream stream)\n"
-"  bool isAudioStreamPlaying(AudioStream stream)\n"
-"  void stopAudioStream(AudioStream stream)\n"
-"  void setAudioStreamVolume(AudioStream stream, float volume)\n"
-"  void setAudioStreamPitch(AudioStream stream, float pitch)\n"
-"  void setAudioStreamPan(AudioStream stream, float pan)\n"
-"  void setAudioStreamBufferSizeDefault(int size)\n"
-"  void setAudioStreamCallback(AudioStream stream, AudioCallback callback)\n"
-"  void attachAudioStreamProcessor(AudioStream stream, AudioCallback processor)\n"
-"  void detachAudioStreamProcessor(AudioStream stream, AudioCallback processor)\n"
-"  void attachAudioMixedProcessor(AudioCallback processor)\n"
-"  void detachAudioMixedProcessor(AudioCallback processor)\n"
-"import \"env\"\n"
-"  float cos(float x)\n"
-"  float sin(float x)\n"
-"  float tan(float x)\n"
-"  float pow(float a, float b)\n"
-"  void print(string n)\n"
-"  void println(string n)\n"
+static const char* RAYLIB_BUILTINS =
 "class TraceLogCallback\n"
 "class LoadFileDataCallback\n"
 "class SaveFileDataCallback\n"

@@ -29,9 +29,9 @@ def generate_header():
         elif function["returnType"] == "bool":
             buffer += "bool"
         elif function["returnType"] == "const char *":
-            buffer += "String*"
+            buffer += "CyString*"
         elif function["returnType"] == "char *":
-            buffer += "Array*"
+            buffer += "CyArray*"
         elif "*" in function["returnType"]:
             buffer += function["returnType"]
         else:
@@ -56,9 +56,9 @@ def generate_header():
                 elif param["type"] == "void":
                     buffer += "void"
                 elif param["type"] == "const char *":
-                    buffer += "String*"
+                    buffer += "CyString*"
                 elif param["type"] == "char *":
-                    buffer += "Array*"
+                    buffer += "CyArray*"
                 elif "*" in param["type"]:
                     buffer += param["type"]
                 else:
@@ -126,9 +126,9 @@ def generate_header():
             elif function["returnType"] == "bool":
                 buffer += "bool"
             elif function["returnType"] == "const char *":
-                buffer += "String*"
+                buffer += "CyString*"
             elif function["returnType"] == "char *":
-                buffer += "Array*"
+                buffer += "CyArray*"
             elif "*" in function["returnType"]:
                 buffer += function["returnType"]
             else:
@@ -149,9 +149,9 @@ def generate_header():
             elif function["returnType"] == "bool":
                 buffer += "bool"
             elif function["returnType"] == "const char *":
-                buffer += "String*"
+                buffer += "CyString*"
             elif function["returnType"] == "char *":
-                buffer += "Array*"
+                buffer += "CyArray*"
             elif "*" in function["returnType"]:
                 buffer += function["returnType"]
             else:
@@ -170,11 +170,11 @@ def generate_header():
             ):
                 buffer += "_v;\n"
             elif function["returnType"] == "const char *":
-                buffer += "cyth_alloc(1, sizeof(String) + strlen(_v));\n"
+                buffer += "cyth_alloc(1, sizeof(CyString) + strlen(_v));\n"
                 buffer += "\t_r->size = (int)strlen(_v);\n"
                 buffer += "\tmemcpy(_r->data, _v, _r->size);\n"
             elif function["returnType"] == "char *":
-                buffer += "cyth_alloc(1, sizeof(Array));\n"
+                buffer += "cyth_alloc(1, sizeof(CyArray));\n"
                 buffer += "\t_r->size = (int)strlen(_v);\n"
                 buffer += "\t_r->capacity = _r->capacity;\n"
                 buffer += "\t_r->data = (void*)_v;\n"
@@ -197,7 +197,7 @@ def generate_header():
         print(buffer)
 
 def generate_link():
-    buffer = "#define cyth_set_raylib_functions(_ctx) do { \\\n"
+    buffer = "#define cyth_load_raylib_functions(_ctx) do { \\\n"
     for function in data["functions"]:
         failure = False
         if "params" in function:
@@ -209,9 +209,7 @@ def generate_link():
         if failure:
             continue
 
-        name = function["name"]
-        importName = name[:1].lower() + name[1:]
-        importName += "."
+        importName = ""
 
         if function["returnType"] == "void":
             importName += "void"
@@ -241,6 +239,10 @@ def generate_link():
             importName += "any"
         else:
             importName += function["returnType"]
+
+        name = function["name"]
+        importName += " "
+        importName += name[:1].lower() + name[1:]
 
         importName += "("
 
@@ -276,111 +278,24 @@ def generate_link():
                 else:
                     importName += param["type"]
 
+                importName += " " + param["name"]
+
                 if i != len(function["params"]) - 1:
                     importName += ", "
 
         importName += ")"
 
 
-
-        buffer += f"  cyth_set_function((_ctx), \"raylib.{importName}\", (uintptr_t)cyth{name}); \\\n"
+        buffer += f"  cyth_load_function((_ctx), \"{importName}\", (uintptr_t)cyth{name}); \\\n"
+    buffer += f"  cyth_load_string(vm, RAYLIB_BUILTINS);\\\n"
     buffer += "} while (0)"
+    
     print(buffer)
 
 def generate_import():
-    print("static const char* PREFIX = \"import \\\"raylib\\\"\\n\"")
-
-    for function in data["functions"]:
-        buffer = "\"  "
-
-        if function["returnType"] == "void":
-            buffer += "void"
-        elif function["returnType"] == "int":
-            buffer += "int"
-        elif function["returnType"] == "long":
-            buffer += "int"
-        elif function["returnType"] == "unsigned int":
-            buffer += "int"
-        elif function["returnType"] == "float":
-            buffer += "float"
-        elif function["returnType"] == "double":
-            buffer += "float"
-        elif function["returnType"] == "bool":
-            buffer += "bool"
-        elif function["returnType"] == "const char *":
-            buffer += "string"
-        elif function["returnType"] == "Image *":
-            buffer += "Image"
-        elif function["returnType"] == "Color *":
-            buffer += "Color"
-        elif function["returnType"] == "char *":
-            buffer += "char[]"
-        elif "..." in function["returnType"]:
-            continue
-        elif "*" in function["returnType"]:
-            buffer += "any"
-        else:
-            buffer += function["returnType"]
-
-        buffer += " "
-        buffer += function["name"][:1].lower() + function["name"][1:]
-        buffer += "("
-
-        failure = False
-
-        if "params" in function:
-            for i, param in enumerate(function["params"]):
-                if param["type"] == "int":
-                    buffer += "int"
-                elif param["type"] == "long":
-                    buffer += "int"
-                elif param["type"] == "unsigned int":
-                    buffer += "int"
-                elif param["type"] == "float":
-                    buffer += "float"
-                elif param["type"] == "double":
-                    buffer += "float"
-                elif param["type"] == "bool":
-                    buffer += "bool"
-                elif param["type"] == "void":
-                    buffer += "void"
-                elif param["type"] == "const char *":
-                    buffer += "string"
-                elif param["type"] == "Image *":
-                    buffer += "Image"
-                elif param["type"] == "Color *":
-                    buffer += "Color"
-                elif param["type"] == "char *":
-                    buffer += "char[]"
-                elif "..." in param["type"]:
-                    failure = True
-                    break
-                elif "*" in param["type"]:
-                    buffer += "any"
-                else:
-                    buffer += param["type"]
-
-                buffer += " "
-                buffer += param["name"]
-                if i != len(function["params"]) - 1:
-                    buffer += ", "
-
-        buffer += ")\\n\""
-
-        if failure:
-            continue
-
-        print(buffer)
+    print("static const char* RAYLIB_BUILTINS =")
 
     structs = ("""
-import \\"env\\"
-  float cos(float x)
-  float sin(float x)
-  float tan(float x)
-  float pow(float a, float b)
-  void print(string n)
-  void println(string n)
-    
 class TraceLogCallback
 class LoadFileDataCallback
 class SaveFileDataCallback
