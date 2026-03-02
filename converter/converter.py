@@ -287,7 +287,7 @@ def generate_link():
 
 
         buffer += f"  cyth_load_function((_ctx), \"{importName}\", (uintptr_t)cyth{name}); \\\n"
-    buffer += f"  cyth_load_string(vm, RAYLIB_BUILTINS);\\\n"
+    buffer += f"  cyth_load_string(vm, (char*)RAYLIB_BUILTINS);\\\n"
     buffer += "} while (0)"
     
     print(buffer)

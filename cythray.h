@@ -3054,7 +3054,7 @@ static void cythDetachAudioMixedProcessor(AudioCallback* processor) {
   cyth_load_function((_ctx), "void detachAudioStreamProcessor(AudioStream stream, AudioCallback processor)", (uintptr_t)cythDetachAudioStreamProcessor); \
   cyth_load_function((_ctx), "void attachAudioMixedProcessor(AudioCallback processor)", (uintptr_t)cythAttachAudioMixedProcessor); \
   cyth_load_function((_ctx), "void detachAudioMixedProcessor(AudioCallback processor)", (uintptr_t)cythDetachAudioMixedProcessor); \
-  cyth_load_string(vm, RAYLIB_BUILTINS);\
+  cyth_load_string(vm, (char*)RAYLIB_BUILTINS);\
 } while (0)
 static const char* RAYLIB_BUILTINS =
 "class TraceLogCallback\n"
