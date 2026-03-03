@@ -9,17 +9,6 @@
 #include <alloca.h>
 #endif
 
-static void error_callback(int start_line, int start_column, int end_line, int end_column, const char *message) {
-  fprintf(stderr, "%d:%d-%d:%d: error: %s\n", start_line, start_column, end_line, end_column, message);
-}
-
-static void panic_callback(const char *function, int line, int column) {
-  if (line && column)
-    fprintf(stderr, "  at %s:%d:%d\n", function, line, column);
-  else
-    fprintf(stderr, "%s\n", function);
-}
-
 static void print(CyString *string) {
   fwrite(string->data, 1, string->size, stdout);
 }
@@ -35,17 +24,15 @@ int main(int argc, char **argv) {
     return -1;
   }
 
+  SetConfigFlags(FLAG_VSYNC_HINT);
+  SetConfigFlags(FLAG_MSAA_4X_HINT);
+
   CyVM* vm = cyth_init();
   if (!cyth_load_file(vm, argv[1])) {
     printf("error: failed to load text file\n");
     return -1;
   }
 
-  SetConfigFlags(FLAG_VSYNC_HINT);
-  SetConfigFlags(FLAG_MSAA_4X_HINT);
-
-  cyth_set_error_callback(vm, error_callback);
-  cyth_set_panic_callback(vm, panic_callback);
   cyth_load_raylib_functions(vm);
   cyth_load_function(vm, "float cos(float a)", (uintptr_t)cosf);
   cyth_load_function(vm, "float sin(float a)", (uintptr_t)sinf);
