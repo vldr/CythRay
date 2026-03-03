@@ -126,9 +126,9 @@ static void panic(CyVM* vm, const char* what, uintptr_t pc, uintptr_t fp)
 #endif
   }
 
-  uintptr_t sig_fp_min = (uintptr_t)alloca(sizeof(uintptr_t));
+  uintptr_t panic_fp_min = (uintptr_t)alloca(sizeof(uintptr_t));
 
-  while (fp >= sig_fp_min && fp <= panic_fp)
+  while (fp >= panic_fp_min && fp <= panic_fp)
   {
     uintptr_t pc = *(uintptr_t*)(fp + sizeof(uintptr_t));
 
@@ -5231,15 +5231,15 @@ static LONG WINAPI vector_handler(EXCEPTION_POINTERS* ExceptionInfo)
   {
   case EXCEPTION_INT_DIVIDE_BY_ZERO:
   case EXCEPTION_FLT_DIVIDE_BY_ZERO:
-    panic(sig_vm, "Division by zero", pc, fp);
+    panic(panic_vm, "Division by zero", pc, fp);
     return EXCEPTION_CONTINUE_EXECUTION;
 
   case EXCEPTION_STACK_OVERFLOW:
-    panic(sig_vm, "Stack overflow", pc, fp);
+    panic(panic_vm, "Stack overflow", pc, fp);
     return EXCEPTION_CONTINUE_EXECUTION;
 
   case EXCEPTION_ACCESS_VIOLATION:
-    panic(sig_vm, "Invalid memory or null pointer access", pc, fp);
+    panic(panic_vm, "Invalid memory or null pointer access", pc, fp);
     return EXCEPTION_CONTINUE_EXECUTION;
 
   default:
@@ -5340,7 +5340,7 @@ void* cyth_push_jmp(CyVM* vm, void* new)
 #if defined(__clang__) || defined(__GNUC__)
     panic_fp = (uintptr_t)__builtin_frame_address(0);
 #elif defined(_MSC_VER)
-    sig_fp = (uintptr_t)_AddressOfReturnAddress() - 8;
+    panic_fp = (uintptr_t)_AddressOfReturnAddress() - 8;
 #endif
 
     panic_vm = vm;
