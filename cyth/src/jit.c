@@ -4617,15 +4617,6 @@ static void generate_class_template_declaration(CyVM* vm, ClassTemplateStmt* sta
   }
 }
 
-static void generate_import_declaration(CyVM* vm, ImportStmt* statement)
-{
-  Stmt* body_statement;
-  array_foreach(&statement->body, body_statement)
-  {
-    generate_statement(vm, body_statement);
-  }
-}
-
 static void generate_statement(CyVM* vm, Stmt* statement)
 {
   switch (statement->type)
@@ -4653,9 +4644,6 @@ static void generate_statement(CyVM* vm, Stmt* statement)
     return;
   case STMT_FUNCTION_DECL:
     generate_function_declaration(vm, &statement->func);
-    return;
-  case STMT_IMPORT_DECL:
-    generate_import_declaration(vm, &statement->import);
     return;
   case STMT_CLASS_DECL:
     generate_class_declaration(vm, &statement->class);
@@ -4821,15 +4809,6 @@ static void init_class_declaration(CyVM* vm, ClassStmt* statement)
   } while (index < initializer_functions.size);
 }
 
-static void init_import_declaration(CyVM* vm, ImportStmt* statement)
-{
-  Stmt* body_statement;
-  array_foreach(&statement->body, body_statement)
-  {
-    init_statement(vm, body_statement);
-  }
-}
-
 static void init_class_template_declaration(CyVM* vm, ClassTemplateStmt* statement)
 {
   ClassStmt* class_declaration;
@@ -4881,9 +4860,6 @@ static void init_statement(CyVM* vm, Stmt* statement)
   case STMT_FUNCTION_DECL:
     init_function_declaration(vm, &statement->func);
     return;
-  case STMT_IMPORT_DECL:
-    init_import_declaration(vm, &statement->import);
-    return;
   case STMT_CLASS_DECL:
     init_class_declaration(vm, &statement->class);
     return;
@@ -4916,6 +4892,7 @@ CyVM* cyth_init(void)
   vm->continue_label = NULL;
   vm->break_label = NULL;
   vm->jmp = NULL;
+  vm->start = NULL;
   vm->logging = 0;
   vm->error_callback = error_callback;
   vm->panic_callback = panic_callback;
@@ -5003,6 +4980,84 @@ CyVM* cyth_init(void)
   map_init_s64(&vm->typeids, 0, 0);
 
   return vm;
+}
+
+int cyth_compile(CyVM* vm)
+{
+  checker_init(vm->statements, vm->error_callback, NULL);
+  checker_validate();
+
+  bool result = !checker_errors();
+  if (result)
+  {
+    VarStmt* global_local;
+    ArrayVarStmt global_local_statements = checker_global_locals();
+    array_foreach(&global_local_statements, global_local)
+    {
+      global_local->reg = MIR_new_func_reg(
+        vm->ctx, vm->function->u.func, data_type_to_mir_type(global_local->data_type),
+        memory_sprintf("%s.%d", global_local->name.lexeme, global_local->index));
+    }
+
+    init_statements(vm, &vm->statements);
+    generate_statements(vm, &vm->statements);
+  }
+
+  MIR_append_insn(vm->ctx, vm->function, MIR_new_ret_insn(vm->ctx, 0));
+  MIR_finish_func(vm->ctx);
+  MIR_finish_module(vm->ctx);
+
+  if (vm->logging)
+    MIR_output(vm->ctx, stdout);
+
+  MIR_load_module(vm->ctx, vm->module);
+  MIR_gen_init(vm->ctx);
+  MIR_gen_set_optimize_level(vm->ctx, 3);
+  MIR_link(vm->ctx, MIR_set_gen_interface, NULL);
+
+  vm->start = (Start)MIR_gen(vm->ctx, vm->function);
+
+  GC_set_no_dls(true);
+
+  for (MIR_item_t item = DLIST_HEAD(MIR_item_t, vm->module->items); item != NULL;
+       item = DLIST_NEXT(MIR_item_t, item))
+  {
+    if (item->item_type != MIR_data_item)
+      continue;
+
+    if (item->u.data->el_type != MIR_T_I64)
+      continue;
+
+    GC_add_roots(item->addr, (char*)item->addr + sizeof(uintptr_t));
+  }
+
+  memory_reset();
+  return result;
+}
+
+void cyth_run(CyVM* vm)
+{
+  if (vm->start)
+    cyth_try_catch(vm, { vm->start(); });
+}
+
+void cyth_destroy(CyVM* vm)
+{
+  for (MIR_item_t item = DLIST_HEAD(MIR_item_t, vm->module->items); item != NULL;
+       item = DLIST_NEXT(MIR_item_t, item))
+  {
+    if (item->item_type != MIR_data_item)
+      continue;
+
+    if (item->u.data->el_type != MIR_T_I64)
+      continue;
+
+    GC_remove_roots(item->addr, (char*)item->addr + sizeof(uintptr_t));
+  }
+
+  MIR_gen_finish(vm->ctx);
+  MIR_finish(vm->ctx);
+  free(vm);
 }
 
 void cyth_set_error_callback(CyVM* vm,
@@ -5096,83 +5151,6 @@ clean_up_file:
 
 clean_up:
   return result;
-}
-
-int cyth_compile(CyVM* vm)
-{
-  checker_init(vm->statements, vm->error_callback, NULL);
-  checker_validate();
-
-  bool result = !checker_errors();
-  if (result)
-  {
-    VarStmt* global_local;
-    ArrayVarStmt global_local_statements = checker_global_locals();
-    array_foreach(&global_local_statements, global_local)
-    {
-      global_local->reg = MIR_new_func_reg(
-        vm->ctx, vm->function->u.func, data_type_to_mir_type(global_local->data_type),
-        memory_sprintf("%s.%d", global_local->name.lexeme, global_local->index));
-    }
-
-    init_statements(vm, &vm->statements);
-    generate_statements(vm, &vm->statements);
-  }
-
-  MIR_append_insn(vm->ctx, vm->function, MIR_new_ret_insn(vm->ctx, 0));
-  MIR_finish_func(vm->ctx);
-  MIR_finish_module(vm->ctx);
-
-  if (vm->logging)
-    MIR_output(vm->ctx, stdout);
-
-  MIR_load_module(vm->ctx, vm->module);
-  MIR_gen_init(vm->ctx);
-  MIR_gen_set_optimize_level(vm->ctx, 3);
-  MIR_link(vm->ctx, MIR_set_gen_interface, NULL);
-
-  vm->start = (Start)MIR_gen(vm->ctx, vm->function);
-
-  GC_set_no_dls(true);
-
-  for (MIR_item_t item = DLIST_HEAD(MIR_item_t, vm->module->items); item != NULL;
-       item = DLIST_NEXT(MIR_item_t, item))
-  {
-    if (item->item_type != MIR_data_item)
-      continue;
-
-    if (item->u.data->el_type != MIR_T_I64)
-      continue;
-
-    GC_add_roots(item->addr, (char*)item->addr + sizeof(uintptr_t));
-  }
-
-  memory_reset();
-  return result;
-}
-
-void cyth_run(CyVM* vm)
-{
-  cyth_try_catch(vm, { vm->start(); });
-}
-
-void cyth_destroy(CyVM* vm)
-{
-  for (MIR_item_t item = DLIST_HEAD(MIR_item_t, vm->module->items); item != NULL;
-       item = DLIST_NEXT(MIR_item_t, item))
-  {
-    if (item->item_type != MIR_data_item)
-      continue;
-
-    if (item->u.data->el_type != MIR_T_I64)
-      continue;
-
-    GC_remove_roots(item->addr, (char*)item->addr + sizeof(uintptr_t));
-  }
-
-  MIR_gen_finish(vm->ctx);
-  MIR_finish(vm->ctx);
-  free(vm);
 }
 
 void* cyth_alloc(int atomic, uintptr_t size)
