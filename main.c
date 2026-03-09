@@ -37,6 +37,8 @@ int main(int argc, char **argv) {
   cyth_load_function(vm, "float cos(float a)", (uintptr_t)cosf);
   cyth_load_function(vm, "float sin(float a)", (uintptr_t)sinf);
   cyth_load_function(vm, "float tan(float a)", (uintptr_t)tanf);
+  cyth_load_function(vm, "float exp(float a)", (uintptr_t)expf);
+  cyth_load_function(vm, "float abs(float a)", (uintptr_t)fabsf);
   cyth_load_function(vm, "float pow(float a, float b)", (uintptr_t)powf);
   cyth_load_function(vm, "void print(string a)", (uintptr_t)print);
   cyth_load_function(vm, "void println(string a)", (uintptr_t)println);
